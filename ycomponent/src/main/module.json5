@@ -1,0 +1,9 @@
+{
+  "module": {
+    "name": "ycomponent",
+    "type": "har",
+    "deviceTypes": [
+      "default"
+    ]
+  }
+}
