@@ -1,0 +1,581 @@
+/**
+ * Dialog Component Examples
+ * OpenHarmony 对话框组件使用示例
+ *
+ * 展示各种对话框组件的使用方法：
+ * - AlertDialog: 警告对话框
+ * - CustomDialogController: 自定义对话框
+ * - BindSheet/ActionSheet: 底部操作面板
+ * - ContentSlot: 内容占位符
+ */
+
+/**
+ * AlertDialog 示例组件
+ * 展示警告对话框的各种用法
+ */
+@ComponentV2
+export struct AlertDialogExample {
+  @Local showMessage: boolean = false
+  @Local lastAction: string = '等待操作...'
+
+  build() {
+    Column({ space: 12 }) {
+      Text('AlertDialog 示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 简单对话框
+      Button('显示简单对话框')
+        .width('100%')
+        .onClick(() => {
+          AlertDialog.show({
+            message: '这是一个简单的 AlertDialog',
+            autoCancel: true,
+            alignment: DialogAlignment.Center
+          })
+        })
+
+      // 带标题的对话框
+      Button('显示确认对话框')
+        .width('100%')
+        .onClick(() => {
+          AlertDialog.show({
+            title: '确认操作',
+            message: '确定要执行此操作吗？',
+            autoCancel: true,
+            alignment: DialogAlignment.Center,
+            primaryButton: {
+              value: '确定',
+              action: () => {
+                this.lastAction = '已确认操作'
+              }
+            },
+            secondaryButton: {
+              value: '取消',
+              action: () => {
+                this.lastAction = '已取消操作'
+              }
+            }
+          })
+        })
+
+      // 带自定义按钮样式的对话框
+      Button('显示自定义样式对话框')
+        .width('100%')
+        .onClick(() => {
+          AlertDialog.show({
+            title: '删除确认',
+            message: '删除后无法恢复，确定要删除吗？',
+            autoCancel: true,
+            alignment: DialogAlignment.Center,
+            primaryButton: {
+              value: '删除',
+              font: {
+                size: 16,
+                weight: FontWeight.Medium
+              },
+              backgroundColor: '#FF0000',
+              action: () => {
+                this.lastAction = '已删除'
+              }
+            },
+            secondaryButton: {
+              value: '取消',
+              action: () => {
+                this.lastAction = '已取消删除'
+              }
+            }
+          })
+        })
+
+      // 带副标题的对话框
+      Button('显示完整配置对话框')
+        .width('100%')
+        .onClick(() => {
+          AlertDialog.show({
+            title: '系统更新',
+            subtitle: '版本 2.0.1',
+            message: '发现新版本，建议立即更新以获得更好的体验',
+            autoCancel: true,
+            alignment: DialogAlignment.Center,
+            primaryButton: {
+              value: '立即更新',
+              action: () => {
+                this.lastAction = '开始更新'
+              }
+            },
+            secondaryButton: {
+              value: '稍后提醒',
+              action: () => {
+                this.lastAction = '稍后更新'
+              }
+            }
+          })
+        })
+
+      if (this.lastAction !== '等待操作...') {
+        Text(`最后操作: ${this.lastAction}`)
+          .fontSize(14)
+          .fontColor('#28A745')
+          .width('100%')
+          .textAlign(TextAlign.Center)
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * CustomDialogController 示例
+ * 展示自定义对话框的使用方法
+ */
+@CustomDialog
+export struct SimpleCustomDialog {
+  controller: CustomDialogController
+
+  build() {
+    Column() {
+      Text('自定义对话框')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .textAlign(TextAlign.Center)
+        .padding({ top: 20, bottom: 10 })
+
+      Text('这是一个使用 CustomDialogController 创建的自定义对话框')
+        .fontSize(16)
+        .width('100%')
+        .textAlign(TextAlign.Center)
+        .padding({ left: 20, right: 20, bottom: 20 })
+
+      Divider()
+
+      Button('关闭')
+        .width('100%')
+        .type(ButtonType.Normal)
+        .onClick(() => {
+          this.controller.close()
+        })
+    }
+    .width('80%')
+    .backgroundColor(Color.White)
+    .borderRadius(16)
+  }
+}
+
+@CustomDialog
+export struct InputCustomDialog {
+  inputValue: string = ''
+  placeholder: string = '请输入内容'
+  title: string = '输入'
+  controller: CustomDialogController
+  onConfirm: (value: string) => void = () => {}
+
+  build() {
+    Column() {
+      Text(this.title)
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .textAlign(TextAlign.Center)
+        .padding({ top: 20, bottom: 10 })
+
+      TextInput({
+        placeholder: this.placeholder,
+        text: this.inputValue
+      })
+        .onChange((value: string) => {
+          this.inputValue = value
+        })
+        .margin({ left: 20, right: 20, bottom: 20 })
+
+      Divider()
+
+      Row() {
+        Button('取消')
+          .layoutWeight(1)
+          .type(ButtonType.Normal)
+          .onClick(() => {
+            this.controller.close()
+          })
+
+        Divider()
+          .vertical(true)
+
+        Button('确定')
+          .layoutWeight(1)
+          .type(ButtonType.Normal)
+          .onClick(() => {
+            this.onConfirm(this.inputValue)
+            this.controller.close()
+          })
+      }
+      .width('100%')
+    }
+    .width('80%')
+    .backgroundColor(Color.White)
+    .borderRadius(16)
+  }
+}
+
+@CustomDialog
+export struct ListCustomDialog {
+  items: string[] = []
+  title: string = '请选择'
+  selectedIndex: number = -1
+  controller: CustomDialogController
+  onSelect: (index: number, item: string) => void = () => {}
+
+  build() {
+    Column() {
+      Text(this.title)
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .textAlign(TextAlign.Center)
+        .padding({ top: 20, bottom: 10 })
+
+      Divider()
+
+      List() {
+        ForEach(this.items, (item: string, index: number) => {
+          ListItem() {
+            Row() {
+              Text(item)
+                .fontSize(16)
+                .layoutWeight(1)
+
+              if (this.selectedIndex === index) {
+                Text('✓')
+                  .fontSize(18)
+                  .fontColor('#007DFF')
+              }
+            }
+            .width('100%')
+            .padding(16)
+            .onClick(() => {
+              this.selectedIndex = index
+              this.onSelect(index, item)
+              this.controller.close()
+            })
+          }
+        })
+      }
+      .width('100%')
+      .height(250)
+      .divider({
+        strokeWidth: 1,
+        color: '#E0E0E0'
+      })
+    }
+    .width('80%')
+    .backgroundColor(Color.White)
+    .borderRadius(16)
+  }
+}
+
+@ComponentV2
+export struct CustomDialogExample {
+  @Local simpleDialogController: CustomDialogController = new CustomDialogController({
+    builder: SimpleCustomDialog,
+    autoCancel: true,
+    alignment: DialogAlignment.Center
+  })
+
+  @Local inputDialogController?: CustomDialogController
+  @Local listDialogController?: CustomDialogController
+  @Local dialogResult: string = ''
+
+  build() {
+    Column({ space: 12 }) {
+      Text('CustomDialog 示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 简单自定义对话框
+      Button('显示简单对话框')
+        .width('100%')
+        .onClick(() => {
+          this.simpleDialogController.open()
+        })
+
+      // 输入对话框
+      Button('显示输入对话框')
+        .width('100%')
+        .onClick(() => {
+          this.inputDialogController = new CustomDialogController({
+            builder: InputCustomDialog({
+              title: '请输入',
+              placeholder: '请输入您的意见...',
+              onConfirm: (value: string) => {
+                this.dialogResult = `输入内容: ${value}`
+              }
+            }),
+            autoCancel: true,
+            alignment: DialogAlignment.Center
+          })
+          this.inputDialogController.open()
+        })
+
+      // 列表选择对话框
+      Button('显示列表对话框')
+        .width('100%')
+        .onClick(() => {
+          this.listDialogController = new CustomDialogController({
+            builder: ListCustomDialog({
+              title: '选择操作',
+              items: ['拍照', '从相册选择', '录制视频'],
+              onSelect: (index: number, item: string) => {
+                this.dialogResult = `选择了: ${item}`
+              }
+            }),
+            autoCancel: true,
+            alignment: DialogAlignment.Center
+          })
+          this.listDialogController.open()
+        })
+
+      if (this.dialogResult) {
+        Text(this.dialogResult)
+          .fontSize(14)
+          .fontColor('#007DFF')
+          .width('100%')
+          .textAlign(TextAlign.Center)
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+
+  aboutToDisappear() {
+    this.simpleDialogController.dismiss()
+  }
+}
+
+/**
+ * BindSheet/ActionSheet 示例
+ * 展示底部操作面板的使用方法
+ */
+@ComponentV2
+export struct ActionSheetExample {
+  @Local isShow: boolean = false
+  @Local selectedOption: string = ''
+
+  build() {
+    Column({ space: 12 }) {
+      Text('ActionSheet 示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Button('显示操作面板')
+        .width('100%')
+        .onClick(() => {
+          this.isShow = true
+        })
+
+      if (this.selectedOption) {
+        Text(`已选择: ${this.selectedOption}`)
+          .fontSize(14)
+          .fontColor('#007DFF')
+          .width('100%')
+          .textAlign(TextAlign.Center)
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+    .bindSheet(this.isShow, this.sheetContent(), {
+      height: 350,
+      showClose: true,
+      onDisappear: () => {
+        this.isShow = false
+      }
+    })
+  }
+
+  @Builder
+  sheetContent() {
+    Column() {
+      Text('选择操作')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .textAlign(TextAlign.Center)
+        .padding(16)
+
+      Divider()
+
+      ForEach(['拍照', '从相册选择', '录制视频'], (item: string) => {
+        Column() {
+          Text(item)
+            .fontSize(16)
+            .width('100%')
+            .padding(16)
+        }
+        .width('100%')
+        .onClick(() => {
+          this.selectedOption = item
+          this.isShow = false
+        })
+
+        Divider()
+      })
+
+      // 取消按钮
+      Column() {
+        Text('取消')
+          .fontSize(16)
+          .fontColor('#FF0000')
+          .width('100%')
+          .textAlign(TextAlign.Center)
+          .padding(16)
+      }
+      .width('100%')
+      .onClick(() => {
+        this.isShow = false
+      })
+    }
+    .width('100%')
+  }
+}
+
+/**
+ * ContentSlot 示例
+ * 展示内容占位符的使用方法
+ */
+@ComponentV2
+export struct ContentSlotExample {
+  @Local isLoading: boolean = true
+  @Local contentData?: { title: string, description: string }
+
+  build() {
+    Column({ space: 12 }) {
+      Text('ContentSlot 示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 内容区域
+      if (this.isLoading) {
+        // 占位符
+        Column() {
+          ContentSlot()
+            .width(80)
+            .height(80)
+            .backgroundColor('#E0E0E0')
+            .borderRadius(40)
+            .margin({ bottom: 12 })
+
+          ContentSlot()
+            .width('60%')
+            .height(20)
+            .backgroundColor('#E0E0E0')
+            .borderRadius(4)
+            .margin({ bottom: 8 })
+
+          ContentSlot()
+            .width('100%')
+            .height(60)
+            .backgroundColor('#E0E0E0')
+            .borderRadius(4)
+        }
+        .width('100%')
+        .padding(20)
+        .backgroundColor('#F5F5F5')
+        .borderRadius(12)
+      } else if (this.contentData) {
+        // 实际内容
+        Column() {
+          Text('头像')
+            .width(80)
+            .height(80)
+            .fontSize(24)
+            .backgroundColor('#007DFF')
+            .fontColor(Color.White)
+            .borderRadius(40)
+            .textAlign(TextAlign.Center)
+            .margin({ bottom: 12 })
+
+          Text(this.contentData.title)
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+            .margin({ bottom: 8 })
+
+          Text(this.contentData.description)
+            .fontSize(14)
+            .fontColor('#666666')
+        }
+        .width('100%')
+        .padding(20)
+        .backgroundColor('#FFFFFF')
+        .borderRadius(12)
+        .shadow({
+          radius: 8,
+          color: 'rgba(0, 0, 0, 0.1)',
+          offsetX: 0,
+          offsetY: 2
+        })
+      }
+
+      Button(this.isLoading ? '加载内容' : '重新加载')
+        .width('100%')
+        .onClick(() => {
+          if (this.isLoading) {
+            // 模拟加载
+            setTimeout(() => {
+              this.contentData = {
+                title: '用户名称',
+                description: '这是用户的详细描述信息，已经成功加载完成。'
+              }
+              this.isLoading = false
+            }, 1500)
+          } else {
+            this.isLoading = true
+            this.contentData = undefined
+          }
+        })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 主页面
+ * 集成所有对话框示例
+ */
+@ComponentV2
+export struct DialogExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('Dialog Component Examples')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        AlertDialogExample()
+        CustomDialogExample()
+        ActionSheetExample()
+        ContentSlotExample()
+      }
+      .width('100%')
+      .padding({ left: 16, right: 16, bottom: 16 })
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFFFFF')
+  }
+}

@@ -1,0 +1,482 @@
+[
+  {
+    "name": "action_sheet.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/action_sheet.d.ts"
+  },
+  {
+    "name": "alert_dialog.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/alert_dialog.d.ts"
+  },
+  {
+    "name": "alphabet_indexer.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/alphabet_indexer.d.ts"
+  },
+  {
+    "name": "badge.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/badge.d.ts"
+  },
+  {
+    "name": "blank.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/blank.d.ts"
+  },
+  {
+    "name": "button.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/button.d.ts"
+  },
+  {
+    "name": "calendar_picker.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/calendar_picker.d.ts"
+  },
+  {
+    "name": "canvas.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/canvas.d.ts"
+  },
+  {
+    "name": "checkbox.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/checkbox.d.ts"
+  },
+  {
+    "name": "checkboxgroup.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/checkboxgroup.d.ts"
+  },
+  {
+    "name": "circle.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/circle.d.ts"
+  },
+  {
+    "name": "column.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/column.d.ts"
+  },
+  {
+    "name": "column_split.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/column_split.d.ts"
+  },
+  {
+    "name": "common.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/common.d.ts"
+  },
+  {
+    "name": "common_ts_ets_api.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/common_ts_ets_api.d.ts"
+  },
+  {
+    "name": "component3d.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/component3d.d.ts"
+  },
+  {
+    "name": "container_span.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/container_span.d.ts"
+  },
+  {
+    "name": "content_slot.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/content_slot.d.ts"
+  },
+  {
+    "name": "context_menu.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/context_menu.d.ts"
+  },
+  {
+    "name": "counter.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/counter.d.ts"
+  },
+  {
+    "name": "custom_dialog_controller.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/custom_dialog_controller.d.ts"
+  },
+  {
+    "name": "data_panel.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/data_panel.d.ts"
+  },
+  {
+    "name": "date_picker.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/date_picker.d.ts"
+  },
+  {
+    "name": "divider.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/divider.d.ts"
+  },
+  {
+    "name": "ellipse.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/ellipse.d.ts"
+  },
+  {
+    "name": "embedded_component.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/embedded_component.d.ts"
+  },
+  {
+    "name": "enums.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/enums.d.ts"
+  },
+  {
+    "name": "flex.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/flex.d.ts"
+  },
+  {
+    "name": "flow_item.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/flow_item.d.ts"
+  },
+  {
+    "name": "focus.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/focus.d.ts"
+  },
+  {
+    "name": "folder_stack.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/folder_stack.d.ts"
+  },
+  {
+    "name": "for_each.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/for_each.d.ts"
+  },
+  {
+    "name": "form_link.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/form_link.d.ts"
+  },
+  {
+    "name": "gauge.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/gauge.d.ts"
+  },
+  {
+    "name": "gesture.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/gesture.d.ts"
+  },
+  {
+    "name": "grid.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/grid.d.ts"
+  },
+  {
+    "name": "gridItem.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/gridItem.d.ts"
+  },
+  {
+    "name": "grid_col.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/grid_col.d.ts"
+  },
+  {
+    "name": "grid_container.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/grid_container.d.ts"
+  },
+  {
+    "name": "grid_row.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/grid_row.d.ts"
+  },
+  {
+    "name": "hyperlink.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/hyperlink.d.ts"
+  },
+  {
+    "name": "image.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/image.d.ts"
+  },
+  {
+    "name": "image_animator.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/image_animator.d.ts"
+  },
+  {
+    "name": "image_common.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/image_common.d.ts"
+  },
+  {
+    "name": "image_span.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/image_span.d.ts"
+  },
+  {
+    "name": "index-full.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/index-full.d.ts"
+  },
+  {
+    "name": "indicatorcomponent.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/indicatorcomponent.d.ts"
+  },
+  {
+    "name": "lazy_for_each.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/lazy_for_each.d.ts"
+  },
+  {
+    "name": "lazy_grid_layout.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/lazy_grid_layout.d.ts"
+  },
+  {
+    "name": "line.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/line.d.ts"
+  },
+  {
+    "name": "list.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/list.d.ts"
+  },
+  {
+    "name": "list_item.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/list_item.d.ts"
+  },
+  {
+    "name": "list_item_group.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/list_item_group.d.ts"
+  },
+  {
+    "name": "loading_progress.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/loading_progress.d.ts"
+  },
+  {
+    "name": "marquee.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/marquee.d.ts"
+  },
+  {
+    "name": "matrix2d.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/matrix2d.d.ts"
+  },
+  {
+    "name": "menu.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/menu.d.ts"
+  },
+  {
+    "name": "menu_item.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/menu_item.d.ts"
+  },
+  {
+    "name": "menu_item_group.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/menu_item_group.d.ts"
+  },
+  {
+    "name": "nav_destination.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/nav_destination.d.ts"
+  },
+  {
+    "name": "nav_router.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/nav_router.d.ts"
+  },
+  {
+    "name": "navigation.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/navigation.d.ts"
+  },
+  {
+    "name": "navigator.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/navigator.d.ts"
+  },
+  {
+    "name": "node_container.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/node_container.d.ts"
+  },
+  {
+    "name": "page_transition.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/page_transition.d.ts"
+  },
+  {
+    "name": "panel.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/panel.d.ts"
+  },
+  {
+    "name": "particle.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/particle.d.ts"
+  },
+  {
+    "name": "paste_button.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/paste_button.d.ts"
+  },
+  {
+    "name": "path.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/path.d.ts"
+  },
+  {
+    "name": "pattern_lock.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/pattern_lock.d.ts"
+  },
+  {
+    "name": "polygon.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/polygon.d.ts"
+  },
+  {
+    "name": "polyline.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/polyline.d.ts"
+  },
+  {
+    "name": "progress.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/progress.d.ts"
+  },
+  {
+    "name": "qrcode.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/qrcode.d.ts"
+  },
+  {
+    "name": "radio.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/radio.d.ts"
+  },
+  {
+    "name": "rating.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/rating.d.ts"
+  },
+  {
+    "name": "rect.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/rect.d.ts"
+  },
+  {
+    "name": "refresh.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/refresh.d.ts"
+  },
+  {
+    "name": "relative_container.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/relative_container.d.ts"
+  },
+  {
+    "name": "repeat.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/repeat.d.ts"
+  },
+  {
+    "name": "rich_editor.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/rich_editor.d.ts"
+  },
+  {
+    "name": "rich_text.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/rich_text.d.ts"
+  },
+  {
+    "name": "row.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/row.d.ts"
+  },
+  {
+    "name": "row_split.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/row_split.d.ts"
+  },
+  {
+    "name": "save_button.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/save_button.d.ts"
+  },
+  {
+    "name": "scroll.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/scroll.d.ts"
+  },
+  {
+    "name": "scroll_bar.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/scroll_bar.d.ts"
+  },
+  {
+    "name": "search.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/search.d.ts"
+  },
+  {
+    "name": "security_component.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/security_component.d.ts"
+  },
+  {
+    "name": "select.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/select.d.ts"
+  },
+  {
+    "name": "shape.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/shape.d.ts"
+  },
+  {
+    "name": "sidebar.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/sidebar.d.ts"
+  },
+  {
+    "name": "slider.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/slider.d.ts"
+  },
+  {
+    "name": "span.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/span.d.ts"
+  },
+  {
+    "name": "stack.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/stack.d.ts"
+  },
+  {
+    "name": "state_management.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/state_management.d.ts"
+  },
+  {
+    "name": "stepper.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/stepper.d.ts"
+  },
+  {
+    "name": "stepper_item.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/stepper_item.d.ts"
+  },
+  {
+    "name": "styled_string.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/styled_string.d.ts"
+  },
+  {
+    "name": "swiper.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/swiper.d.ts"
+  },
+  {
+    "name": "symbol_span.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/symbol_span.d.ts"
+  },
+  {
+    "name": "symbolglyph.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/symbolglyph.d.ts"
+  },
+  {
+    "name": "tab_content.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/tab_content.d.ts"
+  },
+  {
+    "name": "tabs.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/tabs.d.ts"
+  },
+  {
+    "name": "text.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/text.d.ts"
+  },
+  {
+    "name": "text_area.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/text_area.d.ts"
+  },
+  {
+    "name": "text_clock.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/text_clock.d.ts"
+  },
+  {
+    "name": "text_common.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/text_common.d.ts"
+  },
+  {
+    "name": "text_input.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/text_input.d.ts"
+  },
+  {
+    "name": "text_picker.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/text_picker.d.ts"
+  },
+  {
+    "name": "text_timer.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/text_timer.d.ts"
+  },
+  {
+    "name": "time_picker.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/time_picker.d.ts"
+  },
+  {
+    "name": "toggle.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/toggle.d.ts"
+  },
+  {
+    "name": "toolbar.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/toolbar.d.ts"
+  },
+  {
+    "name": "units.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/units.d.ts"
+  },
+  {
+    "name": "video.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/video.d.ts"
+  },
+  {
+    "name": "water_flow.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/water_flow.d.ts"
+  },
+  {
+    "name": "web.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/web.d.ts"
+  },
+  {
+    "name": "with_theme.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/with_theme.d.ts"
+  },
+  {
+    "name": "xcomponent.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/openharmony/ets/component/xcomponent.d.ts"
+  }
+]

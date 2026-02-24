@@ -1,0 +1,594 @@
+/**
+ * Progress/LoadingProgress/Gauge Component Examples
+ * OpenHarmony 进度展示组件使用示例
+ */
+
+/**
+ * Linear Progress Example
+ * 线性进度条示例
+ */
+@ComponentV2
+struct LinearProgressExample {
+  @Local progressValue: number = 50
+
+  build() {
+    Column({ space: 12 }) {
+      Text('Linear Progress - 线性进度条')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row() {
+        Text('下载中...')
+          .fontSize(14)
+        Blank()
+        Text(`${this.progressValue}%`)
+          .fontSize(14)
+          .fontWeight(FontWeight.Medium)
+      }
+      .width('100%')
+
+      Progress({
+        value: this.progressValue,
+        total: 100,
+        type: ProgressType.Linear
+      })
+        .width('100%')
+        .height(4)
+        .color('#007DFF')
+        .backgroundColor('#F0F0F0')
+
+      Row({ space: 8 }) {
+        Button('减少')
+          .fontSize(12)
+          .onClick(() => {
+            if (this.progressValue > 0) {
+              this.progressValue -= 10
+            }
+          })
+
+        Button('增加')
+          .fontSize(12)
+          .onClick(() => {
+            if (this.progressValue < 100) {
+              this.progressValue += 10
+            }
+          })
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Ring Progress Example
+ * 环形进度条示例
+ */
+@ComponentV2
+struct RingProgressExample {
+  @Local ringProgress: number = 75
+
+  build() {
+    Column({ space: 12 }) {
+      Text('Ring Progress - 环形进度条')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 20 }) {
+        Column({ space: 8 }) {
+          Progress({
+            value: this.ringProgress,
+            total: 100,
+            type: ProgressType.Ring
+          })
+            .width(60)
+            .height(60)
+            .color('#007DFF')
+
+          Text('75%')
+            .fontSize(14)
+            .fontColor('#666666')
+        }
+
+        Column({ space: 8 }) {
+          Progress({
+            value: 90,
+            total: 100,
+            type: ProgressType.Ring
+          })
+            .width(60)
+            .height(60)
+            .color('#00D68F')
+
+          Text('90%')
+            .fontSize(14)
+            .fontColor('#666666')
+        }
+
+        Column({ space: 8 }) {
+          Progress({
+            value: 45,
+            total: 100,
+            type: ProgressType.Ring
+          })
+            .width(60)
+            .height(60)
+            .color('#FFB020')
+
+          Text('45%')
+            .fontSize(14)
+            .fontColor('#666666')
+        }
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * ScaleRing Progress Example
+ * 刻度环形进度条示例
+ */
+@ComponentV2
+struct ScaleRingProgressExample {
+  @Local scaleProgress: number = 60
+
+  build() {
+    Column({ space: 12 }) {
+      Text('ScaleRing Progress - 刻度环形进度条')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 20 }) {
+        Column({ space: 8 }) {
+          Progress({
+            value: this.scaleProgress,
+            total: 100,
+            type: ProgressType.ScaleRing
+          })
+            .width(80)
+            .height(80)
+            .color('#007DFF')
+
+          Text(`${this.scaleProgress}%`)
+            .fontSize(14)
+            .fontWeight(FontWeight.Medium)
+        }
+
+        Column({ space: 8 }) {
+          Progress({
+            value: 80,
+            total: 100,
+            type: ProgressType.ScaleRing
+          })
+            .width(80)
+            .height(80)
+            .color('#FF6B6B')
+
+          Text('80%')
+            .fontSize(14)
+            .fontWeight(FontWeight.Medium)
+        }
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Capsule Progress Example
+ * 胶囊形进度条示例
+ */
+@ComponentV2
+struct CapsuleProgressExample {
+  @Local completedTasks: number = 7
+  @Local totalTasks: number = 10
+
+  build() {
+    Column({ space: 12 }) {
+      Text('Capsule Progress - 胶囊形进度条')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Progress({
+        value: this.completedTasks,
+        total: this.totalTasks,
+        type: ProgressType.Capsule
+      })
+        .width('100%')
+        .height(12)
+        .color('#00D68F')
+
+      Row() {
+        Text('任务进度: ')
+          .fontSize(14)
+          .fontColor('#666666')
+        Text(`${this.completedTasks}/${this.totalTasks}`)
+          .fontSize(14)
+          .fontWeight(FontWeight.Medium)
+      }
+
+      Row({ space: 8 }) {
+        Button('完成任务')
+          .fontSize(12)
+          .onClick(() => {
+            if (this.completedTasks < this.totalTasks) {
+              this.completedTasks++
+            }
+          })
+
+        Button('重置')
+          .fontSize(12)
+          .onClick(() => {
+            this.completedTasks = 0
+          })
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Eclipse Progress Example
+ * 椭圆进度条示例
+ */
+@ComponentV2
+struct EclipseProgressExample {
+  build() {
+    Column({ space: 12 }) {
+      Text('Eclipse Progress - 椭圆进度条')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 20 }) {
+        Progress({ value: 85, total: 100, type: ProgressType.Eclipse })
+          .width(120)
+          .height(80)
+          .color('#9B59B6')
+
+        Progress({ value: 60, total: 100, type: ProgressType.Eclipse })
+          .width(120)
+          .height(80)
+          .color('#3498DB')
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * LoadingProgress Example
+ * 加载动画示例
+ */
+@ComponentV2
+struct LoadingProgressExample {
+  @Local isLoading: boolean = false
+
+  build() {
+    Column({ space: 12 }) {
+      Text('LoadingProgress - 加载动画')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 20 }) {
+        Column({ space: 8 }) {
+          LoadingProgress()
+            .width(24)
+            .height(24)
+            .color('#007DFF')
+          Text('小尺寸')
+            .fontSize(12)
+            .fontColor('#666666')
+        }
+
+        Column({ space: 8 }) {
+          LoadingProgress()
+            .width(40)
+            .height(40)
+            .color('#00D68F')
+          Text('标准尺寸')
+            .fontSize(12)
+            .fontColor('#666666')
+        }
+
+        Column({ space: 8 }) {
+          LoadingProgress()
+            .width(60)
+            .height(60)
+            .color('#FFB020')
+          Text('大尺寸')
+            .fontSize(12)
+            .fontColor('#666666')
+        }
+      }
+      .justifyContent(FlexAlign.SpaceEvenly)
+      .width('100%')
+
+      Divider()
+
+      // 按钮加载状态示例
+      Button() {
+        Row({ space: 8 }) {
+          if (this.isLoading) {
+            LoadingProgress()
+              .width(20)
+              .height(20)
+              .color('#FFFFFF')
+            Text('处理中...')
+              .fontSize(16)
+              .fontColor('#FFFFFF')
+          } else {
+            Text('点击加载')
+              .fontSize(16)
+          }
+        }
+      }
+      .width(140)
+      .height(44)
+      .backgroundColor(this.isLoading ? '#CCCCCC' : '#007DFF')
+      .enabled(!this.isLoading)
+      .onClick(() => {
+        this.isLoading = true
+        setTimeout(() => {
+          this.isLoading = false
+        }, 2000)
+      })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Gauge Example - Basic
+ * 仪表盘基础示例
+ */
+@ComponentV2
+struct GaugeBasicExample {
+  @Local gaugeValue: number = 75
+
+  build() {
+    Column({ space: 12 }) {
+      Text('Gauge - 仪表盘')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Gauge({ value: this.gaugeValue, min: 0, max: 100 })
+        .width(160)
+        .height(160)
+        .colors([[0x007DFF, 1]])
+        .thickness(20)
+
+      Text(`${this.gaugeValue}%`)
+        .fontSize(32)
+        .fontWeight(FontWeight.Bold)
+
+      Row({ space: 8 }) {
+        Button('-')
+          .width(40)
+          .height(40)
+          .onClick(() => {
+            if (this.gaugeValue > 0) {
+              this.gaugeValue -= 5
+            }
+          })
+
+        Text(`${this.gaugeValue}`)
+          .fontSize(24)
+          .fontWeight(FontWeight.Medium)
+          .width(60)
+          .textAlign(TextAlign.Center)
+
+        Button('+')
+          .width(40)
+          .height(40)
+          .onClick(() => {
+            if (this.gaugeValue < 100) {
+              this.gaugeValue += 5
+            }
+          })
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Gauge Example - Gradient
+ * 仪表盘渐变色示例
+ */
+@ComponentV2
+struct GaugeGradientExample {
+  @Local speed: number = 85
+
+  build() {
+    Column({ space: 12 }) {
+      Text('Gauge - 渐变色仪表盘')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Gauge({ value: this.speed, min: 0, max: 120 })
+        .width(180)
+        .height(180)
+        .colors([
+          [0x00D68F, 0.3],  // 低速区间 - 绿色
+          [0xFFB020, 0.6],  // 中速区间 - 黄色
+          [0xFF6B6B, 1.0]   // 高速区间 - 红色
+        ])
+        .thickness(25)
+
+      Text(`${this.speed} km/h`)
+        .fontSize(28)
+        .fontWeight(FontWeight.Bold)
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Gauge Example - Semi Circle
+ * 半圆形仪表盘示例
+ */
+@ComponentV2
+struct GaugeSemiCircleExample {
+  @Local temperature: number = 65
+
+  build() {
+    Column({ space: 12 }) {
+      Text('Gauge - 半圆形仪表盘')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Gauge({ value: this.temperature, min: 0, max: 100 })
+        .width(240)
+        .height(120)
+        .startAngle(180)
+        .endAngle(360)
+        .colors([[0xFF6B6B, 1]])
+        .thickness(30)
+
+      Text('温度')
+        .fontSize(14)
+        .fontColor('#666666')
+
+      Text(`${this.temperature}°C`)
+        .fontSize(40)
+        .fontWeight(FontWeight.Bold)
+    }
+    .width('100%')
+    .justifyContent(FlexAlign.Center)
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Gauge Example - Dashboard
+ * 仪表盘监控示例
+ */
+@ComponentV2
+struct GaugeDashboardExample {
+  @Local cpuUsage: number = 45
+  @Local memoryUsage: number = 62
+
+  build() {
+    Column({ space: 12 }) {
+      Text('Gauge - 系统监控')
+        .fontSize(16)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 20 }) {
+        // CPU 仪表盘
+        Column({ space: 8 }) {
+          Gauge({ value: this.cpuUsage, min: 0, max: 100 })
+            .width(100)
+            .height(100)
+            .colors([[0x007DFF, 1]])
+            .thickness(15)
+
+          Text('CPU')
+            .fontSize(12)
+            .fontColor('#666666')
+
+          Text(`${this.cpuUsage}%`)
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+        }
+
+        // 内存仪表盘
+        Column({ space: 8 }) {
+          Gauge({ value: this.memoryUsage, min: 0, max: 100 })
+            .width(100)
+            .height(100)
+            .colors([[0x9B59B6, 1]])
+
+          Text('Memory')
+            .fontSize(12)
+            .fontColor('#666666')
+
+          Text(`${this.memoryUsage}%`)
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+        }
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Progress Example - Main Page
+ * 进度展示组件主页面
+ */
+@ComponentV2
+export struct ProgressExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('Progress Component Examples')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        // Progress Examples
+        LinearProgressExample()
+        RingProgressExample()
+        ScaleRingProgressExample()
+        CapsuleProgressExample()
+        EclipseProgressExample()
+
+        // LoadingProgress Example
+        LoadingProgressExample()
+
+        // Gauge Examples
+        GaugeBasicExample()
+        GaugeGradientExample()
+        GaugeSemiCircleExample()
+        GaugeDashboardExample()
+      }
+      .width('100%')
+      .padding({ left: 16, right: 16, bottom: 16 })
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFFFFF')
+    .scrollBar(BarState.Auto)
+  }
+}

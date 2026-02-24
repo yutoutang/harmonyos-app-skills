@@ -1,0 +1,484 @@
+/**
+ * WaterFlow Component Examples
+ * OpenHarmony WaterFlow Component 使用示例
+ *
+ * 展示 WaterFlow 组件的各种用法,包括不同列数、间距和交互
+ */
+
+/**
+ * 基础瀑布流示例
+ * 展示最简单的 WaterFlow 用法
+ */
+@ComponentV2
+export struct BasicWaterFlowExample {
+  @Local dataSource: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('WaterFlow 基础示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .margin({ bottom: 8 })
+
+      WaterFlow() {
+        ForEach(this.dataSource, (item: number) => {
+          FlowItem() {
+            Column() {
+              Text(`项目 ${item}`)
+                .fontSize(16)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(Color.White)
+            }
+            .width('100%')
+            .height(item % 2 === 0 ? 120 : 180)
+            .backgroundColor(item % 2 === 0 ? '#2196F3' : '#4CAF50')
+            .borderRadius(8)
+            .justifyContent(FlexAlign.Center)
+          }
+        }, (item: number) => item.toString())
+      }
+      .columnsTemplate('1fr 1fr')
+      .columnsGap(10)
+      .rowsGap(10)
+      .width('100%')
+      .height(400)
+      .padding(10)
+      .backgroundColor('#F5F5F5')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 多列瀑布流示例
+ * 展示四列瀑布流布局
+ */
+@ComponentV2
+export struct MultiColumnWaterFlowExample {
+  @Local items: number[] = Array.from({ length: 20 }, (_, i) => i + 1)
+
+  build() {
+    Column({ space: 16 }) {
+      Text('多列瀑布流布局')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .margin({ bottom: 8 })
+
+      Text('四列布局,适合小卡片')
+        .fontSize(14)
+        .fontColor('#666666')
+        .width('100%')
+
+      WaterFlow() {
+        ForEach(this.items, (item: number) => {
+          FlowItem() {
+            Column() {
+              Text(`${item}`)
+                .fontSize(20)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(Color.White)
+            }
+            .width('100%')
+            .height((item % 3 + 1) * 60)
+            .backgroundColor(`hsl(${item * 18}, 70%, 50%)`)
+            .borderRadius(8)
+            .justifyContent(FlexAlign.Center)
+          }
+        }, (item: number) => item.toString())
+      }
+      .columnsTemplate('1fr 1fr 1fr 1fr')
+      .columnsGap(8)
+      .rowsGap(8)
+      .width('100%')
+      .height(500)
+      .padding(8)
+      .backgroundColor('#FFFFFF')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 图片瀑布流示例
+ * 展示模拟图片的瀑布流效果
+ */
+@ComponentV2
+export struct ImageWaterFlowExample {
+  @Local images: Array<{ id: number, height: number, color: string }> = []
+
+  aboutToAppear() {
+    // 生成模拟图片数据
+    const colors = ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5',
+                    '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50']
+    for (let i = 0; i < 15; i++) {
+      this.images.push({
+        id: i,
+        height: Math.floor(Math.random() * 150) + 100,
+        color: colors[i % colors.length]
+      })
+    }
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      Text('图片瀑布流')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .margin({ bottom: 8 })
+
+      WaterFlow() {
+        ForEach(this.images, (image: { id: number, height: number, color: string }) => {
+          FlowItem() {
+            Column() {
+              // 模拟图片
+              Column() {
+                Text(`图片 ${image.id + 1}`)
+                  .fontSize(16)
+                  .fontColor(Color.White)
+              }
+              .width('100%')
+              .height(image.height - 40)
+              .backgroundColor(image.color)
+              .justifyContent(FlexAlign.Center)
+
+              Text(`高度: ${image.height}px`)
+                .fontSize(12)
+                .margin({ top: 8 })
+            }
+            .width('100%')
+            .padding(8)
+            .backgroundColor('#FFFFFF')
+            .borderRadius(8)
+          }
+        }, (image: { id: number, height: number, color: string }) => image.id.toString())
+      }
+      .columnsTemplate('1fr 1fr')
+      .columnsGap(10)
+      .rowsGap(10)
+      .width('100%')
+      .height(600)
+      .padding(10)
+      .backgroundColor('#F5F5F5')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 带滚动控制的瀑布流示例
+ * 展示如何使用 Scroller 控制滚动
+ */
+@ComponentV2
+export struct ScrollControlWaterFlowExample {
+  @Local dataSource: number[] = Array.from({ length: 50 }, (_, i) => i + 1)
+  private scroller: Scroller = new Scroller()
+
+  build() {
+    Column({ space: 16 }) {
+      Text('带滚动控制的瀑布流')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .margin({ bottom: 8 })
+
+      // 控制按钮
+      Row({ space: 8 }) {
+        Button('滚动到顶部')
+          .onClick(() => {
+            this.scroller.scrollEdge(Edge.Top)
+          })
+
+        Button('滚动到底部')
+          .onClick(() => {
+            this.scroller.scrollEdge(Edge.Bottom)
+          })
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.Center)
+
+      WaterFlow({ scroller: this.scroller }) {
+        ForEach(this.dataSource, (item: number) => {
+          FlowItem() {
+            Column() {
+              Text(`项目 ${item}`)
+                .fontSize(14)
+                .fontColor(Color.White)
+            }
+            .width('100%')
+            .height(item % 3 === 0 ? 150 : (item % 2 === 0 ? 120 : 100))
+            .backgroundColor(`hsl(${(item * 36) % 360}, 70%, 60%)`)
+            .borderRadius(8)
+            .justifyContent(FlexAlign.Center)
+          }
+        }, (item: number) => item.toString())
+      }
+      .columnsTemplate('1fr 1fr 1fr')
+      .columnsGap(8)
+      .rowsGap(8)
+      .width('100%')
+      .height(500)
+      .padding(8)
+      .backgroundColor('#F5F5F5')
+      .onReachEnd(() => {
+        console.info('滚动到底部')
+      })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 动态加载瀑布流示例
+ * 展示滚动到底部加载更多数据
+ */
+@ComponentV2
+export struct DynamicLoadWaterFlowExample {
+  @Local items: number[] = Array.from({ length: 20 }, (_, i) => i + 1)
+  @Local loading: boolean = false
+
+  build() {
+    Column({ space: 16 }) {
+      Text('动态加载瀑布流')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .margin({ bottom: 8 })
+
+      Text('滚动到底部自动加载更多')
+        .fontSize(14)
+        .fontColor('#666666')
+        .width('100%')
+
+      WaterFlow() {
+        ForEach(this.items, (item: number) => {
+          FlowItem() {
+            Column() {
+              Text(`项目 ${item}`)
+                .fontSize(16)
+                .fontColor(Color.White)
+            }
+            .width('100%')
+            .height(item % 2 === 0 ? 140 : 100)
+            .backgroundColor(item % 2 === 0 ? '#FF9800' : '#03A9F4')
+            .borderRadius(8)
+            .justifyContent(FlexAlign.Center)
+          }
+        }, (item: number) => item.toString())
+
+        // 加载指示器
+        if (this.loading) {
+          FlowItem() {
+            Column() {
+              LoadingProgress()
+                .width(40)
+                .height(40)
+              Text('加载中...')
+                .fontSize(14)
+                .margin({ top: 8 })
+            }
+            .width('100%')
+          }
+          .columnStart(0)
+          .columnEnd(1)
+        }
+      }
+      .columnsTemplate('1fr 1fr')
+      .columnsGap(10)
+      .rowsGap(10)
+      .width('100%')
+      .height(500)
+      .padding(10)
+      .backgroundColor('#F5F5F5')
+      .onReachEnd(() => {
+        if (!this.loading) {
+          this.loading = true
+          // 模拟网络请求
+          setTimeout(() => {
+            const newItems = Array.from({ length: 10 }, (_, i) => this.items.length + i + 1)
+            this.items = [...this.items, ...newItems]
+            this.loading = false
+          }, 1000)
+        }
+      })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 自定义间距瀑布流示例
+ * 展示不同的列间距和行间距
+ */
+@ComponentV2
+export struct CustomSpacingWaterFlowExample {
+  @Local dataSource: number[] = Array.from({ length: 30 }, (_, i) => i + 1)
+
+  build() {
+    Column({ space: 16 }) {
+      Text('自定义间距瀑布流')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .margin({ bottom: 8 })
+
+      Text('列间距: 16px, 行间距: 16px')
+        .fontSize(14)
+        .fontColor('#666666')
+        .width('100%')
+
+      WaterFlow() {
+        ForEach(this.dataSource, (item: number) => {
+          FlowItem() {
+            Column() {
+              Text(`${item}`)
+                .fontSize(18)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(Color.White)
+            }
+            .width('100%')
+            .height((item % 4 + 1) * 50)
+            .backgroundColor(item % 2 === 0 ? '#9C27B0' : '#FF5722')
+            .borderRadius(12)
+            .justifyContent(FlexAlign.Center)
+          }
+        }, (item: number) => item.toString())
+      }
+      .columnsTemplate('1fr 1fr')
+      .columnsGap(16)
+      .rowsGap(16)
+      .width('100%')
+      .height(600)
+      .padding(16)
+      .backgroundColor('#FAFAFA')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 不同列数对比示例
+ * 展示不同列数的效果
+ */
+@ComponentV2
+export struct ColumnCountWaterFlowExample {
+  @Local items: number[] = Array.from({ length: 12 }, (_, i) => i + 1)
+  @Local columnCount: number = 2
+
+  build() {
+    Column({ space: 16 }) {
+      Text('不同列数对比')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+        .margin({ bottom: 8 })
+
+      // 列数选择器
+      Row({ space: 8 }) {
+        Button('2列')
+          .type(this.columnCount === 2 ? ButtonType.Capsule : ButtonType.Normal)
+          .backgroundColor(this.columnCount === 2 ? '#2196F3' : '#E0E0E0')
+          .onClick(() => {
+            this.columnCount = 2
+          })
+
+        Button('3列')
+          .type(this.columnCount === 3 ? ButtonType.Capsule : ButtonType.Normal)
+          .backgroundColor(this.columnCount === 3 ? '#2196F3' : '#E0E0E0')
+          .onClick(() => {
+            this.columnCount = 3
+          })
+
+        Button('4列')
+          .type(this.columnCount === 4 ? ButtonType.Capsule : ButtonType.Normal)
+          .backgroundColor(this.columnCount === 4 ? '#2196F3' : '#E0E0E0')
+          .onClick(() => {
+            this.columnCount = 4
+          })
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.Center)
+
+      // 瀑布流
+      WaterFlow() {
+        ForEach(this.items, (item: number) => {
+          FlowItem() {
+            Column() {
+              Text(`${item}`)
+                .fontSize(16)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(Color.White)
+            }
+            .width('100%')
+            .height((item % 3 + 1) * 50)
+            .backgroundColor('#607D8B')
+            .borderRadius(8)
+            .justifyContent(FlexAlign.Center)
+          }
+        }, (item: number) => item.toString())
+      }
+      .columnsTemplate(Array(this.columnCount).fill('1fr').join(' '))
+      .columnsGap(8)
+      .rowsGap(8)
+      .width('100%')
+      .height(400)
+      .padding(8)
+      .backgroundColor('#F5F5F5')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 完整的 WaterFlow 示例页面
+ * 集成所有 WaterFlow 示例
+ */
+@ComponentV2
+export struct WaterFlowExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('WaterFlow Component Examples')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        BasicWaterFlowExample()
+        MultiColumnWaterFlowExample()
+        ImageWaterFlowExample()
+        ScrollControlWaterFlowExample()
+        DynamicLoadWaterFlowExample()
+        CustomSpacingWaterFlowExample()
+        ColumnCountWaterFlowExample()
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFFFFF')
+  }
+}

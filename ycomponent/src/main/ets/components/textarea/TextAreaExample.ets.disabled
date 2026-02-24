@@ -1,0 +1,462 @@
+/**
+ * TextArea Component Examples
+ * OpenHarmony 多行文本输入组件使用示例
+ */
+
+/**
+ * 基础 TextArea 示例
+ */
+@ComponentV2
+export struct BasicTextAreaExample {
+  @Local textValue: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('基础多行输入')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      TextArea({ placeholder: '请输入多行内容...' })
+        .width('100%')
+        .height(120)
+        .onChange((value: string) => {
+          this.textValue = value
+          console.info('输入内容: ' + value)
+        })
+
+      Text(`字符数: ${this.textValue.length}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 自动高度示例
+ */
+@ComponentV2
+export struct AutoHeightExample {
+  @Local textValue: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('自动高度')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      TextArea({ placeholder: '输入内容会自动调整高度...' })
+        .width('100%')
+        .type(TextAreaType.AutoSize)
+        .onChange((value: string) => {
+          this.textValue = value
+        })
+
+      Text('随着内容增加,输入框会自动增高')
+        .fontSize(12)
+        .fontColor('#999999')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 限制字符数示例
+ */
+@ComponentV2
+export struct LimitedTextAreaExample {
+  @Local textValue: string = ''
+  readonly maxLength: number = 200
+
+  build() {
+    Column({ space: 16 }) {
+      Text('限制字符数')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      TextArea({ placeholder: '请输入评论(最多200字)...' })
+        .width('100%')
+        .height(120)
+        .maxLength(this.maxLength)
+        .onChange((value: string) => {
+          this.textValue = value
+        })
+
+      Row() {
+        Blank()
+        Text(`${this.textValue.length}/${this.maxLength}`)
+          .fontSize(12)
+          .fontColor('#999999')
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 自定义样式示例
+ */
+@ComponentV2
+export struct StyledTextAreaExample {
+  @Local comment: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('自定义样式')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      // 圆角边框样式
+      TextArea({ placeholder: '圆角样式的输入框...' })
+        .width('100%')
+        .height(100)
+        .backgroundColor('#F9F9F9')
+        .borderRadius(12)
+        .padding(12)
+
+      // 带边框样式
+      TextArea({ placeholder: '带边框的输入框...' })
+        .width('100%')
+        .height(100)
+        .border({ width: 2, color: '#007DFF', radius: 8 })
+        .padding(12)
+
+      // 阴影效果
+      TextArea({ placeholder: '带阴影的输入框...' })
+        .width('100%')
+        .height(100)
+        .backgroundColor('#FFFFFF')
+        .borderRadius(8)
+        .shadow({ radius: 8, color: '#1F000000', offsetX: 0, offsetY: 2 })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 评论输入框示例
+ */
+@ComponentV2
+export struct CommentBoxExample {
+  @Local comment: string = ''
+  @Local isSubmitting: boolean = false
+
+  submitComment(): void {
+    if (!this.comment.trim()) {
+      console.info('评论内容不能为空')
+      return
+    }
+
+    this.isSubmitting = true
+    // 模拟提交
+    setTimeout(() => {
+      console.info('评论已提交: ' + this.comment)
+      this.comment = ''
+      this.isSubmitting = false
+    }, 1000)
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      Text('评论输入框')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      Column({ space: 8 }) {
+        TextArea({ placeholder: '写下你的评论...' })
+          .width('100%')
+          .height(100)
+          .maxLength(500)
+          .padding(12)
+          .borderRadius(8)
+          .backgroundColor('#F5F5F5')
+          .onChange((value: string) => {
+            this.comment = value
+          })
+
+        Row() {
+          Text(`${this.comment.length}/500`)
+            .fontSize(12)
+            .fontColor('#999999')
+
+          Blank()
+
+          Button('发布')
+            .enabled(this.comment.trim().length > 0 && !this.isSubmitting)
+            .backgroundColor(this.comment.trim().length > 0 ? '#007DFF' : '#CCCCCC')
+            .onClick(() => {
+              this.submitComment()
+            })
+        }
+        .width('100%')
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 消息发送框示例
+ */
+@ComponentV2
+export struct MessageInputExample {
+  @Local message: string = ''
+
+  sendMessage(): void {
+    if (!this.message.trim()) {
+      return
+    }
+
+    console.info('发送消息: ' + this.message)
+    this.message = ''
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      Text('消息发送框')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      Row({ space: 8 }) {
+        TextArea({ placeholder: '输入消息...' })
+          .layoutWeight(1)
+          .height(40)
+          .type(TextAreaType.AutoSize)
+          .maxLines(4)
+          .onChange((value: string) => {
+            this.message = value
+          })
+
+        Button('发送')
+          .height(40)
+          .backgroundColor('#007DFF')
+          .enabled(this.message.trim().length > 0)
+          .onClick(() => {
+            this.sendMessage()
+          })
+      }
+      .width('100%')
+      .alignItems(VerticalAlign.Center)
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 焦点控制示例
+ */
+@ComponentV2
+export struct TextAreaFocusExample {
+  @Local textValue: string = ''
+  @Local isFocused: boolean = false
+
+  build() {
+    Column({ space: 16 }) {
+      Text('焦点控制')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      TextArea({ placeholder: '点击输入' })
+        .width('100%')
+        .height(100)
+        .border({
+          width: 2,
+          color: this.isFocused ? '#007DFF' : '#E0E0E0',
+          radius: 8
+        })
+        .backgroundColor(this.isFocused ? '#F0F8FF' : Color.Transparent)
+        .padding(12)
+        .onFocus(() => {
+          this.isFocused = true
+          console.info('获得焦点')
+        })
+        .onBlur(() => {
+          this.isFocused = false
+          console.info('失去焦点')
+        })
+        .onChange((value: string) => {
+          this.textValue = value
+        })
+
+      Text('输入框状态: ' + (this.isFocused ? '聚焦' : '未聚焦'))
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 使用控制器示例
+ */
+@ComponentV2
+export struct TextAreaControllerExample {
+  textAreaController: TextAreaController = new TextAreaController()
+  @Local textValue: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('使用控制器')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      TextArea({
+        placeholder: '请输入内容',
+        controller: this.textAreaController
+      })
+        .width('100%')
+        .height(100)
+        .onChange((value: string) => {
+          this.textValue = value
+        })
+
+      Row({ space: 12 }) {
+        Button('清空')
+          .onClick(() => {
+            this.textAreaController.clear()
+            this.textValue = ''
+          })
+
+        Button('获取焦点')
+          .onClick(() => {
+            this.textAreaController.requestFocus()
+          })
+
+        Button('失去焦点')
+          .onClick(() => {
+            this.textAreaController.stopEditing()
+          })
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 带字数统计的评论框
+ */
+@ComponentV2
+export struct AdvancedCommentBox {
+  @Local comment: string = ''
+  readonly maxLength: number = 500
+  textAreaController: TextAreaController = new TextAreaController()
+
+  getRemainingChars(): number {
+    return this.maxLength - this.comment.length
+  }
+
+  getColor(): string {
+    const remaining = this.getRemainingChars()
+    if (remaining > 100) return '#999999'
+    if (remaining > 20) return '#FFC107'
+    return '#FF0000'
+  }
+
+  build() {
+    Column({ space: 12 }) {
+      Text('发表评论')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+
+      TextArea({ placeholder: '分享你的想法...', controller: this.textAreaController })
+        .width('100%')
+        .height(120)
+        .maxLength(this.maxLength)
+        .padding(12)
+        .borderRadius(8)
+        .border({ width: 1, color: '#E0E0E0' })
+        .onChange((value: string) => {
+          this.comment = value
+        })
+
+      Row() {
+        Text(`还可以输入 ${this.getRemainingChars()} 字`)
+          .fontSize(12)
+          .fontColor(this.getColor())
+
+        Blank()
+
+        Row({ space: 8 }) {
+          Button('取消')
+            .backgroundColor('#F5F5F5')
+            .fontColor('#666666')
+            .onClick(() => {
+              this.comment = ''
+              this.textAreaController.clear()
+            })
+
+          Button('发布')
+            .backgroundColor('#007DFF')
+            .enabled(this.comment.trim().length > 0)
+            .onClick(() => {
+              console.info('发布评论: ' + this.comment)
+              this.comment = ''
+              this.textAreaController.clear()
+            })
+        }
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 主页面
+ */
+@ComponentV2
+export struct TextAreaExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('TextArea Component Examples')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        BasicTextAreaExample()
+        AutoHeightExample()
+        LimitedTextAreaExample()
+        StyledTextAreaExample()
+        CommentBoxExample()
+        MessageInputExample()
+        TextAreaFocusExample()
+        TextAreaControllerExample()
+        AdvancedCommentBox()
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFFFFF')
+  }
+}

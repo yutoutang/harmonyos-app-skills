@@ -1,0 +1,427 @@
+/**
+ * Search Component Examples
+ * OpenHarmony 搜索框组件使用示例
+ */
+
+/**
+ * 基础 Search 示例
+ */
+@ComponentV2
+export struct BasicSearchExample {
+  @Local searchText: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('基础搜索框')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      // 基础搜索框
+      Search({ placeholder: '请输入搜索内容' })
+        .searchButton('搜索')
+        .onChange((value: string) => {
+          this.searchText = value
+        })
+        .onSubmit((value: string) => {
+          console.info('搜索内容: ' + value)
+        })
+
+      Text(`输入内容: ${this.searchText}`)
+        .fontSize(16)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 自定义样式示例
+ */
+@ComponentV2
+export struct StyledSearchExample {
+  @Local value1: string = ''
+  @Local value2: string = ''
+  @Local value3: string = ''
+
+  build() {
+    Column({ space: 20 }) {
+      Text('自定义样式')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      // 自定义背景色和圆角
+      Search({ placeholder: '自定义样式', value: this.value1 })
+        .backgroundColor('#F5F5F5')
+        .borderRadius(20)
+        .onChange((value: string) => {
+          this.value1 = value
+        })
+
+      // 自定义文本颜色
+      Search({ placeholder: '自定义文本颜色', value: this.value2 })
+        .placeholderColor('#999999')
+        .textFont({ size: 16, weight: FontWeight.Medium })
+        .onChange((value: string) => {
+          this.value2 = value
+        })
+
+      // 深色主题
+      Search({ placeholder: '深色主题', value: this.value3 })
+        .backgroundColor('#333333')
+        .placeholderColor('#CCCCCC')
+        .borderRadius(8)
+        .onChange((value: string) => {
+          this.value3 = value
+        })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 搜索控制器示例
+ */
+@ComponentV2
+export struct SearchControllerExample {
+  searchController: SearchController = new SearchController()
+  @Local searchText: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('搜索控制器')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      // 带控制器的搜索框
+      Search({
+        placeholder: '带控制器的搜索框',
+        value: this.searchText,
+        controller: this.searchController
+      })
+        .searchButton('搜索')
+        .onChange((value: string) => {
+          this.searchText = value
+        })
+
+      // 操作按钮
+      Row({ space: 12 }) {
+        Button('设置文本')
+          .onClick(() => {
+            this.searchController.setText('预设内容')
+          })
+
+        Button('获取文本')
+          .onClick(() => {
+            const text = this.searchController.getText()
+            console.info('当前文本: ' + text)
+          })
+
+        Button('清空')
+          .onClick(() => {
+            this.searchController.clear()
+          })
+      }
+
+      Text(`当前文本: ${this.searchText}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 实时搜索示例
+ */
+@ComponentV2
+export struct RealTimeSearchExample {
+  @Local searchText: string = ''
+  @Local filteredResults: string[] = []
+
+  // 模拟数据
+  private allItems: string[] = [
+    '苹果', '香蕉', '橙子', '葡萄', '西瓜',
+    '苹果手机', '苹果电脑', '香蕉牛奶', '橙汁', '西瓜汁'
+  ]
+
+  // 过滤数据
+  filterResults(query: string): void {
+    if (!query || query.trim() === '') {
+      this.filteredResults = []
+      return
+    }
+
+    this.filteredResults = this.allItems.filter(item =>
+      item.toLowerCase().includes(query.toLowerCase())
+    )
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      Text('实时搜索')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      // 搜索框
+      Search({ placeholder: '搜索水果', value: this.searchText })
+        .searchButton('搜索')
+        .onChange((value: string) => {
+          this.searchText = value
+          this.filterResults(value)
+        })
+
+      // 搜索结果
+      if (this.filteredResults.length > 0) {
+        Column({ space: 8 }) {
+          ForEach(this.filteredResults, (item: string, index: number) => {
+            Text(item)
+              .width('100%')
+              .padding(12)
+              .backgroundColor('#FFFFFF')
+              .borderRadius(8)
+              .onClick(() => {
+                console.info('Selected: ' + item)
+              })
+          })
+        }
+        .width('100%')
+      } else if (this.searchText) {
+        Text('无搜索结果')
+          .fontSize(14)
+          .fontColor('#999999')
+          .width('100%')
+          .textAlign(TextAlign.Center)
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 搜索历史示例
+ */
+@ComponentV2
+export struct SearchHistoryExample {
+  @Local searchText: string = ''
+  @Local searchHistory: string[] = []
+  @Local showHistory: boolean = false
+
+  build() {
+    Column({ space: 16 }) {
+      Text('搜索历史')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      // 搜索框
+      Search({ value: this.searchText, placeholder: '搜索' })
+        .searchButton('搜索')
+        .onChange((value: string) => {
+          this.searchText = value
+          this.showHistory = value.length === 0 && this.searchHistory.length > 0
+        })
+        .onSubmit((value: string) => {
+          if (value && value.trim() !== '') {
+            // 添加到历史记录
+            this.searchHistory = [value, ...this.searchHistory.filter(item => item !== value)].slice(0, 10)
+            this.showHistory = false
+          }
+        })
+        .onContentChanged(() => {
+          this.showHistory = true
+        })
+
+      // 搜索历史
+      if (this.showHistory && this.searchHistory.length > 0) {
+        Column({ space: 12 }) {
+          Row() {
+            Text('搜索历史')
+              .fontSize(14)
+              .fontColor('#666666')
+
+            Blank()
+
+            Text('清空')
+              .fontSize(14)
+              .fontColor('#007DFF')
+              .onClick(() => {
+                this.searchHistory = []
+              })
+          }
+          .width('100%')
+
+          Flex({ wrap: FlexWrap.Wrap }) {
+            ForEach(this.searchHistory, (item: string) => {
+              Text(item)
+                .padding(8)
+                .backgroundColor('#FFFFFF')
+                .borderRadius(4)
+                .fontSize(14)
+                .onClick(() => {
+                  this.searchText = item
+                  this.showHistory = false
+                })
+            })
+          }
+        }
+        .width('100%')
+        .padding(12)
+        .backgroundColor('#FAFAFA')
+        .borderRadius(8)
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 商品搜索页面
+ */
+@ComponentV2
+export struct ProductSearchPage {
+  @Local keyword: string = ''
+  @Local hotSearches: string[] = ['手机', '电脑', '耳机', '充电器', '数据线']
+  @Local searchHistory: string[] = []
+
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        // 搜索框
+        Search({ value: this.keyword, placeholder: '搜索商品' })
+          .searchButton('搜索')
+          .backgroundColor('#F5F5F5')
+          .borderRadius(20)
+          .placeholderColor('#999999')
+          .onChange((value: string) => {
+            this.keyword = value
+          })
+          .onSubmit((value: string) => {
+            if (value && value.trim() !== '') {
+              this.performSearch(value)
+            }
+          })
+
+        // 热门搜索
+        Column({ space: 12 }) {
+          Text('热门搜索')
+            .fontSize(16)
+            .fontWeight(FontWeight.Medium)
+
+          Flex({ wrap: FlexWrap.Wrap }) {
+            ForEach(this.hotSearches, (item: string) => {
+              Text(item)
+                .padding({ left: 12, right: 12, top: 8, bottom: 8 })
+                .backgroundColor('#FFF5E6')
+                .borderRadius(16)
+                .fontSize(14)
+                .fontColor('#FF6600')
+                .onClick(() => {
+                  this.keyword = item
+                  this.performSearch(item)
+                })
+            })
+          }
+        }
+        .width('100%')
+        .alignItems(HorizontalAlign.Start)
+
+        // 搜索历史
+        if (this.searchHistory.length > 0) {
+          Column({ space: 12 }) {
+            Row() {
+              Text('搜索历史')
+                .fontSize(16)
+                .fontWeight(FontWeight.Medium)
+
+              Blank()
+
+              Text('清空')
+                .fontSize(14)
+                .fontColor('#999999')
+                .onClick(() => {
+                  this.searchHistory = []
+                })
+            }
+            .width('100%')
+
+            Flex({ wrap: FlexWrap.Wrap }) {
+              ForEach(this.searchHistory, (item: string) => {
+                Row({ space: 8 }) {
+                  Text(item)
+                    .fontSize(14)
+
+                  Text('×')
+                    .fontSize(18)
+                    .fontColor('#CCCCCC')
+                    .onClick(() => {
+                      this.searchHistory = this.searchHistory.filter(h => h !== item)
+                    })
+                }
+                .padding({ left: 12, right: 12, top: 8, bottom: 8 })
+                .backgroundColor('#F5F5F5')
+                .borderRadius(16)
+              })
+            }
+          }
+          .width('100%')
+          .alignItems(HorizontalAlign.Start)
+        }
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+  }
+
+  performSearch(keyword: string): void {
+    // 添加到历史
+    this.searchHistory = [keyword, ...this.searchHistory.filter(item => item !== keyword)].slice(0, 10)
+
+    // 执行搜索逻辑
+    console.info('搜索商品: ' + keyword)
+  }
+}
+
+/**
+ * 主页面
+ */
+@ComponentV2
+export struct SearchExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('Search Component Examples')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        BasicSearchExample()
+        StyledSearchExample()
+        SearchControllerExample()
+        RealTimeSearchExample()
+        SearchHistoryExample()
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFFFFF')
+  }
+}

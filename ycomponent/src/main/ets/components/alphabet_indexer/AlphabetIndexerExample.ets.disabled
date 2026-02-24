@@ -1,0 +1,465 @@
+/**
+ * AlphabetIndexer Component Examples
+ * OpenHarmony 字母索引器组件使用示例
+ */
+
+/**
+ * 基础 AlphabetIndexer 示例
+ */
+@ComponentV2
+export struct BasicAlphabetIndexerExample {
+  @Local selectedIndex: number = 0
+  readonly alphabet: string[] = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G',
+    'H', 'I', 'J', 'K', 'L', 'M', 'N',
+    'O', 'P', 'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X', 'Y', 'Z'
+  ]
+
+  build() {
+    Row() {
+      Column() {
+        Text('AlphabetIndexer 基础示例')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+
+        Text(`选中字母: ${this.alphabet[this.selectedIndex]}`)
+          .fontSize(16)
+          .margin({ top: 20 })
+          .fontColor('#007DFF')
+      }
+      .layoutWeight(1)
+      .padding(20)
+      .alignItems(HorizontalAlign.Center)
+
+      AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+        .selected(this.selectedIndex)
+        .selectedColor('#FFFFFF')
+        .popupUsing(true)
+        .popupItemFont({ size: 20, weight: FontWeight.Bold })
+        .selectedFont({ size: 16, weight: FontWeight.Bold })
+        .font({ size: 14 })
+        .itemSize(20)
+        .onSelected((index: number) => {
+          this.selectedIndex = index
+          console.info('Selected: ' + this.alphabet[index])
+        })
+    }
+    .width('100%')
+    .height(300)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 联动列表示例
+ */
+@ComponentV2
+export struct LinkedAlphabetIndexerExample {
+  @Local selectedIndex: number = 0
+  private scroller: Scroller = new Scroller()
+  readonly alphabet: string[] = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G',
+    'H', 'I', 'J', 'K', 'L', 'M', 'N',
+    'O', 'P', 'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X', 'Y', 'Z'
+  ]
+
+  // 模拟数据 - 按字母分组的联系人
+  private contacts: Record<string, string[]> = {
+    'A': ['Alice', 'Adam', 'Amy', 'Andrew'],
+    'B': ['Bob', 'Bill', 'Ben', 'Brian'],
+    'C': ['Cathy', 'Chris', 'Carol', 'Charles'],
+    'D': ['David', 'Daniel', 'Daisy'],
+    'E': ['Emma', 'Eric', 'Eva'],
+    'F': ['Frank', 'Fred', 'Fiona'],
+    'G': ['Grace', 'George', 'Gary'],
+    'H': ['Henry', 'Helen', 'Harry'],
+    'I': ['Ivy', 'Ian', 'Isabel'],
+    'J': ['Jack', 'James', 'Jane'],
+    'K': ['Kevin', 'Kate', 'Karen'],
+    'L': ['Lucy', 'Leo', 'Linda'],
+    'M': ['Mike', 'Mary', 'Martin'],
+    'N': ['Nancy', 'Nick', 'Nina'],
+    'O': ['Oliver', 'Olivia', 'Oscar'],
+    'P': ['Peter', 'Paul', 'Patricia'],
+    'Q': ['Quinn', 'Quincy'],
+    'R': ['Rose', 'Robert', 'Rachel'],
+    'S': ['Sam', 'Susan', 'Steve'],
+    'T': ['Tom', 'Tina', 'Thomas'],
+    'U': ['Uma', 'Ursula'],
+    'V': ['Victor', 'Violet'],
+    'W': ['William', 'Wendy', 'Walter'],
+    'X': ['Xavier', 'Xena'],
+    'Y': ['Yolanda', 'Yvonne'],
+    'Z': ['Zack', 'Zoe']
+  }
+
+  build() {
+    Row() {
+      List({ scroller: this.scroller }) {
+        ForEach(this.alphabet, (letter: string) => {
+          ListItemGroup({ header: this.ListHeader(letter) }) {
+            ForEach(this.contacts[letter] || [], (name: string) => {
+              ListItem() {
+                Text(name)
+                  .fontSize(16)
+                  .width('100%')
+                  .padding(12)
+              }
+            })
+          }
+        })
+      }
+      .width('100%')
+      .height('100%')
+      .layoutWeight(1)
+      .sticky(StickyStyle.Header)
+      .backgroundColor('#FFFFFF')
+
+      AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+        .selected(this.selectedIndex)
+        .selectedColor('#007DFF')
+        .color('#666666')
+        .popupUsing(true)
+        .popupColor('#007DFF')
+        .popupItemFont({ size: 20, weight: FontWeight.Bold })
+        .selectedFont({ size: 16, weight: FontWeight.Bold })
+        .font({ size: 12 })
+        .itemSize(16)
+        .onSelected((index: number) => {
+          this.selectedIndex = index
+          // 联动滚动到对应位置
+          this.scroller.scrollToIndex(index)
+        })
+    }
+    .width('100%')
+    .height(500)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+
+  @Builder
+  ListHeader(letter: string) {
+    Text(letter)
+      .fontSize(18)
+      .fontWeight(FontWeight.Bold)
+      .width('100%')
+      .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+      .backgroundColor('#E3F2FD')
+      .fontColor('#007DFF')
+  }
+}
+
+/**
+ * 城市列表索引示例
+ */
+@ComponentV2
+export struct CityIndexerExample {
+  @Local selectedIndex: number = 0
+  private scroller: Scroller = new Scroller()
+  readonly cityIndex: string[] = [
+    '热门', 'A', 'B', 'C', 'D', 'E', 'F', 'G',
+    'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q',
+    'R', 'S', 'T', 'W', 'X', 'Y', 'Z'
+  ]
+
+  // 城市数据
+  private cities: Record<string, string[]> = {
+    '热门': ['北京', '上海', '广州', '深圳', '杭州', '成都', '西安', '南京'],
+    'B': ['北京', '包头', '保定', '宝鸡', '蚌埠'],
+    'S': ['上海', '深圳', '苏州', '沈阳', '石家庄'],
+    'G': ['广州', '桂林', '贵阳', '赣州', '高雄'],
+    'C': ['成都', '重庆', '长沙', '长春', '常州'],
+    'H': ['杭州', '哈尔滨', '合肥', '海口', '湖州'],
+    'N': ['南京', '宁波', '南昌', '南通', '南阳'],
+    'W': ['武汉', '无锡', '温州', '潍坊', '芜湖'],
+    'X': ['西安', '厦门', '徐州', '湘潭', '咸阳'],
+    'T': ['天津', '太原', '唐山', '台州', '泰州'],
+    'D': ['东莞', '大连', '大庆', '东营', '德州'],
+    'Q': ['青岛', '泉州', '秦皇岛', '齐齐哈尔'],
+    'Z': ['郑州', '珠海', '中山', '淄博', '漳州'],
+    'L': ['兰州', '洛阳', '连云港', '廊坊', '临沂'],
+    'M': ['昆明', '马鞍山', '绵阳', '眉山'],
+    'J': ['济南', '嘉兴', '金华', '九江', '吉林'],
+    'K': ['昆明', '康定'],
+    'A': ['安庆', '鞍山', '安康'],
+    'E': ['鄂州', '恩施'],
+    'F': ['佛山', '福州', '抚顺'],
+    'P': ['盘锦', '莆田', '平顶山'],
+    'R': ['日照', '瑞安'],
+    'Y': ['烟台', '宜昌', '扬州'],
+    'V': ['威海']
+  }
+
+  build() {
+    Row() {
+      Column() {
+        // 标题栏
+        Text('选择城市')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding(16)
+          .backgroundColor('#FFFFFF')
+
+        // 城市列表
+        List({ scroller: this.scroller }) {
+          ForEach(this.cityIndex, (indexKey: string, index: number) => {
+            ListItemGroup({ header: this.CityHeader(indexKey) }) {
+              ForEach(this.cities[indexKey] || [], (city: string) => {
+                ListItem() {
+                  Text(city)
+                    .fontSize(16)
+                    .width('100%')
+                    .padding({ left: 16, right: 16, top: 12, bottom: 12 })
+                }
+                .onClick(() => {
+                  console.info('Selected city: ' + city)
+                })
+              })
+            }
+          })
+        }
+        .width('100%')
+        .height('100%')
+        .layoutWeight(1)
+        .sticky(StickyStyle.Header)
+        .backgroundColor('#FFFFFF')
+      }
+      .layoutWeight(1)
+
+      // 字母索引器
+      AlphabetIndexer({ array: this.cityIndex, selected: this.selectedIndex })
+        .selected(this.selectedIndex)
+        .selectedColor('#FFFFFF')
+        .color('#666666')
+        .popupUsing(true)
+        .popupColor('#007DFF')
+        .popupItemFont({ size: 24, weight: FontWeight.Bold })
+        .selectedFont({ size: 18, weight: FontWeight.Bold })
+        .font({ size: 12 })
+        .itemSize(16)
+        .onSelected((index: number) => {
+          this.selectedIndex = index
+          this.scroller.scrollToIndex(index)
+        })
+    }
+    .width('100%')
+    .height(500)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+
+  @Builder
+  CityHeader(indexKey: string) {
+    Text(indexKey)
+      .fontSize(14)
+      .fontColor('#999999')
+      .width('100%')
+      .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+      .backgroundColor('#F5F5F5')
+  }
+}
+
+/**
+ * 自定义样式示例
+ */
+@ComponentV2
+export struct StyledAlphabetIndexerExample {
+  @Local selectedIndex: number = 0
+  readonly alphabet: string[] = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G',
+    'H', 'I', 'J', 'K', 'L', 'M', 'N',
+    'O', 'P', 'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X', 'Y', 'Z'
+  ]
+
+  build() {
+    Column({ space: 20 }) {
+      Text('自定义样式')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+
+      // 大字体样式
+      Column() {
+        Text('大字体索引器')
+          .fontSize(14)
+          .fontColor('#666666')
+          .margin({ bottom: 12 })
+          .width('100%')
+
+        Row() {
+          Column() {
+            Text(`选中: ${this.alphabet[this.selectedIndex]}`)
+              .fontSize(16)
+              .fontColor('#007DFF')
+          }
+          .layoutWeight(1)
+          .alignItems(HorizontalAlign.Center)
+
+          AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+            .selected(this.selectedIndex)
+            .selectedColor('#FFFFFF')
+            .color('#666666')
+            .popupUsing(true)
+            .popupColor('#FF5722')
+            .popupItemFont({ size: 20, weight: FontWeight.Bold })
+            .selectedFont({ size: 20, weight: FontWeight.Bold })
+            .font({ size: 16 })
+            .itemSize(24)
+            .onSelected((index: number) => {
+              this.selectedIndex = index
+            })
+        }
+        .width('100%')
+      }
+      .width('100%')
+      .padding(16)
+      .backgroundColor('#FFFFFF')
+      .borderRadius(12)
+
+      // 紧凑样式
+      Column() {
+        Text('紧凑索引器')
+          .fontSize(14)
+          .fontColor('#666666')
+          .margin({ bottom: 12 })
+          .width('100%')
+
+        Row() {
+          Column() {
+            Text(`选中: ${this.alphabet[this.selectedIndex]}`)
+              .fontSize(16)
+              .fontColor('#28A745')
+          }
+          .layoutWeight(1)
+          .alignItems(HorizontalAlign.Center)
+
+          AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+            .selected(this.selectedIndex)
+            .selectedColor('#FFFFFF')
+            .color('#666666')
+            .popupUsing(false)
+            .selectedFont({ size: 14, weight: FontWeight.Bold })
+            .font({ size: 10 })
+            .itemSize(14)
+            .onSelected((index: number) => {
+              this.selectedIndex = index
+            })
+        }
+        .width('100%')
+      }
+      .width('100%')
+      .padding(16)
+      .backgroundColor('#FFFFFF')
+      .borderRadius(12)
+    }
+    .width('100%')
+    .padding(16)
+  }
+}
+
+/**
+ * 数字索引示例
+ */
+@ComponentV2
+export struct NumberIndexerExample {
+  @Local selectedIndex: number = 0
+  private scroller: Scroller = new Scroller()
+  readonly numbers: string[] = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+  // 数字分组数据
+  private numberGroups: Record<string, string[]> = {
+    '1': ['One', '选项1', '第一组', 'One more'],
+    '2': ['Two', '选项2', '第二组', 'Two more'],
+    '3': ['Three', '选项3', '第三组', 'Three more'],
+    '4': ['Four', '选项4', '第四组'],
+    '5': ['Five', '选项5', '第五组'],
+    '6': ['Six', '选项6', '第六组'],
+    '7': ['Seven', '选项7', '第七组'],
+    '8': ['Eight', '选项8', '第八组'],
+    '9': ['Nine', '选项9', '第九组']
+  }
+
+  build() {
+    Row() {
+      List({ scroller: this.scroller }) {
+        ForEach(this.numbers, (num: string) => {
+          ListItemGroup({ header: this.NumberHeader(num) }) {
+            ForEach(this.numberGroups[num] || [], (item: string) => {
+              ListItem() {
+                Text(item)
+                  .fontSize(16)
+                  .width('100%')
+                  .padding(12)
+              }
+            })
+          }
+        })
+      }
+      .width('100%')
+      .height('100%')
+      .layoutWeight(1)
+      .sticky(StickyStyle.Header)
+      .backgroundColor('#FFFFFF')
+
+      AlphabetIndexer({ array: this.numbers, selected: this.selectedIndex })
+        .selected(this.selectedIndex)
+        .selectedColor('#FFFFFF')
+        .popupUsing(true)
+        .popupColor('#9C27B0')
+        .selectedFont({ size: 18, weight: FontWeight.Bold })
+        .font({ size: 14 })
+        .itemSize(20)
+        .onSelected((index: number) => {
+          this.selectedIndex = index
+          this.scroller.scrollToIndex(index)
+        })
+    }
+    .width('100%')
+    .height(400)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+
+  @Builder
+  NumberHeader(num: string) {
+    Text('数字 ' + num)
+      .fontSize(16)
+      .fontWeight(FontWeight.Bold)
+      .width('100%')
+      .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+      .backgroundColor('#E1BEE7')
+      .fontColor('#9C27B0')
+  }
+}
+
+/**
+ * 主页面
+ */
+@ComponentV2
+export struct AlphabetIndexerExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('AlphabetIndexer Component Examples')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        BasicAlphabetIndexerExample()
+        LinkedAlphabetIndexerExample()
+        CityIndexerExample()
+        StyledAlphabetIndexerExample()
+        NumberIndexerExample()
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFFFFF')
+  }
+}

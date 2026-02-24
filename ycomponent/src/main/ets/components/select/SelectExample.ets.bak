@@ -1,0 +1,720 @@
+/**
+ * Select Component Examples
+ * OpenHarmony Select 下拉选择组件使用示例
+ *
+ * 展示 Select 组件的各种用法，包括基础选择、带图标选择、自定义样式、表单集成等
+ */
+
+/**
+ * 基础下拉选择示例
+ * 展示最简单的 Select 用法
+ */
+@ComponentV2
+export struct BasicSelectExample {
+  @Local selectedValue: string = '选项1'
+  @Local selectedIndex: number = 0
+
+  private options: Array<{ value: string }> = [
+    { value: '选项1' },
+    { value: '选项2' },
+    { value: '选项3' },
+    { value: '选项4' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('基础下拉选择')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Select(this.options)
+        .selected(this.selectedIndex)
+        .value(this.selectedValue)
+        .font({ size: 16 })
+        .onSelect((index: number) => {
+          this.selectedIndex = index
+          this.selectedValue = this.options[index].value
+          console.info(`Selected: ${this.selectedValue}`)
+        })
+
+      Text(`当前选中: ${this.selectedValue}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 带图标的下拉选择示例
+ * 展示如何在选项中添加图标
+ */
+@ComponentV2
+export struct IconSelectExample {
+  @Local selectedValue: string = '首页'
+  @Local selectedIndex: number = 0
+
+  private \1: Array<{ value: string }> = [
+    { value: '首页' },
+    { value: '发现' },
+    { value: '消息' },
+    { value: '我的' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('带图标的下拉选择')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Select(this.options)
+        .selected(this.selectedIndex)
+        .value(this.selectedValue)
+        .font({ size: 16 })
+        .selectedOptionBgColor('#E3F2FD')
+        .onSelect((index: number) => {
+          this.selectedIndex = index
+          this.selectedValue = this.options[index].value
+        })
+
+      Text(`当前选中: ${this.selectedValue}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 自定义样式示例
+ * 展示如何自定义 Select 的颜色、字体等样式
+ */
+@ComponentV2
+export struct CustomStyleSelectExample {
+  @Local selectedValue: string = '红色主题'
+  @Local selectedIndex: number = 0
+
+  private \1: Array<{ value: string }> = [
+    { value: '红色主题' },
+    { value: '蓝色主题' },
+    { value: '绿色主题' },
+    { value: '橙色主题' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('自定义样式')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Select(this.options)
+        .selected(this.selectedIndex)
+        .value(this.selectedValue)
+        .font({ size: 16, weight: FontWeight.Medium })
+        .fontColor('#007DFF')
+        .selectedOptionBgColor('#E3F2FD')
+        .optionBgColor('#FFFFFF')
+        .selectedOptionFont({ size: 16, weight: FontWeight.Bold })
+        .optionFont({ size: 15 })
+        .optionFontColor('#333333')
+        .onSelect((index: number) => {
+          this.selectedIndex = index
+          this.selectedValue = this.options[index].value
+        })
+
+      Text(`当前选中: ${this.selectedValue}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 城市选择示例
+ * 展示常见的城市选择场景
+ */
+@ComponentV2
+export struct CitySelectExample {
+  @Local selectedCity: string = '北京'
+  @Local selectedIndex: number = 0
+
+  private \1: Array<{ value: string }> = [
+    { value: '北京' },
+    { value: '上海' },
+    { value: '广州' },
+    { value: '深圳' },
+    { value: '杭州' },
+    { value: '成都' },
+    { value: '西安' },
+    { value: '南京' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('选择城市')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Column({ space: 8 }) {
+        Text('所在城市')
+          .fontSize(14)
+          .fontColor('#666666')
+
+        Select(this.cities)
+          .selected(this.selectedIndex)
+          .value(this.selectedCity)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.selectedIndex = index
+            this.selectedCity = this.cities[index].value
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      Text(`当前城市: ${this.selectedCity}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 排序方式选择示例
+ * 展示在电商/列表应用中的排序功能
+ */
+@ComponentV2
+export struct SortSelectExample {
+  @Local sortType: string = '综合排序'
+  @Local selectedIndex: number = 0
+
+  private \1: Array<{ value: string }> = [
+    { value: '综合排序' },
+    { value: '价格从低到高' },
+    { value: '价格从高到低' },
+    { value: '销量优先' },
+    { value: '最新上架' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('排序方式')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 12 }) {
+        Text('排序:')
+          .fontSize(16)
+          .fontColor('#333333')
+
+        Select(this.sortOptions)
+          .selected(this.selectedIndex)
+          .value(this.sortType)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.selectedIndex = index
+            this.sortType = this.sortOptions[index].value
+          })
+      }
+      .width('100%')
+
+      Text(`当前排序: ${this.sortType}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 数量选择示例
+ * 展示购买数量选择场景
+ */
+@ComponentV2
+export struct QuantitySelectExample {
+  @Local quantity: number = 1
+  @Local selectedIndex: number = 0
+
+  private quantityOptions: SelectOption[] = Array.from({ length: 10 }, (_, i) => ({
+    value: `${i + 1}`
+  }))
+
+  build() {
+    Column({ space: 16 }) {
+      Text('购买数量')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 12 }) {
+        Text('数量:')
+          .fontSize(16)
+          .fontColor('#333333')
+
+        Select(this.quantityOptions)
+          .selected(this.selectedIndex)
+          .value(`${this.quantity}`)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.selectedIndex = index
+            this.quantity = parseInt(this.quantityOptions[index].value)
+          })
+      }
+      .width('100%')
+
+      Text(`已选: ${this.quantity} 件`)
+        .fontSize(14)
+        .fontColor('#FF6B6B')
+        .fontWeight(FontWeight.Medium)
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 表单集成示例
+ * 展示 Select 在表单中的应用
+ */
+@ComponentV2
+export struct FormSelectExample {
+  @Local formData: Record<string, string> = {
+    city: '北京',
+    category: '科技',
+    priority: '高'
+  }
+
+  private cityOptions: Array<{ value: string }> = [
+    { value: '北京' },
+    { value: '上海' },
+    { value: '广州' },
+    { value: '深圳' }
+  ]
+
+  private categoryOptions: Array<{ value: string }> = [
+    { value: '科技' },
+    { value: '娱乐' },
+    { value: '体育' },
+    { value: '财经' }
+  ]
+
+  private priorityOptions: Array<{ value: string }> = [
+    { value: '高' },
+    { value: '中' },
+    { value: '低' }
+  ]
+
+  build() {
+    Column({ space: 20 }) {
+      Text('表单集成示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 城市选择
+      Column({ space: 8 }) {
+        Text('城市')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.cityOptions)
+          .selected(this.cityOptions.findIndex(opt => opt.value === this.formData.city))
+          .value(this.formData.city)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.formData.city = this.cityOptions[index].value
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      // 分类选择
+      Column({ space: 8 }) {
+        Text('分类')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.categoryOptions)
+          .selected(this.categoryOptions.findIndex(opt => opt.value === this.formData.category))
+          .value(this.formData.category)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.formData.category = this.categoryOptions[index].value
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      // 优先级选择
+      Column({ space: 8 }) {
+        Text('优先级')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.priorityOptions)
+          .selected(this.priorityOptions.findIndex(opt => opt.value === this.formData.priority))
+          .value(this.formData.priority)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.formData.priority = this.priorityOptions[index].value
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      // 显示表单数据
+      Button('查看表单数据')
+        .width('100%')
+        .backgroundColor('#007DFF')
+        .onClick(() => {
+          const data = JSON.stringify(this.formData)
+          console.info('Form Data:', data)
+          AlertDialog.show({ message: data })
+        })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 筛选器示例
+ * 展示商品筛选场景
+ */
+@ComponentV2
+export struct FilterSelectExample {
+  @Local category: string = '全部'
+  @Local priceRange: string = '全部'
+  @Local brand: string = '全部'
+
+  private categories: Array<{ value: string }> = ['全部', '电子产品', '服装', '食品', '图书'].map(v => ({ value: v }))
+  private priceRanges: Array<{ value: string }> = ['全部', '0-100', '100-500', '500-1000', '1000以上'].map(v => ({ value: v }))
+  private brands: Array<{ value: string }> = ['全部', '苹果', '华为', '小米', '三星'].map(v => ({ value: v }))
+
+  build() {
+    Column({ space: 16 }) {
+      Text('商品筛选')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 分类筛选
+      Row({ space: 12 }) {
+        Text('分类:')
+          .fontSize(16)
+          .fontColor('#333333')
+          .width(60)
+
+        Select(this.categories)
+          .selected(this.categories.findIndex(opt => opt.value === this.category))
+          .value(this.category)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.category = this.categories[index].value
+          })
+      }
+      .width('100%')
+
+      // 价格筛选
+      Row({ space: 12 }) {
+        Text('价格:')
+          .fontSize(16)
+          .fontColor('#333333')
+          .width(60)
+
+        Select(this.priceRanges)
+          .selected(this.priceRanges.findIndex(opt => opt.value === this.priceRange))
+          .value(this.priceRange)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.priceRange = this.priceRanges[index].value
+          })
+      }
+      .width('100%')
+
+      // 品牌筛选
+      Row({ space: 12 }) {
+        Text('品牌:')
+          .fontSize(16)
+          .fontColor('#333333')
+          .width(60)
+
+        Select(this.brands)
+          .selected(this.brands.findIndex(opt => opt.value === this.brand))
+          .value(this.brand)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.brand = this.brands[index].value
+          })
+      }
+      .width('100%')
+
+      Button('应用筛选')
+        .width('100%')
+        .backgroundColor('#007DFF')
+        .onClick(() => {
+          console.info(`筛选条件: ${this.category}, ${this.priceRange}, ${this.brand}`)
+          AlertDialog.show({
+            message: `分类: ${this.category}\n价格: ${this.priceRange}\n品牌: ${this.brand}`
+          })
+        })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 省市联动选择示例
+ * 展示级联选择的实现方式
+ */
+@ComponentV2
+export struct CascadingSelectExample {
+  @Local province: string = '广东省'
+  @Local city: string = '广州市'
+  @Local provinceIndex: number = 0
+  @Local cityIndex: number = 0
+
+  private provinces: Array<{ value: string }> = [
+    { value: '广东省' },
+    { value: '浙江省' },
+    { value: '江苏省' }
+  ]
+
+  private cities: Record<string, Array<{ value: string }>> = {
+    '广东省': [
+      { value: '广州市' },
+      { value: '深圳市' },
+      { value: '珠海市' }
+    ],
+    '浙江省': [
+      { value: '杭州市' },
+      { value: '宁波市' },
+      { value: '温州市' }
+    ],
+    '江苏省': [
+      { value: '南京市' },
+      { value: '苏州市' },
+      { value: '无锡市' }
+    ]
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      Text('省市联动')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 省份选择
+      Column({ space: 8 }) {
+        Text('省份')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.provinces)
+          .selected(this.provinceIndex)
+          .value(this.province)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.provinceIndex = index
+            this.province = this.provinces[index].value
+            // 重置城市为该省份的第一个城市
+            this.cityIndex = 0
+            this.city = this.cities[this.province][0].value
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      // 城市选择
+      Column({ space: 8 }) {
+        Text('城市')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.cities[this.province])
+          .selected(this.cityIndex)
+          .value(this.city)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.cityIndex = index
+            this.city = this.cities[this.province][index].value
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      Text(`当前选择: ${this.province} ${this.city}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 语言设置示例
+ * 展示应用语言选择场景
+ */
+@ComponentV2
+export struct LanguageSelectExample {
+  @Local currentLanguage: string = '简体中文'
+  @Local selectedIndex: number = 0
+
+  private languages: Array<{ value: string }> = [
+    { value: '简体中文' },
+    { value: '繁體中文' },
+    { value: 'English' },
+    { value: '日本語' },
+    { value: '한국어' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('语言设置')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Column({ space: 8 }) {
+        Text('显示语言')
+          .fontSize(14)
+          .fontColor('#666666')
+
+        Select(this.languages)
+          .selected(this.selectedIndex)
+          .value(this.currentLanguage)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.selectedIndex = index
+            this.currentLanguage = this.languages[index].value
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      Text(`当前语言: ${this.currentLanguage}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 时间段选择示例
+ * 展示数据统计时间范围选择
+ */
+@ComponentV2
+export struct TimeRangeSelectExample {
+  @Local timeRange: string = '最近7天'
+  @Local selectedIndex: number = 2
+
+  private timeRanges: Array<{ value: string }> = [
+    { value: '今天' },
+    { value: '最近3天' },
+    { value: '最近7天' },
+    { value: '最近30天' },
+    { value: '最近90天' },
+    { value: '最近一年' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('选择时间范围')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 12 }) {
+        Text('时间:')
+          .fontSize(16)
+          .fontColor('#333333')
+
+        Select(this.timeRanges)
+          .selected(this.selectedIndex)
+          .value(this.timeRange)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.selectedIndex = index
+            this.timeRange = this.timeRanges[index].value
+            console.info('选择时间范围: ' + this.timeRange)
+          })
+      }
+      .width('100%')
+
+      Text(`当前选择: ${this.timeRange}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 完整的 Select 示例页面
+ * 集成所有 Select 示例
+ */
+@ComponentV2
+export struct SelectExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('Select Component Examples')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        BasicSelectExample()
+        IconSelectExample()
+        CustomStyleSelectExample()
+        CitySelectExample()
+        SortSelectExample()
+        QuantitySelectExample()
+        FormSelectExample()
+        FilterSelectExample()
+        CascadingSelectExample()
+        LanguageSelectExample()
+        TimeRangeSelectExample()
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#FFFFFF')
+  }
+}

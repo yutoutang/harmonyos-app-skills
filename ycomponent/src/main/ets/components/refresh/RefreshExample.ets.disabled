@@ -1,0 +1,690 @@
+/**
+ * Refresh 下拉刷新组件示例
+ * OpenHarmony Refresh Component Examples
+ *
+ * 本文件包含 Refresh 组件的各种使用示例：
+ * - 基础下拉刷新
+ * - 带状态文本的刷新
+ * - 下拉刷新 + 上拉加载更多
+ * - DataPanel 数据面板示例
+ */
+
+/**
+ * 示例 1: 基础下拉刷新
+ * 展示最简单的 Refresh 组件用法
+ */
+@ComponentV2
+export struct BasicRefreshExample {
+  @Local isRefreshing: boolean = false
+  @Local dataList: string[] = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']
+
+  build() {
+    Column({ space: 12 }) {
+      Text('基础下拉刷新')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Refresh({ refreshing: $$this.isRefreshing }) {
+        List({ space: 8 }) {
+          ForEach(this.dataList, (item: string, index: number) => {
+            ListItem() {
+              Row({ space: 12 }) {
+                Text(`${index + 1}`)
+                  .fontSize(14)
+                  .fontColor('#666')
+                  .width(24)
+                  .height(24)
+                  .textAlign(TextAlign.Center)
+                  .backgroundColor('#E0E0E0')
+                  .borderRadius(12)
+
+                Text(item)
+                  .fontSize(16)
+                  .layoutWeight(1)
+              }
+              .width('100%')
+              .padding(16)
+              .backgroundColor(Color.White)
+              .borderRadius(8)
+            }
+          })
+        }
+        .width('100%')
+        .layoutWeight(1)
+      }
+      .onRefreshing(() => {
+        // 模拟异步数据加载
+        setTimeout(() => {
+          const newItem = `New Item ${this.dataList.length + 1}`
+          this.dataList.unshift(newItem)
+          // 保持列表长度不超过 10
+          if (this.dataList.length > 10) {
+            this.dataList = this.dataList.slice(0, 10)
+          }
+          this.isRefreshing = false
+        }, 2000)
+      })
+      .backgroundColor('#F5F5F5')
+      .borderRadius(8)
+    }
+    .width('100%')
+    .height(400)
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 示例 2: 带状态文本的刷新
+ * 展示如何根据刷新状态更新提示文本
+ */
+@ComponentV2
+export struct RefreshWithStatusExample {
+  @Local isRefreshing: boolean = false
+  @Local dataList: string[] = ['消息 1', '消息 2', '消息 3']
+  @Local statusText: string = '下拉刷新'
+  @Local lastUpdateTime: string = ''
+
+  build() {
+    Column({ space: 12 }) {
+      // 状态栏
+      Row({ space: 8 }) {
+        if (this.isRefreshing) {
+          LoadingProgress()
+            .width(16)
+            .height(16)
+            .color('#007DFF')
+        }
+        Text(this.statusText)
+          .fontSize(14)
+          .fontColor(this.isRefreshing ? '#007DFF' : '#666')
+        if (this.lastUpdateTime) {
+          Text(`· ${this.lastUpdateTime}`)
+            .fontSize(12)
+            .fontColor('#999')
+        }
+      }
+      .width('100%')
+      .padding(12)
+      .backgroundColor('#E3F2FD')
+      .borderRadius(8)
+
+      Refresh({ refreshing: $$this.isRefreshing }) {
+        List({ space: 8 }) {
+          ForEach(this.dataList, (item: string) => {
+            ListItem() {
+              Row() {
+                Text(item)
+                  .fontSize(16)
+                  .layoutWeight(1)
+              }
+              .width('100%')
+              .padding(16)
+              .backgroundColor(Color.White)
+              .borderRadius(8)
+            }
+          })
+        }
+        .width('100%')
+      }
+      .onStateChange((state: RefreshStatus) => {
+        switch (state) {
+          case RefreshStatus.Inactive:
+            this.statusText = '下拉刷新'
+            break
+          case RefreshStatus.Dragging:
+            this.statusText = '继续下拉...'
+            break
+          case RefreshStatus.OverDrag:
+            this.statusText = '释放立即刷新'
+            break
+          case RefreshStatus.Refreshing:
+            this.statusText = '正在刷新...'
+            break
+          case RefreshStatus.Done:
+            this.statusText = '刷新完成'
+            break
+        }
+      })
+      .onRefreshing(() => {
+        setTimeout(() => {
+          this.dataList = [`新消息 ${Date.now()}`, ...this.dataList]
+
+          // 更新时间
+          const now = new Date()
+          this.lastUpdateTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`
+
+          this.isRefreshing = false
+        }, 1500)
+      })
+      .backgroundColor('#F5F5F5')
+      .borderRadius(8)
+    }
+    .width('100%')
+    .height(400)
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 示例 3: 下拉刷新 + 上拉加载更多
+ * 展示如何结合使用 Refresh 和 List 的 onReachEnd
+ */
+@ComponentV2
+export struct RefreshWithLoadMoreExample {
+  @Local isRefreshing: boolean = false
+  @Local isLoadingMore: boolean = false
+  @Local dataList: string[] = Array.from({ length: 15 }, (_, i) => `Item ${i + 1}`)
+  @Local hasMore: boolean = true
+
+  build() {
+    Column({ space: 12 }) {
+      Text('刷新 + 加载更多')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Refresh({ refreshing: $$this.isRefreshing }) {
+        List({ space: 8 }) {
+          ForEach(this.dataList, (item: string, index: number) => {
+            ListItem() {
+              Row({ space: 12 }) {
+                Text(`${index + 1}`)
+                  .fontSize(14)
+                  .fontColor('#666')
+                  .width(28)
+                  .height(28)
+                  .textAlign(TextAlign.Center)
+                  .backgroundColor('#E0E0E0')
+                  .borderRadius(14)
+
+                Text(item)
+                  .fontSize(16)
+                  .layoutWeight(1)
+              }
+              .width('100%')
+              .padding(16)
+              .backgroundColor(Color.White)
+              .borderRadius(8)
+            }
+          })
+
+          // 加载更多指示器
+          if (this.hasMore) {
+            ListItem() {
+              Row({ space: 8 }) {
+                if (this.isLoadingMore) {
+                  LoadingProgress()
+                    .width(20)
+                    .height(20)
+                    .color('#007DFF')
+                }
+                Text(this.isLoadingMore ? '加载中...' : '上拉加载更多')
+                  .fontSize(14)
+                  .fontColor('#999')
+              }
+              .width('100%')
+              .height(60)
+              .justifyContent(FlexAlign.Center)
+            }
+          } else {
+            ListItem() {
+              Text('没有更多数据了')
+                .fontSize(14)
+                .fontColor('#999')
+                .width('100%')
+                .height(60)
+                .textAlign(TextAlign.Center)
+            }
+          }
+        }
+        .width('100%')
+        .layoutWeight(1)
+        .onReachEnd(() => {
+          if (!this.isLoadingMore && this.hasMore) {
+            this.loadMore()
+          }
+        })
+        .reachStartDistance(100)
+      }
+      .onRefreshing(() => {
+        setTimeout(() => {
+          this.dataList = Array.from({ length: 15 }, (_, i) => `Item ${i + 1}`)
+          this.hasMore = true
+          this.isRefreshing = false
+        }, 1500)
+      })
+      .backgroundColor('#F5F5F5')
+      .borderRadius(8)
+    }
+    .width('100%')
+    .height(500)
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+
+  private loadMore(): void {
+    this.isLoadingMore = true
+    setTimeout(() => {
+      const currentLength = this.dataList.length
+      const newItems = Array.from({ length: 10 }, (_, i) => `Item ${currentLength + i + 1}`)
+      this.dataList.push(...newItems)
+
+      // 超过 50 条后不再加载
+      if (this.dataList.length >= 50) {
+        this.hasMore = false
+      }
+
+      this.isLoadingMore = false
+    }, 1500)
+  }
+}
+
+/**
+ * 示例 4: 环形 DataPanel
+ * 展示 DataPanel 的基础用法 - 环形图
+ */
+@ComponentV2
+export struct CircleDataPanelExample {
+  @Local dataValues: number[] = [30, 25, 20, 15, 10]
+  @Local labels: string[] = ['类别A', '类别B', '类别C', '类别D', '类别E']
+  @Local colors: string[] = ['#007DFF', '#00C853', '#FF6B6B', '#FFD600', '#AA00FF']
+
+  build() {
+    Column({ space: 16 }) {
+      Text('环形数据面板')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 环形图
+      DataPanel({ values: this.dataValues, max: 100 })
+        .width(180)
+        .height(180)
+        .colors(this.colors)
+        .closeEffect(true)
+        .margin({ top: 12, bottom: 12 })
+
+      // 图例
+      Column({ space: 10 }) {
+        ForEach(this.labels, (label: string, index: number) => {
+          Row({ space: 10 }) {
+            // 颜色指示器
+            Row()
+              .width(12)
+              .height(12)
+              .backgroundColor(this.colors[index])
+              .borderRadius(3)
+
+            // 标签
+            Text(label)
+              .fontSize(14)
+              .fontColor('#333')
+              .layoutWeight(1)
+
+            // 百分比
+            Text(`${this.dataValues[index]}%`)
+              .fontSize(14)
+              .fontWeight(FontWeight.Medium)
+              .fontColor(this.colors[index])
+          }
+          .width('100%')
+          .padding({ left: 12, right: 12 })
+        })
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 示例 5: 线性 DataPanel
+ * 展示 DataPanel 的线性进度条用法
+ */
+@ComponentV2
+export struct LineDataPanelExample {
+  @Local progressData: ProgressItem[] = [
+    { label: '下载中', value: 65, color: '#007DFF' },
+    { label: '已完成', value: 25, color: '#00C853' },
+    { label: '等待中', value: 10, color: '#FFD600' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('线性进度条')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 线性进度条
+      DataPanel({
+        values: this.progressData.map(item => item.value),
+        max: 100
+      })
+        .type(DataPanelType.Line)
+        .width('100%')
+        .height(24)
+        .colors(this.progressData.map(item => item.color))
+        .trackBackgroundColor('#E0E0E0')
+        .margin({ top: 12, bottom: 12 })
+
+      // 详细信息
+      Column({ space: 12 }) {
+        ForEach(this.progressData, (item: ProgressItem) => {
+          Row({ space: 10 }) {
+            Row()
+              .width(12)
+              .height(12)
+              .backgroundColor(item.color)
+              .borderRadius(3)
+
+            Text(item.label)
+              .fontSize(14)
+              .fontColor('#333')
+              .layoutWeight(1)
+
+            Text(`${item.value}%`)
+              .fontSize(14)
+              .fontWeight(FontWeight.Medium)
+              .fontColor(item.color)
+          }
+          .width('100%')
+        })
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 示例 6: 带中心文本的 DataPanel
+ * 展示如何在 DataPanel 中心显示文本
+ */
+@ComponentV2
+export struct DataPanelWithCenterTextExample {
+  @Local usedSpace: number = 65
+  @Local freeSpace: number = 35
+
+  build() {
+    Column({ space: 20 }) {
+      Text('存储空间')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Stack() {
+        DataPanel({ values: [this.usedSpace, this.freeSpace], max: 100 })
+          .width(200)
+          .height(200)
+          .colors(['#007DFF', '#E0E0E0'])
+          .closeEffect(true)
+
+        Column({ space: 8 }) {
+          Text(`${this.usedSpace}%`)
+            .fontSize(36)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#007DFF')
+
+          Text('已使用')
+            .fontSize(14)
+            .fontColor('#666')
+
+          Text('128 GB')
+            .fontSize(12)
+            .fontColor('#999')
+            .margin({ top: 4 })
+        }
+        .justifyContent(FlexAlign.Center)
+      }
+      .width(200)
+      .height(200)
+      .margin({ top: 12, bottom: 12 })
+
+      // 控制按钮
+      Row({ space: 12 }) {
+        Button('增加 10%')
+          .fontSize(14)
+          .onClick(() => {
+            if (this.usedSpace < 100) {
+              this.usedSpace = Math.min(100, this.usedSpace + 10)
+              this.freeSpace = 100 - this.usedSpace
+            }
+          })
+
+        Button('减少 10%')
+          .fontSize(14)
+          .onClick(() => {
+            if (this.usedSpace > 0) {
+              this.usedSpace = Math.max(0, this.usedSpace - 10)
+              this.freeSpace = 100 - this.usedSpace
+            }
+          })
+      }
+    }
+    .width('100%')
+    .padding(20)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 示例 7: 健康数据仪表盘
+ * 展示多个 DataPanel 组合使用
+ */
+@ComponentV2
+export struct HealthDataDashboardExample {
+  @Local steps: number = 85
+  @Local calories: number = 60
+  @Local distance: number = 45
+  @Local sleep: number = 75
+  @Local heartRate: number = 70
+
+  build() {
+    Column({ space: 16 }) {
+      Text('今日健康数据')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 步数 - 主要指标
+      Column({ space: 12 }) {
+        Text('步数目标')
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .width('100%')
+
+        Stack() {
+          DataPanel({ values: [this.steps], max: 100 })
+            .width(150)
+            .height(150)
+            .colors(['#00C853'])
+
+          Column({ space: 4 }) {
+            Text('8,532')
+              .fontSize(28)
+              .fontWeight(FontWeight.Bold)
+            Text('/ 10,000 步')
+              .fontSize(12)
+              .fontColor('#666')
+          }
+          .justifyContent(FlexAlign.Center)
+        }
+        .width(150)
+        .height(150)
+        .alignSelf(ItemAlign.Center)
+      }
+      .width('100%')
+
+      // 其他指标
+      Grid() {
+        GridItem() {
+          this.healthMetricCard('卡路里', this.calories, '420', 'kcal', '#FF6B6B')
+        }
+        GridItem() {
+          this.healthMetricCard('距离', this.distance, '5.2', 'km', '#007DFF')
+        }
+        GridItem() {
+          this.healthMetricCard('睡眠', this.sleep, '7.5', '小时', '#AA00FF')
+        }
+        GridItem() {
+          this.healthMetricCard('心率', this.heartRate, '72', 'bpm', '#FFD600')
+        }
+      }
+      .columnsTemplate('1fr 1fr')
+      .rowsGap(12)
+      .columnsGap(12)
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+
+  @Builder
+  healthMetricCard(label: string, value: number, currentValue: string, unit: string, color: string) {
+    Column({ space: 10 }) {
+      DataPanel({ values: [value], max: 100 })
+        .width(70)
+        .height(70)
+        .colors([color])
+
+      Text(label)
+        .fontSize(12)
+        .fontColor('#666')
+
+      Text(`${currentValue} ${unit}`)
+        .fontSize(14)
+        .fontWeight(FontWeight.Medium)
+    }
+    .width('100%')
+    .padding(12)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+    .alignItems(HorizontalAlign.Center)
+  }
+}
+
+/**
+ * 示例 8: 动态 DataPanel
+ * 展示如何动态更新 DataPanel 数据
+ */
+@ComponentV2
+export struct DynamicDataPanelExample {
+  @Local dataValues: number[] = [25, 35, 20]
+  @Local colors: string[] = ['#007DFF', '#00C853', '#FF6B6B']
+
+  build() {
+    Column({ space: 16 }) {
+      Text('动态数据面板')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 数据面板
+      DataPanel({ values: this.dataValues, max: 100 })
+        .width(180)
+        .height(180)
+        .colors(this.colors)
+        .margin({ top: 12, bottom: 20 })
+        .animation({
+          duration: 800,
+          curve: Curve.EaseInOut
+        })
+
+      // 控制按钮
+      Column({ space: 10 }) {
+        Button('随机数据')
+          .width('100%')
+          .onClick(() => {
+            this.dataValues = this.dataValues.map(() => Math.floor(Math.random() * 100))
+          })
+
+        Row({ space: 10 }) {
+          Button('增加数据')
+            .layoutWeight(1)
+            .onClick(() => {
+              if (this.dataValues.length < 5) {
+                const newColors = ['#007DFF', '#00C853', '#FF6B6B', '#FFD600', '#AA00FF']
+                this.dataValues.push(Math.floor(Math.random() * 100))
+                this.colors = newColors.slice(0, this.dataValues.length)
+              }
+            })
+
+          Button('减少数据')
+            .layoutWeight(1)
+            .onClick(() => {
+              if (this.dataValues.length > 1) {
+                this.dataValues.pop()
+                this.colors = this.colors.slice(0, this.dataValues.length)
+              }
+            })
+        }
+        .width('100%')
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor(Color.White)
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 主页面组件
+ * 包含所有示例的展示
+ */
+@Entry
+@ComponentV2
+export struct RefreshExamplePage {
+  build() {
+    Scroll() {
+      Column({ space: 20 }) {
+        Text('Refresh & DataPanel 组件示例')
+          .fontSize(24)
+          .fontWeight(FontWeight.Bold)
+          .width('100%')
+          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+        BasicRefreshExample()
+        RefreshWithStatusExample()
+        RefreshWithLoadMoreExample()
+        CircleDataPanelExample()
+        LineDataPanelExample()
+        DataPanelWithCenterTextExample()
+        HealthDataDashboardExample()
+        DynamicDataPanelExample()
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor('#F5F5F5')
+    .scrollBar(BarState.Auto)
+  }
+}
+
+/**
+ * 数据模型类
+ */
+@ObservedV2
+class ProgressItem {
+  label: string = ''
+  value: number = 0
+  color: string = ''
+}

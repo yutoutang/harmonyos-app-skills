@@ -1,23 +1,59 @@
+import { OpenHarmonyComponentPage } from './OpenHarmonyComponentPage'
+import {
+  ButtonExamplePage,
+  CurvesExamplePage,
+  TextExamplePage,
+  ImageExamplePage,
+  ColumnRowExamplePage,
+  StackExamplePage,
+  ShapeExamplePage,
+  SpanExamplePage,
+  InputExamplePage,
+  AdvancedExamplePage,
+  SelectionExamplePage
+} from 'ycomponent'
+
 @Entry
-@Component
+@ComponentV2
 struct Index {
-  @State message: string = 'Hello World';
+  @Local navPathStack: NavPathStack = new NavPathStack()
+
+  @Builder
+  PageBuilder(name: string, params: Object) {
+    if (name === 'TextExamplePage') {
+      TextExamplePage()
+    } else if (name === 'ImageExamplePage') {
+      ImageExamplePage()
+    } else if (name === 'ColumnRowExamplePage') {
+      ColumnRowExamplePage()
+    } else if (name === 'StackExamplePage') {
+      StackExamplePage()
+    } else if (name === 'ShapeExamplePage') {
+      ShapeExamplePage()
+    } else if (name === 'SpanExamplePage') {
+      SpanExamplePage()
+    } else if (name === 'InputExamplePage') {
+      InputExamplePage()
+    } else if (name === 'AdvancedExamplePage') {
+      AdvancedExamplePage()
+    } else if (name === 'SelectionExamplePage') {
+      SelectionExamplePage()
+    } else if (name === 'ButtonExamplePage') {
+      ButtonExamplePage()
+    } else if (name === 'CurvesExamplePage') {
+      CurvesExamplePage()
+    }
+  }
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('HelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
-        .onClick(() => {
-          this.message = 'Welcome';
-        })
+    Navigation(this.navPathStack) {
+      OpenHarmonyComponentPage({
+        onNavigate: (pageName: string) => {
+          this.navPathStack.pushPathByName(pageName, null)
+        }
+      })
     }
-    .height('100%')
-    .width('100%')
+    .navDestination(this.PageBuilder)
+    .mode(NavigationMode.Stack)
   }
 }

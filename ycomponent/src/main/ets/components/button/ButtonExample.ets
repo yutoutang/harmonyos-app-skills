@@ -459,7 +459,6 @@ export struct ButtonGroupExample {
  * 完整的按钮示例页面
  * 集成所有按钮示例
  */
-@Entry
 @ComponentV2
 export struct ButtonExamplePage {
   build() {
