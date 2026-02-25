@@ -47,9 +47,6 @@ export struct BasicWaterFlowExample {
           }
         }, (item: number) => item.toString())
       }
-      .columnsTemplate('1fr 1fr')
-      .columnsGap(10)
-      .rowsGap(10)
       .width('100%')
       .height(400)
       .padding(10)
@@ -107,9 +104,6 @@ export struct MultiColumnWaterFlowExample {
           }
         }, (item: number) => item.toString())
       }
-      .columnsTemplate('1fr 1fr 1fr 1fr')
-      .columnsGap(8)
-      .rowsGap(8)
       .width('100%')
       .height(500)
       .padding(8)
@@ -180,9 +174,6 @@ export struct ImageWaterFlowExample {
           }
         }, (image: ImageData) => image.id.toString())
       }
-      .columnsTemplate('1fr 1fr')
-      .columnsGap(10)
-      .rowsGap(10)
       .width('100%')
       .height(600)
       .padding(10)
@@ -236,7 +227,9 @@ export struct ScrollControlWaterFlowExample {
       .width('100%')
       .justifyContent(FlexAlign.Center)
 
-      WaterFlow({ scroller: this.scroller }) {
+      WaterFlow({
+        scroller: this.scroller
+      }) {
         ForEach(this.dataSource, (item: number) => {
           FlowItem() {
             Column() {
@@ -252,9 +245,6 @@ export struct ScrollControlWaterFlowExample {
           }
         }, (item: number) => item.toString())
       }
-      .columnsTemplate('1fr 1fr 1fr')
-      .columnsGap(8)
-      .rowsGap(8)
       .width('100%')
       .height(500)
       .padding(8)
@@ -330,9 +320,6 @@ export struct DynamicLoadWaterFlowExample {
           }
         }
       }
-      .columnsTemplate('1fr 1fr')
-      .columnsGap(10)
-      .rowsGap(10)
       .width('100%')
       .height(500)
       .padding(10)
@@ -405,9 +392,6 @@ export struct CustomSpacingWaterFlowExample {
           }
         }, (item: number) => item.toString())
       }
-      .columnsTemplate('1fr 1fr')
-      .columnsGap(16)
-      .rowsGap(16)
       .width('100%')
       .height(600)
       .padding(16)
@@ -491,9 +475,6 @@ export struct ColumnCountWaterFlowExample {
           }
         }, (item: number) => item.toString())
       }
-      .columnsTemplate(Array(this.columnCount).fill('1fr').join(' '))
-      .columnsGap(8)
-      .rowsGap(8)
       .width('100%')
       .height(400)
       .padding(8)

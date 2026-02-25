@@ -40,7 +40,7 @@ WaterFlow() {
 ### 1.2 基础用法
 
 ```typescript
-// 简单的瀑布流
+// 简单的瀑布流（SDK 6.0.1）
 WaterFlow() {
   ForEach([1, 2, 3, 4, 5, 6], (item: number) => {
     FlowItem() {
@@ -53,12 +53,13 @@ WaterFlow() {
     }
   })
 }
-.columnsTemplate('1fr 1fr')  // 2 列
-.columnsGap(10)
-.rowsGap(10)
 .width('100%')
 .height('100%')
+.padding(10)
+.backgroundColor('#F5F5F5')
 ```
+
+**注意：** SDK 6.0.1 不支持 `columnsTemplate`、`columnsGap`、`rowsGap` 参数。列布局由系统自动管理。
 
 ## 二、API 参数
 
@@ -78,11 +79,13 @@ WaterFlow() {
 
 | 属性 | 类型 | 默认值 | 描述 |
 |------|------|--------|------|
-| `columnsTemplate` | `string` | '1fr' | 列模板，如 '1fr 1fr 1fr' 表示 3 列 |
+| `columnsTemplate` | `string` | '1fr' | 列模板，如 '1fr 1fr 1fr' 表示 3 列 ⚠️ SDK 6.0.1 不支持 |
 | `rowsTemplate` | `string` | - | 行模板 |
-| `columnsGap` | `number \| string` | 0 | 列间距 |
-| `rowsGap` | `number \| string` | 0 | 行间距 |
+| `columnsGap` | `number \| string` | 0 | 列间距 ⚠️ SDK 6.0.1 不支持 |
+| `rowsGap` | `number \| string` | 0 | 行间距 ⚠️ SDK 6.0.1 不支持 |
 | `padding` | `Padding \| Length` | 0 | 内边距 |
+
+**SDK 6.0.1 限制：** `columnsTemplate`、`columnsGap`、`rowsGap` 在 SDK 6.0.1 中不可用。请使用简化的 `WaterFlow()` 构造函数。
 
 ### 2.4 FlowItem 属性
 
@@ -97,7 +100,8 @@ WaterFlow() {
 ### 3.1 基础瀑布流
 
 ```typescript
-@State data: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// SDK 6.0.1 兼容写法
+@Local data: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 WaterFlow() {
   ForEach(this.data, (item: number) => {
@@ -113,19 +117,19 @@ WaterFlow() {
     }
   })
 }
-.columnsTemplate('1fr 1fr')
-.columnsGap(12)
-.rowsGap(12)
 .width('100%')
 .height('100%')
 .padding(12)
 .backgroundColor('#F5F5F5')
 ```
 
+**注意：** SDK 6.0.1 不支持 `.columnsTemplate()`、`.columnsGap()`、`.rowsGap()` 属性方法。
+
 ### 3.2 三列瀑布流
 
 ```typescript
-@State data: string[] = Array.from({ length: 15 }, (_, i) => `Item ${i + 1}`)
+// SDK 6.0.1 兼容写法（列布局由系统自动管理）
+@Local data: string[] = Array.from({ length: 15 }, (_, i) => `Item ${i + 1}`)
 
 WaterFlow() {
   ForEach(this.data, (item: string, index: number) => {
@@ -149,13 +153,12 @@ WaterFlow() {
     }
   })
 }
-.columnsTemplate('1fr 1fr 1fr')
-.columnsGap(12)
-.rowsGap(12)
 .width('100%')
 .height('100%')
 .padding(12)
 ```
+
+**注意：** SDK 6.0.1 不支持指定列数，布局由系统自动管理。如需精确控制列数，建议使用 Grid 组件。
 
 ### 3.3 图片瀑布流
 
@@ -302,22 +305,24 @@ WaterFlow() {
 
 ## 四、最佳实践
 
-### 4.1 合理设置列数
+### 4.1 WaterFlow 在 SDK 6.0.1 中的使用限制
 
 ```typescript
-// ✅ 推荐：根据屏幕尺寸设置列数
+// ✅ 推荐：SDK 6.0.1 使用简化 API
 WaterFlow() {
   ForEach(items, (item) => {
     FlowItem() {
       Text(item)
+        .width('100%')
+        .height(100 + Math.random() * 100)
     }
   })
 }
-.columnsTemplate('1fr 1fr')  // 2 列适合手机
-.columnsGap(12)
-.rowsGap(12)
+.width('100%')
+.height('100%')
+.padding(12)
 
-// ⚠️ 注意：列数过多可能导致内容过小
+// ❌ 避免：尝试设置列数（SDK 6.0.1 不支持）
 WaterFlow() {
   ForEach(items, (item) => {
     FlowItem() {
@@ -325,24 +330,32 @@ WaterFlow() {
     }
   })
 }
-.columnsTemplate('1fr 1fr 1fr 1fr 1fr')  // 列数过多
+.columnsTemplate('1fr 1fr')  // SDK 6.0.1 中不可用
+.columnsGap(12)              // SDK 6.0.1 中不可用
+.rowsGap(12)                 // SDK 6.0.1 中不可用
 ```
 
-### 4.2 设置合适的间距
+### 4.2 替代方案：使用 Grid 实现固定列布局
+
+如需精确控制列数和间距，建议使用 Grid 组件：
 
 ```typescript
-// ✅ 推荐：使用 columnsGap 和 rowsGap
-WaterFlow() {
+// ✅ 推荐：使用 Grid 代替 WaterFlow（如需固定列数）
+Grid() {
   ForEach(items, (item) => {
-    FlowItem() {
+    GridItem() {
       Text(item)
+        .width('100%')
+        .height(100 + item * 20)
     }
   })
 }
-.columnsTemplate('1fr 1fr')
-.columnsGap(12)  // 列间距
-.rowsGap(12)     // 行间距
-.padding(12)     // 内边距
+.columnsTemplate('1fr 1fr')  // ✅ Grid 支持列模板
+.columnsGap(12)              // ✅ Grid 支持列间距
+.rowsGap(12)                 // ✅ Grid 支持行间距
+.width('100%')
+.height('100%')
+.padding(12)
 ```
 
 ### 4.3 使用 FlowItem 而非其他容器
@@ -392,13 +405,15 @@ WaterFlow() {
 
 ### Q2: 如何实现自适应列数？
 
-**解决方案**:
-```typescript
-@State columnsTemplate: string = '1fr 1fr';
+**问题：** SDK 6.0.1 不支持 `columnsTemplate`，无法动态调整列数。
 
-WaterFlow() {
+**解决方案：** 使用 Grid 组件代替：
+```typescript
+@Local columnsTemplate: string = '1fr 1fr';
+
+Grid() {
   ForEach(items, (item) => {
-    FlowItem() {
+    GridItem() {
       Text(item)
     }
   })
@@ -428,13 +443,105 @@ FlowItem() {
 }
 ```
 
-## 六、版本兼容性
+## 六、常见问题与陷阱 (Common Pitfalls)
+
+### ❌ ERROR: Property 'columnsTemplate' does not exist on type 'WaterFlowAttribute'
+
+**问题：**
+在 HarmonyOS SDK 6.0.1 中，WaterFlow 组件不支持 `columnsTemplate`、`columnsGap`、`rowsGap` 作为属性方法或构造参数。
+
+**错误信息：**
+```
+Property 'columnsTemplate' does not exist on type 'WaterFlowAttribute'
+columnsTemplate does not exist in type 'WaterFlowOptions'
+```
+
+**错误用法：**
+```typescript
+// ❌ WRONG: columnsTemplate 不作为属性方法
+WaterFlow()
+  .columnsTemplate('1fr 1fr')  // ❌ Error
+  .columnsGap(10)              // ❌ Error
+  .rowsGap(10)                 // ❌ Error
+```
+
+```typescript
+// ❌ WRONG: columnsTemplate 不作为构造参数
+WaterFlow({
+  columnsTemplate: '1fr 1fr',  // ❌ Error
+  columnsGap: 10,              // ❌ Error
+  rowsGap: 10                  // ❌ Error
+}) {}
+```
+
+**正确用法：**
+```typescript
+// ✅ CORRECT: SDK 6.0.1 使用简化的 WaterFlow API
+WaterFlow() {
+  ForEach(this.dataSource, (item: number) => {
+    FlowItem() {
+      Text(`项目 ${item}`)
+        .fontSize(16)
+        .fontColor(Color.White)
+    }
+    .width('100%')
+    .height(item % 2 === 0 ? 120 : 180)
+    .backgroundColor(item % 2 === 0 ? '#2196F3' : '#4CAF50')
+    .borderRadius(8)
+    .justifyContent(FlexAlign.Center)
+  })
+}
+.width('100%')
+.height(400)
+.padding(10)
+.backgroundColor('#F5F5F5')
+.borderRadius(8)
+```
+
+**关键点：**
+- SDK 6.0.1 中 WaterFlow API 非常简化
+- 不支持 `columnsTemplate`、`columnsGap`、`rowsGap` 参数
+- 使用 FlowItem 控制布局，通过设置不同的高度实现瀑布流效果
+- 列布局由系统自动管理
+
+**替代方案：**
+如果需要精确控制列数和间距，考虑使用：
+1. **Grid + GridItem** - 适用于固定列网格布局
+2. **Flex + Column** - 使用 layoutWeight 实现列布局
+3. **List + ListItem** - 适用于列表型布局
+
+```typescript
+// 方案1: 使用 Grid 实现类似效果
+Grid() {
+  ForEach(this.dataSource, (item: number) => {
+    GridItem() {
+      Text(`项目 ${item}`)
+    }
+    .width('100%')
+    .height(100)
+    .backgroundColor('#007DFF')
+  })
+}
+.columnsTemplate('1fr 1fr')
+.columnsGap(8)
+.rowsGap(8)
+```
+
+**SDK 版本注意事项：**
+- SDK 6.0.1 中 WaterFlow API 极其有限
+- 官方文档中描述的完整 API 可能在更高版本中才支持
+- 开发时建议测试实际 API 可用性
+
+---
+
+## 七、版本兼容性
 
 | API 版本 | 支持状态 | 备注 |
 |----------|----------|------|
-| API 12+ | ✅ | 完全支持 |
+| API 12+ (SDK 6.0.1) | ⚠️ 部分 | 仅支持基础 WaterFlow()，不支持列/行配置参数 |
+| API 12+ (高版本) | ✅ | 完整支持 columnsTemplate、columnsGap、rowsGap |
 
-## 七、参考资料
+## 八、参考资料
 
 - [WaterFlow 瀑布流 - 华为开发者官方文档](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/ts-container-waterflow-V5)
 - [通用属性 - 华为开发者](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/ts-universal-attributes-size-V5)

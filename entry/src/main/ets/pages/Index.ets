@@ -1,4 +1,4 @@
-import { OpenHarmonyComponentPage } from './OpenHarmonyComponentPage'
+import { OpenHarmonyComponentPage } from './ArkUIComponentExample'
 
 @Entry
 @ComponentV2
@@ -13,7 +13,7 @@ struct Index {
         }
       })
     }
-    .title('OpenHarmony 组件示例')
+    .title('ArkUI 组件示例')
     .mode(NavigationMode.Stack)
   }
 }

@@ -17,7 +17,7 @@ interface ComponentItem {
 
 @Entry
 @ComponentV2
-struct ArkUIComponent {
+struct ArkUIComponentExample {
   // 导航回调函数
   @Param onNavigate: (pageName: string) => void = () => {}
 
@@ -483,4 +483,4 @@ struct ArkUIComponent {
   }
 }
 
-export { ArkUIComponent as OpenHarmonyComponentPage }
+export { ArkUIComponentExample as OpenHarmonyComponentPage }
