@@ -140,23 +140,37 @@ export struct GridExample {
 @ComponentV2
 export struct LayoutExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Layout Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Layout Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        FlexExample()
-        ScrollExample()
-        ListExample()
-        GridExample()
+          FlexExample()
+          ScrollExample()
+          ListExample()
+          GridExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Flex/Scroll/List/Grid 布局')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function FlexExamplePageBuilder() {
+  FlexExample()
+}
+
+@Builder
+export function LayoutExamplePageBuilder() {
+  LayoutExamplePage()
 }

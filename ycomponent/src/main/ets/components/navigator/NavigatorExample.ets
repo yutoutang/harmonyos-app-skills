@@ -411,27 +411,36 @@ export struct NavigatorEventExample {
 @ComponentV2
 export struct NavigatorExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Navigator Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Navigator Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicNavigatorExample()
-        NavigatorWithParamsExample()
-        NavigatorTypeExample()
-        ConditionalNavigatorExample()
-        CardNavigatorExample()
-        DynamicNavigatorExample()
-        NestedNavigatorExample()
-        NavigatorEventExample()
+          BasicNavigatorExample()
+          NavigatorWithParamsExample()
+          NavigatorTypeExample()
+          ConditionalNavigatorExample()
+          CardNavigatorExample()
+          DynamicNavigatorExample()
+          NestedNavigatorExample()
+          NavigatorEventExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Navigator 导航器')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function NavigatorExamplePageBuilder() {
+  NavigatorExamplePage()
 }

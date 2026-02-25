@@ -97,7 +97,9 @@ struct NavigationExample {
 }
 ```
 
-**步骤 3：创建目标页面**
+**步骤 3：创建目标页面（必须使用 NavDestination 包裹）**
+
+> **重要**：从 API 12 开始，使用系统路由表跳转的目标页面**必须使用 NavDestination 包裹**，否则无法正常跳转和显示。
 
 ```typescript
 // DetailPage.ets
@@ -106,20 +108,25 @@ export struct DetailPage {
   @State message: string = '详情页';
 
   build() {
-    Column() {
-      Text(this.message)
-        .fontSize(24)
-        .margin(20)
+    // 必须使用 NavDestination 包裹页面内容
+    NavDestination() {
+      Column() {
+        Text(this.message)
+          .fontSize(24)
+          .margin(20)
 
-      Button('返回')
-        .onClick(() => {
-          // 获取路由栈并返回
-          const navPathStack = NavigationManager.getNavPathStack();
-          navPathStack.pop();
-        })
+        Button('返回')
+          .onClick(() => {
+            // 获取路由栈并返回
+            const navPathStack = NavigationManager.getNavPathStack();
+            navPathStack.pop();
+          })
+      }
+      .width('100%')
+      .height('100%')
     }
-    .width('100%')
-    .height('100%')
+    .title('详情页') // 设置导航栏标题
+    .mode(NavDestinationMode.STANDARD) // 标准模式
   }
 }
 
@@ -127,6 +134,19 @@ export struct DetailPage {
 export function DetailPageBuilder() {
   DetailPage();
 }
+```
+
+**NavDestination 常用配置：**
+
+```typescript
+NavDestination() {
+  // 页面内容
+}
+.title('页面标题')                    // 导航栏标题
+.subtitle('副标题')                  // 导航栏副标题
+.mode(NavDestinationMode.STANDARD)   // 页面模式：STANDARD(标准) / MODAL(模态)
+.hideTitleBar(false)                 // 是否隐藏标题栏
+.hideBackButton(false)               // 是否隐藏返回按钮
 ```
 
 ## 三、页面跳转

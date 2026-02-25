@@ -962,3 +962,8 @@ export struct SwiperExamplePage {
     .mode(NavDestinationMode.STANDARD)
   }
 }
+
+@Builder
+export function SwiperExamplePageBuilder() {
+  SwiperExamplePage()
+}

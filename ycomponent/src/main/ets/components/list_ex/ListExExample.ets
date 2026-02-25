@@ -793,13 +793,19 @@ interface FolderItem {
 @ComponentV2
 export struct ListExExamplePage {
   build() {
+    NavDestination() {
     Scroll() {
       Column({ space: 20 }) {
         Text('List Extended Components Examples')
           .fontSize(24)
           .fontWeight(FontWeight.Bold)
           .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+          .padding({
+            left: 16,
+            right: 16,
+            top: 16,
+            bottom: 8
+          })
 
         // ListItem 示例
         ListItemBasicExample()
@@ -827,5 +833,13 @@ export struct ListExExamplePage {
     .width('100%')
     .height('100%')
     .backgroundColor('#FFFFFF')
+    }
+    .title('List Enhanced 增强列表')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function ListExExamplePageBuilder() {
+  ListExExamplePage()
 }

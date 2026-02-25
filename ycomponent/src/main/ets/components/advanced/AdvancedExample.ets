@@ -101,21 +101,30 @@ export struct GridColRowExample {
 @ComponentV2
 export struct AdvancedExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 16 }) {
-        Text('Advanced Layout Components')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
+    NavDestination() {
+      Scroll() {
+        Column({ space: 16 }) {
+          Text('Advanced Layout Components')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
 
-        RelativeContainerExample()
-        GridColRowExample()
+          RelativeContainerExample()
+          GridColRowExample()
+        }
+        .width('100%')
+        .padding(16)
       }
       .width('100%')
-      .padding(16)
+      .height('100%')
+      .backgroundColor('#F5F5F5')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#F5F5F5')
+    .title('Advanced 高级布局示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function AdvancedExamplePageBuilder() {
+  AdvancedExamplePage()
 }

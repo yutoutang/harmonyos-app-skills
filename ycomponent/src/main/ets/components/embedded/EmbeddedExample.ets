@@ -639,39 +639,48 @@ export struct UseCasesExample {
 @ComponentV2
 export struct EmbeddedExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        // 页面标题
-        Text('Embedded Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          // 页面标题
+          Text('Embedded Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({
+              left: 16,
+              right: 16,
+              top: 16,
+              bottom: 8
+            })
 
-        // EmbeddedComponent 基础示例
-        EmbeddedComponentExample()
+          // EmbeddedComponent 基础示例
+          EmbeddedComponentExample()
 
-        // 动态切换示例
-        DynamicEmbeddedExample()
+          // 动态切换示例
+          DynamicEmbeddedExample()
 
-        // XComponent 基础示例
-        XComponentExample()
+          // XComponent 基础示例
+          XComponentExample()
 
-        // 可调整大小示例
-        ResizableXComponentExample()
+          // 可调整大小示例
+          ResizableXComponentExample()
 
-        // 应用场景
-        UseCasesExample()
+          // 应用场景
+          UseCasesExample()
 
-        // 底部说明
-        this.buildFooter()
+          // 底部说明
+          this.buildFooter()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
+      .scrollBar(BarState.Auto)
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
-    .scrollBar(BarState.Auto)
+    .title('Embedded 嵌入组件')
+    .mode(NavDestinationMode.STANDARD)
   }
 
   @Builder
@@ -713,4 +722,9 @@ export struct EmbeddedExamplePage {
     }
     .width('100%')
   }
+}
+
+@Builder
+export function EmbeddedExamplePageBuilder() {
+  EmbeddedExamplePage()
 }

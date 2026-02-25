@@ -747,26 +747,38 @@ export struct AdaptiveFontSizeExample {
 @ComponentV2
 export struct TextExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Text Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Text Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicTextStyleExample()
-        TextAlignmentExample()
-        TextOverflowExample()
-        TextDecorationExample()
-        LineHeightExample()
-        TextCopyExample()
-        AdaptiveFontSizeExample()
+          BasicTextStyleExample()
+          TextAlignmentExample()
+          TextOverflowExample()
+          TextDecorationExample()
+          LineHeightExample()
+          TextCopyExample()
+          AdaptiveFontSizeExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Text 文本组件示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+/**
+ * Builder function for router map
+ */
+@Builder
+export function TextExamplePageBuilder() {
+  TextExamplePage()
 }

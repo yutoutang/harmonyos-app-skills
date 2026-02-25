@@ -561,27 +561,36 @@ export struct SimpleAppointmentExample {
 @ComponentV2
 export struct FormExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Form Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Form Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicStepperExample()
-        BasicCounterExample()
-        ProductCounterExample()
-        BasicCalendarPickerExample()
-        SimpleCalendarPickerExample()
-        FormWizardExample()
-        CartCountersExample()
-        SimpleAppointmentExample()
+          BasicStepperExample()
+          BasicCounterExample()
+          ProductCounterExample()
+          BasicCalendarPickerExample()
+          SimpleCalendarPickerExample()
+          FormWizardExample()
+          CartCountersExample()
+          SimpleAppointmentExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Form 表单组件')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function FormExamplePageBuilder() {
+  FormExamplePage()
 }

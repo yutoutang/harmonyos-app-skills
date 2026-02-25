@@ -433,24 +433,33 @@ export struct DynamicNavRouterExample {
 @ComponentV2
 export struct NavRouterExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('NavRouter Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('NavRouter Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicNavRouterExample()
-        SidebarNavRouterExample()
-        TabNavRouterExample()
-        AnimatedNavRouterExample()
-        DynamicNavRouterExample()
+          BasicNavRouterExample()
+          SidebarNavRouterExample()
+          TabNavRouterExample()
+          AnimatedNavRouterExample()
+          DynamicNavRouterExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('NavRouter 路由')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function NavRouterExamplePageBuilder() {
+  NavRouterExamplePage()
 }

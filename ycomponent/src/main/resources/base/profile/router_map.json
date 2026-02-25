@@ -1,0 +1,239 @@
+{
+  "routerMap": [
+    {
+      "name": "AdvancedExamplePage",
+      "pageSourceFile": "src/main/ets/components/advanced/AdvancedExample.ets",
+      "buildFunction": "AdvancedExamplePageBuilder"
+    },
+    {
+      "name": "BlankExamplePage",
+      "pageSourceFile": "src/main/ets/components/blank/BlankExample.ets",
+      "buildFunction": "BlankExamplePageBuilder"
+    },
+    {
+      "name": "ButtonExamplePage",
+      "pageSourceFile": "src/main/ets/components/button/ButtonExample.ets",
+      "buildFunction": "ButtonExamplePageBuilder"
+    },
+    {
+      "name": "CounterExamplePage",
+      "pageSourceFile": "src/main/ets/components/counter/CounterExample.ets",
+      "buildFunction": "CounterExamplePageBuilder"
+    },
+    {
+      "name": "CurvesExamplePage",
+      "pageSourceFile": "src/main/ets/components/curves/CurvesExample.ets",
+      "buildFunction": "CurvesExamplePageBuilder"
+    },
+    {
+      "name": "DataExamplePage",
+      "pageSourceFile": "src/main/ets/components/data/DataExample.ets",
+      "buildFunction": "DataExamplePageBuilder"
+    },
+    {
+      "name": "DialogExamplePage",
+      "pageSourceFile": "src/main/ets/components/dialog/DialogExample.ets",
+      "buildFunction": "DialogExamplePageBuilder"
+    },
+    {
+      "name": "EmbeddedExamplePage",
+      "pageSourceFile": "src/main/ets/components/embedded/EmbeddedExample.ets",
+      "buildFunction": "EmbeddedExamplePageBuilder"
+    },
+    {
+      "name": "FlexExamplePage",
+      "pageSourceFile": "src/main/ets/components/flex/FlexExample.ets",
+      "buildFunction": "FlexExamplePageBuilder"
+    },
+    {
+      "name": "FormExamplePage",
+      "pageSourceFile": "src/main/ets/components/form/FormExample.ets",
+      "buildFunction": "FormExamplePageBuilder"
+    },
+    {
+      "name": "FormLinkExamplePage",
+      "pageSourceFile": "src/main/ets/components/form_link/FormLinkExample.ets",
+      "buildFunction": "FormLinkExamplePageBuilder"
+    },
+    {
+      "name": "GraphicsExamplePage",
+      "pageSourceFile": "src/main/ets/components/graphics/GraphicsExample.ets",
+      "buildFunction": "GraphicsExamplePageBuilder"
+    },
+    {
+      "name": "ImageExamplePage",
+      "pageSourceFile": "src/main/ets/components/image/ImageExample.ets",
+      "buildFunction": "ImageExamplePageBuilder"
+    },
+    {
+      "name": "InputExamplePage",
+      "pageSourceFile": "src/main/ets/components/input/InputExample.ets",
+      "buildFunction": "InputExamplePageBuilder"
+    },
+    {
+      "name": "MediaExamplePage",
+      "pageSourceFile": "src/main/ets/components/media/MediaExample.ets",
+      "buildFunction": "MediaExamplePageBuilder"
+    },
+    {
+      "name": "NavRouterExamplePage",
+      "pageSourceFile": "src/main/ets/components/nav_router/NavRouterExample.ets",
+      "buildFunction": "NavRouterExamplePageBuilder"
+    },
+    {
+      "name": "NavigationExamplePage",
+      "pageSourceFile": "src/main/ets/components/navigation/NavigationExample.ets",
+      "buildFunction": "NavigationExamplePageBuilder"
+    },
+    {
+      "name": "NavigatorExamplePage",
+      "pageSourceFile": "src/main/ets/components/navigator/NavigatorExample.ets",
+      "buildFunction": "NavigatorExamplePageBuilder"
+    },
+    {
+      "name": "PickerExamplePage",
+      "pageSourceFile": "src/main/ets/components/picker/PickerExample.ets",
+      "buildFunction": "PickerExamplePageBuilder"
+    },
+    {
+      "name": "RichExamplePage",
+      "pageSourceFile": "src/main/ets/components/rich/RichExample.ets",
+      "buildFunction": "RichExamplePageBuilder"
+    },
+    {
+      "name": "SearchExamplePage",
+      "pageSourceFile": "src/main/ets/components/search/SearchExample.ets",
+      "buildFunction": "SearchExamplePageBuilder"
+    },
+    {
+      "name": "SelectExamplePage",
+      "pageSourceFile": "src/main/ets/components/select/SelectExample.ets",
+      "buildFunction": "SelectExamplePageBuilder"
+    },
+    {
+      "name": "SelectionExamplePage",
+      "pageSourceFile": "src/main/ets/components/selection/SelectionExample.ets",
+      "buildFunction": "SelectionExamplePageBuilder"
+    },
+    {
+      "name": "ShapeExamplePage",
+      "pageSourceFile": "src/main/ets/components/shape/ShapeExample.ets",
+      "buildFunction": "ShapeExamplePageBuilder"
+    },
+    {
+      "name": "SideBarExamplePage",
+      "pageSourceFile": "src/main/ets/components/sidebar/SideBarExample.ets",
+      "buildFunction": "SideBarExamplePageBuilder"
+    },
+    {
+      "name": "SpanExamplePage",
+      "pageSourceFile": "src/main/ets/components/span/SpanExample.ets",
+      "buildFunction": "SpanExamplePageBuilder"
+    },
+    {
+      "name": "StackExamplePage",
+      "pageSourceFile": "src/main/ets/components/stack/StackExample.ets",
+      "buildFunction": "StackExamplePageBuilder"
+    },
+    {
+      "name": "SwiperExamplePage",
+      "pageSourceFile": "src/main/ets/components/swiper/SwiperExample.ets",
+      "buildFunction": "SwiperExamplePageBuilder"
+    },
+    {
+      "name": "TabsExamplePage",
+      "pageSourceFile": "src/main/ets/components/tabs/TabsExample.ets",
+      "buildFunction": "TabsExamplePageBuilder"
+    },
+    {
+      "name": "TextExamplePage",
+      "pageSourceFile": "src/main/ets/components/text/TextExample.ets",
+      "buildFunction": "TextExamplePageBuilder"
+    },
+    {
+      "name": "TextAreaExamplePage",
+      "pageSourceFile": "src/main/ets/components/textarea/TextAreaExample.ets",
+      "buildFunction": "TextAreaExamplePageBuilder"
+    },
+    {
+      "name": "BadgeExamplePage",
+      "pageSourceFile": "src/main/ets/components/badge/BadgeExample.ets",
+      "buildFunction": "BadgeExamplePageBuilder"
+    },
+    {
+      "name": "VideoExamplePage",
+      "pageSourceFile": "src/main/ets/components/video/VideoExample.ets",
+      "buildFunction": "VideoExamplePageBuilder"
+    },
+    {
+      "name": "WebExamplePage",
+      "pageSourceFile": "src/main/ets/components/web/WebExample.ets",
+      "buildFunction": "WebExamplePageBuilder"
+    },
+    {
+      "name": "XComponentExamplePage",
+      "pageSourceFile": "src/main/ets/components/xcomponent/XComponentExample.ets",
+      "buildFunction": "XComponentExamplePageBuilder"
+    },
+    {
+      "name": "GridExamplePage",
+      "pageSourceFile": "src/main/ets/components/grid/GridExample.ets",
+      "buildFunction": "GridExamplePageBuilder"
+    },
+    {
+      "name": "ScrollExamplePage",
+      "pageSourceFile": "src/main/ets/components/scroll/ScrollExample.ets",
+      "buildFunction": "ScrollExamplePageBuilder"
+    },
+    {
+      "name": "ColumnRowExamplePage",
+      "pageSourceFile": "src/main/ets/components/column_row/ColumnRowExample.ets",
+      "buildFunction": "ColumnRowExamplePageBuilder"
+    },
+    {
+      "name": "AlphabetIndexerExamplePage",
+      "pageSourceFile": "src/main/ets/components/alphabet_indexer/AlphabetIndexerExample.ets",
+      "buildFunction": "AlphabetIndexerExamplePageBuilder"
+    },
+    {
+      "name": "ColumnSplitExamplePage",
+      "pageSourceFile": "src/main/ets/components/column_split/ColumnSplitExample.ets",
+      "buildFunction": "ColumnSplitExamplePageBuilder"
+    },
+    {
+      "name": "RowSplitExamplePage",
+      "pageSourceFile": "src/main/ets/components/row_split/RowSplitExample.ets",
+      "buildFunction": "RowSplitExamplePageBuilder"
+    },
+    {
+      "name": "WaterFlowExamplePage",
+      "pageSourceFile": "src/main/ets/components/water_flow/WaterFlowExample.ets",
+      "buildFunction": "WaterFlowExamplePageBuilder"
+    },
+    {
+      "name": "ProgressExamplePage",
+      "pageSourceFile": "src/main/ets/components/progress/ProgressExample.ets",
+      "buildFunction": "ProgressExamplePageBuilder"
+    },
+    {
+      "name": "RefreshExamplePage",
+      "pageSourceFile": "src/main/ets/components/refresh/RefreshExample.ets",
+      "buildFunction": "RefreshExamplePageBuilder"
+    },
+    {
+      "name": "ListExamplePage",
+      "pageSourceFile": "src/main/ets/components/list/ListExample.ets",
+      "buildFunction": "ListExamplePageBuilder"
+    },
+    {
+      "name": "ListExExamplePage",
+      "pageSourceFile": "src/main/ets/components/list_ex/ListExExample.ets",
+      "buildFunction": "ListExExamplePageBuilder"
+    },
+    {
+      "name": "MenuExamplePage",
+      "pageSourceFile": "src/main/ets/components/menu/MenuExample.ets",
+      "buildFunction": "MenuExamplePageBuilder"
+    }
+  ]
+}

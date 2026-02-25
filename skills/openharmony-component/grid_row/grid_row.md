@@ -664,7 +664,76 @@ GridRow({
 }
 ```
 
-## 六、版本兼容性
+## 六、常见问题与陷阱 (Common Pitfalls)
+
+### ❌ ERROR: Property 'columnsTemplate' does not exist on type 'GridRowAttribute'
+
+**问题：**
+在 HarmonyOS SDK 6.0.1 中，GridRow 组件不支持 `columnsTemplate` 属性。
+
+**错误信息：**
+```
+Property 'columnsTemplate' does not exist on type 'GridRowAttribute'
+```
+
+**错误用法：**
+```typescript
+// ❌ WRONG: columnsTemplate 不存在
+GridRow()
+  .columnsTemplate('1fr 1fr 1fr')  // ❌ Error
+  .columnsGap(10)
+  .rowsGap(10)
+```
+
+**正确用法：**
+```typescript
+// ✅ CORRECT: 使用 columns 参数
+GridRow({ columns: 3, gutter: 10 })
+```
+
+**关键点：**
+- GridRow 使用 `columns` 参数，不是 `columnsTemplate` 属性
+- 列间距使用 `gutter` 参数，不是 `columnsGap`
+- 行间距使用子组件的 `margin` 或 `padding`
+
+### ❌ GridRow/GridCol 组件 API 不兼容
+
+**问题：**
+GridRow 和 GridCol 组件在 SDK 6.0.1 中的 API 与文档描述不一致，多个属性不支持。
+
+**不支持的属性：**
+- `columnsTemplate` - 使用构造参数 `columns` 代替
+- `columnsGap` - 使用构造参数 `gutter` 代替
+- `rowsGap` - 不支持，使用其他布局方式
+- `onBreakpoint` - 可能不支持或 API 不同
+
+**正确的初始化方式：**
+```typescript
+// ✅ CORRECT
+GridRow({
+  columns: 12,        // 总列数
+  gutter: 16,          // 列间距
+  breakpoints: {       // 断点配置
+    value: ['600vp', '800vp', '1200vp']
+  }
+}) {
+  GridCol({
+    span: 6,           // 占用列数
+    offset: 0          // 列偏移
+  }) {
+    Text('Content')
+  }
+}
+```
+
+**SDK 版本注意事项：**
+- SDK 6.0.1 中 GridRow/GridCol API 可能不完整
+- 建议使用 Flex、Column、Row 等基础布局组件替代
+- 如需栅格布局，考虑手动计算宽度百分比
+
+---
+
+## 七、版本兼容性
 
 | API 版本 | 支持状态 | 备注 |
 |----------|----------|------|

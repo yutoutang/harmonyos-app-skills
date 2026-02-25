@@ -439,26 +439,35 @@ export struct SpaceBetweenExample {
 @ComponentV2
 export struct ColumnRowExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Column & Row Layout Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Column & Row Layout Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        ColumnBasicExample()
-        ColumnAlignmentExample()
-        RowBasicExample()
-        RowAlignmentExample()
-        LayoutWeightExample()
-        NestedLayoutExample()
-        SpaceBetweenExample()
+          ColumnBasicExample()
+          ColumnAlignmentExample()
+          RowBasicExample()
+          RowAlignmentExample()
+          LayoutWeightExample()
+          NestedLayoutExample()
+          SpaceBetweenExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Column & Row 布局组件示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function ColumnRowExamplePageBuilder() {
+  ColumnRowExamplePage()
 }

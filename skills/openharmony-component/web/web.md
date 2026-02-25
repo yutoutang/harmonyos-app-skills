@@ -504,7 +504,108 @@ Web({ src: 'https://www.example.com' })
   .mixedMode(MixedMode.Compatibility)  // 兼容模式
 ```
 
-## 七、版本兼容性
+## 七、常见问题与陷阱 (Common Pitfalls)
+
+### ❌ ERROR: No such resource in current module
+
+**问题：**
+使用 `$rawfile()` 加载本地 HTML 文件时，如果文件不存在会导致编译错误。
+
+**错误信息：**
+```
+Error: No such 'web/sample.html' resource in current module
+At File: WebExample.ets:72:18
+```
+
+**错误用法：**
+```typescript
+// ❌ WRONG: 文件不存在
+Web({ src: $rawfile('web/sample.html'), controller: this.controller })
+  .width('100%')
+  .height(250)
+```
+
+**正确用法：**
+```typescript
+// ✅ CORRECT: 使用 data URL 或确保文件存在
+// 方案1: 使用 data URL
+Web({ src: 'data:text/html,<html><body>Hello</body></html>', controller: this.controller })
+  .width('100%')
+  .height(250)
+
+// 方案2: 确保文件存在在 src/main/resources/rawfile 目录
+// 目录结构:
+// src/main/resources/rawfile/
+//   ├── web/
+//   │   └── sample.html  // 确保文件存在
+Web({ src: $rawfile('web/sample.html'), controller: this.controller })
+  .width('100%')
+  .height(250)
+```
+
+**解决方案：**
+1. 使用 `data:text/html,...` 格式直接嵌入 HTML 内容
+2. 确保 HTML 文件放置在正确的 `resources/rawfile` 目录下
+3. 文件路径使用 `/` 分隔，不以 `/` 开头
+
+### ❌ ERROR: Use explicit types instead of "any", "unknown"
+
+**问题：**
+JavaScript Promise 的 catch 回调中，error 参数类型未明确指定导致编译错误。
+
+**错误信息：**
+```
+Error: Use explicit types instead of "any", "unknown"
+At File: WebExample.ets:187:22
+```
+
+**错误用法：**
+```typescript
+// ❌ WRONG: error 参数未指定类型
+this.controller.runJavaScript('test()')
+  .then(result => {
+    this.jsResult = result as string
+  })
+  .catch(error => {  // ❌ Error: implicit any/unknown
+    this.jsResult = '调用失败'
+  })
+```
+
+**正确用法：**
+```typescript
+// ✅ CORRECT: 明确指定 error 类型为 Error
+this.controller.runJavaScript('test()')
+  .then(result => {
+    this.jsResult = result as string
+  })
+  .catch((error: Error) => {  // ✅ Explicit type
+    this.jsResult = '调用失败'
+    console.error('JavaScript error:', error.message)
+  })
+```
+
+**关键点：**
+- ArkTS 要求明确指定类型，不允许隐式 any/unknown
+- Promise 的 catch/reject 回调必须明确错误类型
+- 推荐使用 `Error` 类型或自定义错误接口
+
+### ⚠️ Web 组件独立使用
+
+**说明：**
+在项目重构中，Web 组件已从 MediaExample 中独立出来，作为单独的示例组件。
+
+**原因：**
+- MediaExample 包含 Video、ImageAnimator、TextClock、TextTimer 等多个组件
+- Web 组件功能完整且独立，应作为单独的示例
+- 便于组织和维护
+
+**新位置：**
+- 示例文件：`ycomponent/src/main/ets/components/web/WebExample.ets`
+- 路由名称：`WebExamplePage`
+
+---
+
+## 八、版本兼容性
 
 | API 版本 | 支持状态 | 备注 |
 |----------|----------|------|

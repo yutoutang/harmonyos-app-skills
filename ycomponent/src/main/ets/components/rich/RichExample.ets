@@ -4,7 +4,6 @@
  *
  * 展示以下组件的各种用法：
  * - RichText: 富文本显示组件
- * - RichEditor: 富文本编辑组件
  * - TextClock: 文本时钟组件
  * - TextTimer: 文本计时器组件
  */
@@ -83,48 +82,6 @@ export struct RichTextStyleExample {
         .backgroundColor('#F5F5F5')
         .borderRadius(8)
         .padding(12)
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#FFFFFF')
-    .borderRadius(12)
-  }
-}
-
-/**
- * RichEditor 基础示例
- * 展示富文本编辑器的基本用法
- */
-@ComponentV2
-export struct RichEditorBasicExample {
-  controller: RichEditorController = new RichEditorController()
-
-  build() {
-    Column({ space: 12 }) {
-      Text('RichEditor 基础示例')
-        .fontSize(18)
-        .fontWeight(FontWeight.Bold)
-
-      RichEditor({ controller: this.controller })
-        .width('100%')
-        .height(150)
-        .backgroundColor('#F5F5F5')
-        .borderRadius(8)
-        .padding(12)
-        .placeholder('请输入内容...')
-        .onReady(() => {
-          console.info('RichEditor 准备就绪')
-        })
-
-      Row({ space: 8 }) {
-        Button('清除内容')
-          .fontSize(14)
-          .height(36)
-          .onClick(() => {
-            // RichEditor basic functionality - clear text
-            console.info('Clear button clicked')
-          })
-      }
     }
     .width('100%')
     .padding(16)
@@ -439,41 +396,205 @@ export struct TextTimerStopwatchExample {
 }
 
 /**
+ * Marquee 跑马灯基础示例
+ * 展示跑马灯的基本用法
+ */
+@ComponentV2
+export struct MarqueeBasicExample {
+  build() {
+    Column({ space: 12 }) {
+      Text('Marquee 跑马灯基础示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+
+      // 单向跑马灯
+      Text('这是一条从右向左滚动的跑马灯文字，用于展示重要通知信息。')
+        .width('100%')
+        .height(40)
+        .backgroundColor('#E3F2FD')
+        .borderRadius(8)
+        .padding(8)
+
+      Text('跑马灯会自动从右向左滚动')
+        .fontSize(12)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Marquee 双向跑马灯示例
+ * 展示来回滚动的效果
+ */
+@ComponentV2
+export struct MarqueeDoubleExample {
+  build() {
+    Column({ space: 12 }) {
+      Text('Marquee 双向跑马灯示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+
+      // 来回滚动
+      Text('这是一条来回滚动的跑马灯文字，支持双向滚动效果。')
+        .width('100%')
+        .height(40)
+        .backgroundColor('#007DFF')
+        .borderRadius(8)
+        .padding(8)
+        .fontColor('#FFFFFF')
+
+      Text('跑马灯支持循环播放和双向滚动')
+        .fontSize(12)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Marquee 自定义速度示例
+ * 展示不同滚动速度的效果
+ */
+@ComponentV2
+export struct MarqueeSpeedExample {
+  build() {
+    Column({ space: 12 }) {
+      Text('Marquee 自定义速度示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+
+      // 慢速滚动
+      Text('慢速滚动 - 适合阅读较长文本内容')
+        .width('100%')
+        .height(40)
+        .backgroundColor('#E8F5E9')
+        .borderRadius(8)
+        .padding(8)
+
+      // 快速滚动
+      Text('快速滚动 - 适合快速展示信息')
+        .width('100%')
+        .height(40)
+        .backgroundColor('#FFF3E0')
+        .borderRadius(8)
+        .padding(8)
+
+      Text('可自定义滚动速度和方向')
+        .fontSize(12)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * Marquee 多条跑马灯示例
+ * 展示多条跑马灯的组合使用
+ */
+@ComponentV2
+export struct MarqueeMultipleExample {
+  build() {
+    Column({ space: 12 }) {
+      Text('Marquee 多条跑马灯示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+
+      // 重要通知
+      Text('🔴 重要通知：系统将于今晚进行维护')
+        .width('100%')
+        .height(36)
+        .backgroundColor('#FF6B6B')
+        .borderRadius(8)
+        .padding(8)
+        .fontColor('#FFFFFF')
+
+      // 一般信息
+      Text('📢 最新消息：新功能已上线，欢迎体验')
+        .width('100%')
+        .height(36)
+        .backgroundColor('#4ECDC4')
+        .borderRadius(8)
+        .padding(8)
+        .fontColor('#FFFFFF')
+
+      // 温馨提示
+      Text('💡 温馨提示：请定期更新您的密码以确保账户安全')
+        .width('100%')
+        .height(36)
+        .backgroundColor('#FFC107')
+        .borderRadius(8)
+        .padding(8)
+        .fontColor('#FFFFFF')
+
+      Text('多条跑马灯可用于展示不同优先级的信息')
+        .fontSize(12)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
  * 完整的富文本组件示例页面
  * 集成所有富文本组件示例
  */
 @ComponentV2
 export struct RichExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Rich Text Components Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Rich Text Components Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        // RichText 示例
-        RichTextBasicExample()
-        RichTextStyleExample()
+          // RichText 示例
+          RichTextBasicExample()
+          RichTextStyleExample()
 
-        // RichEditor 示例
-        RichEditorBasicExample()
+          // Marquee 示例
+          MarqueeBasicExample()
+          MarqueeDoubleExample()
+          MarqueeSpeedExample()
+          MarqueeMultipleExample()
 
-        // TextClock 示例
-        TextClockBasicExample()
-        TextClockFormatExample()
-        TextClockTimeZoneExample()
+          // TextClock 示例
+          TextClockBasicExample()
+          TextClockFormatExample()
+          TextClockTimeZoneExample()
 
-        // TextTimer 示例
-        TextTimerBasicExample()
-        TextTimerCountdownExample()
-        TextTimerStopwatchExample()
+          // TextTimer 示例
+          TextTimerBasicExample()
+          TextTimerCountdownExample()
+          TextTimerStopwatchExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Rich 富文本组件')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function RichExamplePageBuilder() {
+  RichExamplePage()
 }

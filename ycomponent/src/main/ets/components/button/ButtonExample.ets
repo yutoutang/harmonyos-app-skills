@@ -462,28 +462,37 @@ export struct ButtonGroupExample {
 @ComponentV2
 export struct ButtonExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Button Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Button Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        ButtonTypesExample()
-        ButtonStyleModeExample()
-        ButtonRoleExample()
-        ControlSizeExample()
-        LabelStyleExample()
-        StateEffectExample()
-        CustomContentExample()
-        LoadingButtonExample()
-        ButtonGroupExample()
+          ButtonTypesExample()
+          ButtonStyleModeExample()
+          ButtonRoleExample()
+          ControlSizeExample()
+          LabelStyleExample()
+          StateEffectExample()
+          CustomContentExample()
+          LoadingButtonExample()
+          ButtonGroupExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Button 按钮组件示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function ButtonExamplePageBuilder() {
+  ButtonExamplePage()
 }

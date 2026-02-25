@@ -380,7 +380,6 @@ struct GaugeBasicExample {
         .width(160)
         .height(160)
         .colors([[0x007DFF, 1]])
-        .thickness(20)
 
       Text(`${this.gaugeValue}%`)
         .fontSize(32)
@@ -442,7 +441,6 @@ struct GaugeGradientExample {
           [0xFFB020, 0.6],  // 中速区间 - 黄色
           [0xFF6B6B, 1.0]   // 高速区间 - 红色
         ])
-        .thickness(25)
 
       Text(`${this.speed} km/h`)
         .fontSize(28)
@@ -476,7 +474,6 @@ struct GaugeSemiCircleExample {
         .startAngle(180)
         .endAngle(360)
         .colors([[0xFF6B6B, 1]])
-        .thickness(30)
 
       Text('温度')
         .fontSize(14)
@@ -517,7 +514,6 @@ struct GaugeDashboardExample {
             .width(100)
             .height(100)
             .colors([[0x007DFF, 1]])
-            .thickness(15)
 
           Text('CPU')
             .fontSize(12)
@@ -559,36 +555,45 @@ struct GaugeDashboardExample {
 @ComponentV2
 export struct ProgressExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Progress Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Progress Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        // Progress Examples
-        LinearProgressExample()
-        RingProgressExample()
-        ScaleRingProgressExample()
-        CapsuleProgressExample()
-        EclipseProgressExample()
+          // Progress Examples
+          LinearProgressExample()
+          RingProgressExample()
+          ScaleRingProgressExample()
+          CapsuleProgressExample()
+          EclipseProgressExample()
 
-        // LoadingProgress Example
-        LoadingProgressExample()
+          // LoadingProgress Example
+          LoadingProgressExample()
 
-        // Gauge Examples
-        GaugeBasicExample()
-        GaugeGradientExample()
-        GaugeSemiCircleExample()
-        GaugeDashboardExample()
+          // Gauge Examples
+          GaugeBasicExample()
+          GaugeGradientExample()
+          GaugeSemiCircleExample()
+          GaugeDashboardExample()
+        }
+        .width('100%')
+        .padding({ left: 16, right: 16, bottom: 16 })
       }
       .width('100%')
-      .padding({ left: 16, right: 16, bottom: 16 })
+      .height('100%')
+      .backgroundColor('#FFFFFF')
+      .scrollBar(BarState.Auto)
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
-    .scrollBar(BarState.Auto)
+    .title('Progress 进度条')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function ProgressExamplePageBuilder() {
+  ProgressExamplePage()
 }

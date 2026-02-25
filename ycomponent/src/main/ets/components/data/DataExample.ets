@@ -639,24 +639,33 @@ export struct RefreshExample {
 @ComponentV2
 export struct DataExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Data Display Components Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Data Display Components Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        GaugeExample()
-        LoadingProgressExample()
-        DataPanelExample()
-        ProgressExample()
-        RefreshExample()
+          GaugeExample()
+          LoadingProgressExample()
+          DataPanelExample()
+          ProgressExample()
+          RefreshExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Data 数据展示')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function DataExamplePageBuilder() {
+  DataExamplePage()
 }

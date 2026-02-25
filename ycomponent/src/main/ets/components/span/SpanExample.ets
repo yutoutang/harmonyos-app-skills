@@ -82,21 +82,30 @@ export struct PriceSpanExample {
 @ComponentV2
 export struct SpanExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 16 }) {
-        Text('Span Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
+    NavDestination() {
+      Scroll() {
+        Column({ space: 16 }) {
+          Text('Span Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
 
-        BasicSpanExample()
-        PriceSpanExample()
+          BasicSpanExample()
+          PriceSpanExample()
+        }
+        .width('100%')
+        .padding(16)
       }
       .width('100%')
-      .padding(16)
+      .height('100%')
+      .backgroundColor('#F5F5F5')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#F5F5F5')
+    .title('Span 文本片段示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function SpanExamplePageBuilder() {
+  SpanExamplePage()
 }

@@ -234,25 +234,6 @@ export struct CustomTitleBarExample {
         .justifyContent(FlexAlign.Center)
       }
       .title('自定义标题')
-      .subtitle('副标题说明')
-      .leading(() => {
-        Button('返回')
-          .fontSize(14)
-          .type(ButtonType.Normal)
-          .onClick(() => {
-            this.navPathStack.pop()
-          })
-      })
-      .trailing(() => {
-        Row({ space: 8 }) {
-          Button('分享')
-            .fontSize(14)
-            .type(ButtonType.Normal)
-          Button('更多')
-            .fontSize(14)
-            .type(ButtonType.Normal)
-        }
-      })
     }
   }
 }
@@ -389,43 +370,54 @@ export struct StackOperationsExample {
   @Builder
   PageBuilder(name: string, params: Object) {
     if (name === 'PageA') {
-      NavDestination() {
-        Column({ space: 12 }) {
-          Text('页面 A')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-          Button('返回')
-            .onClick(() => {
-              this.navPathStack.pop()
-              this.updateStackInfo()
-            })
-          Button('Replace 为 B')
-            .onClick(() => {
-              this.navPathStack.replacePathByName('PageB', null)
-              this.updateStackInfo()
-            })
-        }
-        .width('100%')
-        .padding(20)
-      }
-      .title('Page A')
-    } else if (name === 'PageB') {
-      NavDestination() {
-        Column({ space: 12 }) {
-          Text('页面 B')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-          Button('返回')
-            .onClick(() => {
-              this.navPathStack.pop()
-              this.updateStackInfo()
-            })
-        }
-        .width('100%')
-        .padding(20)
-      }
-      .title('Page B')
+      this.PageABuilder()
     }
+    if (name === 'PageB') {
+      this.PageBBuilder()
+    }
+  }
+
+  @Builder
+  PageABuilder() {
+    NavDestination() {
+      Column({ space: 12 }) {
+        Text('页面 A')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+        Button('返回')
+          .onClick(() => {
+            this.navPathStack.pop()
+            this.updateStackInfo()
+          })
+        Button('Replace 为 B')
+          .onClick(() => {
+            this.navPathStack.replacePathByName('PageB', null)
+            this.updateStackInfo()
+          })
+      }
+      .width('100%')
+      .padding(20)
+    }
+    .title('Page A')
+  }
+
+  @Builder
+  PageBBuilder() {
+    NavDestination() {
+      Column({ space: 12 }) {
+        Text('页面 B')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+        Button('返回')
+          .onClick(() => {
+            this.navPathStack.pop()
+            this.updateStackInfo()
+          })
+      }
+      .width('100%')
+      .padding(20)
+    }
+    .title('Page B')
   }
 
   private updateStackInfo(): void {
@@ -498,64 +490,75 @@ export struct ParamsPassingExample {
   @Builder
   PageBuilder(name: string, params: Object) {
     if (name === 'UserInfoPage') {
-      NavDestination() {
-        Column({ space: 12 }) {
-          Text('用户信息')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-
-          ForEach(Object.entries(params), (entry: [string, Object], index: number) => {
-            Row({ space: 8 }) {
-              Text(`${entry[0]}:`)
-                .fontSize(14)
-                .fontColor('#666666')
-                .width(80)
-              Text(`${entry[1]}`)
-                .fontSize(14)
-                .fontWeight(FontWeight.Medium)
-            })
-            .width('100%')
-          })
-
-          Button('返回')
-            .onClick(() => {
-              this.navPathStack.pop()
-            })
-        }
-        .width('100%')
-        .padding(20)
-      }
-      .title('用户详情')
-    } else if (name === 'ProductInfoPage') {
-      NavDestination() {
-        Column({ space: 12 }) {
-          Text('商品信息')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-
-          ForEach(Object.entries(params), (entry: [string, Object], index: number) => {
-            Row({ space: 8 }) {
-              Text(`${entry[0]}:`)
-                .fontSize(14)
-                .fontColor('#666666')
-                .width(100)
-              Text(`${entry[1]}`)
-                .fontSize(14)
-                .fontWeight(FontWeight.Medium)
-            }
-            .width('100%')
-          })
-
-          Button('返回')
-            .onClick(() => {
-              this.navPathStack.pop()
-            })
-        }
-        .width('100%')
-        .padding(20)
-      }
-      .title('商品详情')
+      this.UserInfoPageBuilder(params)
     }
+    if (name === 'ProductInfoPage') {
+      this.ProductInfoPageBuilder(params)
+    }
+  }
+
+  @Builder
+  UserInfoPageBuilder(params: Object) {
+    NavDestination() {
+      Column({ space: 12 }) {
+        Text('用户信息')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+
+        ForEach(Object.entries(params), (entry: [string, Object], index: number) => {
+          Row({ space: 8 }) {
+            Text(`${entry[0]}:`)
+              .fontSize(14)
+              .fontColor('#666666')
+              .width(80)
+            Text(`${entry[1]}`)
+              .fontSize(14)
+              .fontWeight(FontWeight.Medium)
+          }
+          .width('100%')
+        }, (entry: [string, Object], index: number) => `${index}_${entry[0]}`)
+
+        Button('返回')
+          .onClick(() => {
+            this.navPathStack.pop()
+          })
+      }
+      .width('100%')
+      .padding(20)
+    }
+    .title('用户详情')
+  }
+
+  @Builder
+  ProductInfoPageBuilder(params: Object) {
+    NavDestination() {
+      Column({ space: 12 }) {
+        Text('商品信息')
+          .fontSize(20)
+          .fontWeight(FontWeight.Bold)
+
+        ForEach(Object.entries(params), (entry: [string, Object], index: number) => {
+          Row({ space: 8 }) {
+            Text(`${entry[0]}:`)
+              .fontSize(14)
+              .fontColor('#666666')
+              .width(100)
+            Text(`${entry[1]}`)
+              .fontSize(14)
+              .fontWeight(FontWeight.Medium)
+          }
+          .width('100%')
+        }, (entry: [string, Object], index: number) => `${index}_${entry[0]}`)
+
+        Button('返回')
+          .onClick(() => {
+            this.navPathStack.pop()
+          })
+      }
+      .width('100%')
+      .padding(20)
+    }
+    .title('商品详情')
   }
 }
 
@@ -639,4 +642,9 @@ export struct NavigationExamplePage {
     .height('100%')
     .backgroundColor('#FFFFFF')
   }
+}
+
+@Builder
+export function NavigationExamplePageBuilder() {
+  NavigationExamplePage()
 }

@@ -134,13 +134,13 @@ export struct RefreshWithStatusExample {
           case RefreshStatus.Inactive:
             this.statusText = '下拉刷新'
             break
-          case RefreshStatus.Dragging:
+          case RefreshStatus.Drag:
             this.statusText = '继续下拉...'
             break
           case RefreshStatus.OverDrag:
             this.statusText = '释放立即刷新'
             break
-          case RefreshStatus.Refreshing:
+          case RefreshStatus.Refresh:
             this.statusText = '正在刷新...'
             break
           case RefreshStatus.Done:
@@ -178,7 +178,12 @@ export struct RefreshWithStatusExample {
 export struct RefreshWithLoadMoreExample {
   @Local isRefreshing: boolean = false
   @Local isLoadingMore: boolean = false
-  @Local dataList: string[] = Array.from({ length: 15 }, (_, i) => `Item ${i + 1}`)
+    @Local dataList: string[] = []
+  aboutToAppear(): void {
+    for (let i = 0; i < 15; i++) {
+      this.dataList.push(`Item ${i + 1}`)
+    }
+  }
   @Local hasMore: boolean = true
 
   build() {
@@ -249,11 +254,13 @@ export struct RefreshWithLoadMoreExample {
             this.loadMore()
           }
         })
-        .reachStartDistance(100)
       }
       .onRefreshing(() => {
         setTimeout(() => {
-          this.dataList = Array.from({ length: 15 }, (_, i) => `Item ${i + 1}`)
+          this.dataList = []
+          for (let i = 0; i < 15; i++) {
+            this.dataList.push(`Item ${i + 1}`)
+          }
           this.hasMore = true
           this.isRefreshing = false
         }, 1500)
@@ -272,7 +279,10 @@ export struct RefreshWithLoadMoreExample {
     this.isLoadingMore = true
     setTimeout(() => {
       const currentLength = this.dataList.length
-      const newItems = Array.from({ length: 10 }, (_, i) => `Item ${currentLength + i + 1}`)
+      const newItems: string[] = []
+      for (let i = 0; i < 10; i++) {
+        newItems.push(`Item ${currentLength + i + 1}`)
+      }
       this.dataList.push(...newItems)
 
       // 超过 50 条后不再加载
@@ -306,7 +316,6 @@ export struct CircleDataPanelExample {
       DataPanel({ values: this.dataValues, max: 100 })
         .width(180)
         .height(180)
-        .colors(this.colors)
         .closeEffect(true)
         .margin({ top: 12, bottom: 12 })
 
@@ -370,10 +379,8 @@ export struct LineDataPanelExample {
         values: this.progressData.map(item => item.value),
         max: 100
       })
-        .type(DataPanelType.Line)
         .width('100%')
         .height(24)
-        .colors(this.progressData.map(item => item.color))
         .trackBackgroundColor('#E0E0E0')
         .margin({ top: 12, bottom: 12 })
 
@@ -429,7 +436,6 @@ export struct DataPanelWithCenterTextExample {
         DataPanel({ values: [this.usedSpace, this.freeSpace], max: 100 })
           .width(200)
           .height(200)
-          .colors(['#007DFF', '#E0E0E0'])
           .closeEffect(true)
 
         Column({ space: 8 }) {
@@ -511,7 +517,6 @@ export struct HealthDataDashboardExample {
           DataPanel({ values: [this.steps], max: 100 })
             .width(150)
             .height(150)
-            .colors(['#00C853'])
 
           Column({ space: 4 }) {
             Text('8,532')
@@ -561,7 +566,6 @@ export struct HealthDataDashboardExample {
       DataPanel({ values: [value], max: 100 })
         .width(70)
         .height(70)
-        .colors([color])
 
       Text(label)
         .fontSize(12)
@@ -599,7 +603,6 @@ export struct DynamicDataPanelExample {
       DataPanel({ values: this.dataValues, max: 100 })
         .width(180)
         .height(180)
-        .colors(this.colors)
         .margin({ top: 12, bottom: 20 })
         .animation({
           duration: 800,
@@ -649,34 +652,42 @@ export struct DynamicDataPanelExample {
  * 主页面组件
  * 包含所有示例的展示
  */
-@Entry
 @ComponentV2
 export struct RefreshExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Refresh & DataPanel 组件示例')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Refresh & DataPanel 组件示例')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicRefreshExample()
-        RefreshWithStatusExample()
-        RefreshWithLoadMoreExample()
-        CircleDataPanelExample()
-        LineDataPanelExample()
-        DataPanelWithCenterTextExample()
-        HealthDataDashboardExample()
-        DynamicDataPanelExample()
+          BasicRefreshExample()
+          RefreshWithStatusExample()
+          RefreshWithLoadMoreExample()
+          CircleDataPanelExample()
+          LineDataPanelExample()
+          DataPanelWithCenterTextExample()
+          HealthDataDashboardExample()
+          DynamicDataPanelExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#F5F5F5')
+      .scrollBar(BarState.Auto)
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#F5F5F5')
-    .scrollBar(BarState.Auto)
+    .title('Refresh 下拉刷新')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function RefreshExamplePageBuilder() {
+  RefreshExamplePage()
 }
 
 /**

@@ -32,10 +32,9 @@ export struct BasicAlphabetIndexerExample {
       .padding(20)
       .alignItems(HorizontalAlign.Center)
 
-      AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+      AlphabetIndexer({ arrayValue: this.alphabet, selected: 0 })
         .selected(this.selectedIndex)
         .selectedColor('#FFFFFF')
-        .popupUsing(true)
         .popupItemFont({ size: 20, weight: FontWeight.Bold })
         .selectedFont({ size: 16, weight: FontWeight.Bold })
         .font({ size: 14 })
@@ -118,12 +117,11 @@ export struct LinkedAlphabetIndexerExample {
       .sticky(StickyStyle.Header)
       .backgroundColor('#FFFFFF')
 
-      AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+      AlphabetIndexer({ arrayValue: this.alphabet, selected: 0 })
         .selected(this.selectedIndex)
         .selectedColor('#007DFF')
         .color('#666666')
-        .popupUsing(true)
-        .popupColor('#007DFF')
+                .popupColor('#007DFF')
         .popupItemFont({ size: 20, weight: FontWeight.Bold })
         .selectedFont({ size: 16, weight: FontWeight.Bold })
         .font({ size: 12 })
@@ -231,12 +229,11 @@ export struct CityIndexerExample {
       .layoutWeight(1)
 
       // 字母索引器
-      AlphabetIndexer({ array: this.cityIndex, selected: this.selectedIndex })
+      AlphabetIndexer({ arrayValue: this.cityIndex, selected: 0 })
         .selected(this.selectedIndex)
         .selectedColor('#FFFFFF')
         .color('#666666')
-        .popupUsing(true)
-        .popupColor('#007DFF')
+                .popupColor('#007DFF')
         .popupItemFont({ size: 24, weight: FontWeight.Bold })
         .selectedFont({ size: 18, weight: FontWeight.Bold })
         .font({ size: 12 })
@@ -299,12 +296,11 @@ export struct StyledAlphabetIndexerExample {
           .layoutWeight(1)
           .alignItems(HorizontalAlign.Center)
 
-          AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+          AlphabetIndexer({ arrayValue: this.alphabet, selected: 0 })
             .selected(this.selectedIndex)
             .selectedColor('#FFFFFF')
             .color('#666666')
-            .popupUsing(true)
-            .popupColor('#FF5722')
+                        .popupColor('#FF5722')
             .popupItemFont({ size: 20, weight: FontWeight.Bold })
             .selectedFont({ size: 20, weight: FontWeight.Bold })
             .font({ size: 16 })
@@ -337,12 +333,11 @@ export struct StyledAlphabetIndexerExample {
           .layoutWeight(1)
           .alignItems(HorizontalAlign.Center)
 
-          AlphabetIndexer({ array: this.alphabet, selected: this.selectedIndex })
+          AlphabetIndexer({ arrayValue: this.alphabet, selected: 0 })
             .selected(this.selectedIndex)
             .selectedColor('#FFFFFF')
             .color('#666666')
-            .popupUsing(false)
-            .selectedFont({ size: 14, weight: FontWeight.Bold })
+                        .selectedFont({ size: 14, weight: FontWeight.Bold })
             .font({ size: 10 })
             .itemSize(14)
             .onSelected((index: number) => {
@@ -405,11 +400,10 @@ export struct NumberIndexerExample {
       .sticky(StickyStyle.Header)
       .backgroundColor('#FFFFFF')
 
-      AlphabetIndexer({ array: this.numbers, selected: this.selectedIndex })
+      AlphabetIndexer({ arrayValue: this.numbers, selected: 0 })
         .selected(this.selectedIndex)
         .selectedColor('#FFFFFF')
-        .popupUsing(true)
-        .popupColor('#9C27B0')
+                .popupColor('#9C27B0')
         .selectedFont({ size: 18, weight: FontWeight.Bold })
         .font({ size: 14 })
         .itemSize(20)
@@ -442,24 +436,33 @@ export struct NumberIndexerExample {
 @ComponentV2
 export struct AlphabetIndexerExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('AlphabetIndexer Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('AlphabetIndexer Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicAlphabetIndexerExample()
-        LinkedAlphabetIndexerExample()
-        CityIndexerExample()
-        StyledAlphabetIndexerExample()
-        NumberIndexerExample()
+          BasicAlphabetIndexerExample()
+          LinkedAlphabetIndexerExample()
+          CityIndexerExample()
+          StyledAlphabetIndexerExample()
+          NumberIndexerExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('AlphabetIndexer 字母索引器')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function AlphabetIndexerExamplePageBuilder() {
+  AlphabetIndexerExamplePage()
 }

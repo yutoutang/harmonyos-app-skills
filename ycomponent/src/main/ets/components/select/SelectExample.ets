@@ -1,0 +1,270 @@
+/**
+ * Select Component Examples
+ * OpenHarmony Select 下拉选择组件使用示例
+ */
+
+/**
+ * 选项接口
+ */
+interface SelectOptionItem {
+  value: string
+}
+
+/**
+ * 表单数据接口
+ */
+interface FormData {
+  city: string
+  category: string
+  priority: string
+}
+
+/**
+ * 基础下拉选择示例
+ */
+@ComponentV2
+export struct BasicSelectExample {
+  @Local selectedValue: string = '选项1'
+  @Local selectedIndex: number = 0
+
+  private options: SelectOptionItem[] = [
+    { value: '选项1' },
+    { value: '选项2' },
+    { value: '选项3' },
+    { value: '选项4' }
+  ]
+
+  build() {
+    Column({ space: 16 }) {
+      Text('基础下拉选择')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Select(this.options.map(opt => ({ value: opt.value } as SelectOptionItem)))
+        .selected(this.selectedIndex)
+        .value(this.selectedValue)
+        .font({ size: 16 })
+        .onSelect((index: number) => {
+          this.selectedIndex = index
+          this.selectedValue = this.options[index].value
+        })
+
+      Text(`当前选中: ${this.selectedValue}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 城市选择示例
+ */
+@ComponentV2
+export struct CitySelectExample {
+  @Local selectedCity: string = '北京'
+  @Local selectedIndex: number = 0
+
+  private cities: string[] = ['北京', '上海', '广州', '深圳', '杭州', '成都', '西安', '南京']
+
+  build() {
+    Column({ space: 16 }) {
+      Text('选择城市')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Column({ space: 8 }) {
+        Text('所在城市')
+          .fontSize(14)
+          .fontColor('#666666')
+
+        Select(this.cities.map(city => ({ value: city } as SelectOptionItem)))
+          .selected(this.selectedIndex)
+          .value(this.selectedCity)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.selectedIndex = index
+            this.selectedCity = this.cities[index]
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      Text(`当前城市: ${this.selectedCity}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 排序方式选择示例
+ */
+@ComponentV2
+export struct SortSelectExample {
+  @Local sortType: string = '综合排序'
+  @Local selectedIndex: number = 0
+
+  private sortOptions: string[] = ['综合排序', '价格从低到高', '价格从高到低', '销量优先', '最新上架']
+
+  build() {
+    Column({ space: 16 }) {
+      Text('排序方式')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Row({ space: 12 }) {
+        Text('排序:')
+          .fontSize(16)
+          .fontColor('#333333')
+
+        Select(this.sortOptions.map(opt => ({ value: opt } as SelectOptionItem)))
+          .selected(this.selectedIndex)
+          .value(this.sortType)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.selectedIndex = index
+            this.sortType = this.sortOptions[index]
+          })
+      }
+      .width('100%')
+
+      Text(`当前排序: ${this.sortType}`)
+        .fontSize(14)
+        .fontColor('#666666')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 表单集成示例
+ */
+@ComponentV2
+export struct FormSelectExample {
+  @Local formData: FormData = {
+    city: '北京',
+    category: '科技',
+    priority: '高'
+  }
+
+  private cityOptions: string[] = ['北京', '上海', '广州', '深圳']
+  private categoryOptions: string[] = ['科技', '娱乐', '体育', '财经']
+  private priorityOptions: string[] = ['高', '中', '低']
+
+  build() {
+    Column({ space: 20 }) {
+      Text('表单集成示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Column({ space: 8 }) {
+        Text('城市')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.cityOptions.map(opt => ({ value: opt } as SelectOptionItem)))
+          .selected(this.cityOptions.findIndex(opt => opt === this.formData.city))
+          .value(this.formData.city)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.formData.city = this.cityOptions[index]
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      Column({ space: 8 }) {
+        Text('分类')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.categoryOptions.map(opt => ({ value: opt } as SelectOptionItem)))
+          .selected(this.categoryOptions.findIndex(opt => opt === this.formData.category))
+          .value(this.formData.category)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.formData.category = this.categoryOptions[index]
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      Column({ space: 8 }) {
+        Text('优先级')
+          .fontSize(14)
+          .fontColor('#666666')
+        Select(this.priorityOptions.map(opt => ({ value: opt } as SelectOptionItem)))
+          .selected(this.priorityOptions.findIndex(opt => opt === this.formData.priority))
+          .value(this.formData.priority)
+          .font({ size: 16 })
+          .onSelect((index: number) => {
+            this.formData.priority = this.priorityOptions[index]
+          })
+      }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
+
+      Button('查看表单数据')
+        .width('100%')
+        .backgroundColor('#007DFF')
+        .onClick(() => {
+          const data = JSON.stringify(this.formData)
+          console.info('Form Data:', data)
+          AlertDialog.show({ message: data })
+        })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * 完整的 Select 示例页面
+ */
+@ComponentV2
+export struct SelectExamplePage {
+  build() {
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Select Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+          BasicSelectExample()
+          CitySelectExample()
+          SortSelectExample()
+          FormSelectExample()
+        }
+        .width('100%')
+      }
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
+    }
+    .title('Select 下拉选择组件示例')
+    .mode(NavDestinationMode.STANDARD)
+  }
+}
+
+@Builder
+export function SelectExamplePageBuilder() {
+  SelectExamplePage()
+}

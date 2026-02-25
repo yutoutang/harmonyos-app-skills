@@ -6,6 +6,15 @@
  */
 
 /**
+ * 图片数据类型
+ */
+interface ImageData {
+  id: number
+  height: number
+  color: string
+}
+
+/**
  * 基础瀑布流示例
  * 展示最简单的 WaterFlow 用法
  */
@@ -14,12 +23,12 @@ export struct BasicWaterFlowExample {
   @Local dataSource: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('WaterFlow 基础示例')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .margin({ bottom: 8 })
+        .fontColor('#333333')
 
       WaterFlow() {
         ForEach(this.dataSource, (item: number) => {
@@ -45,11 +54,13 @@ export struct BasicWaterFlowExample {
       .height(400)
       .padding(10)
       .backgroundColor('#F5F5F5')
+      .borderRadius(8)
     }
     .width('100%')
     .padding(16)
     .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -59,15 +70,20 @@ export struct BasicWaterFlowExample {
  */
 @ComponentV2
 export struct MultiColumnWaterFlowExample {
-  @Local items: number[] = Array.from({ length: 20 }, (_, i) => i + 1)
+    @Local items: number[] = []
+  aboutToAppear(): void {
+    for (let i = 0; i < 20; i++) {
+      this.items.push(i + 1)
+    }
+  }
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('多列瀑布流布局')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .margin({ bottom: 8 })
+        .fontColor('#333333')
 
       Text('四列布局,适合小卡片')
         .fontSize(14)
@@ -97,12 +113,14 @@ export struct MultiColumnWaterFlowExample {
       .width('100%')
       .height(500)
       .padding(8)
-      .backgroundColor('#FFFFFF')
+      .backgroundColor('#F5F5F5')
+      .borderRadius(8)
     }
     .width('100%')
     .padding(16)
-    .backgroundColor('#F5F5F5')
+    .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -112,31 +130,32 @@ export struct MultiColumnWaterFlowExample {
  */
 @ComponentV2
 export struct ImageWaterFlowExample {
-  @Local images: Array<{ id: number, height: number, color: string }> = []
+  @Local images: ImageData[] = []
 
-  aboutToAppear() {
+  aboutToAppear(): void {
     // 生成模拟图片数据
     const colors = ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5',
                     '#2196F3', '#03A9F4', '#00BCD4', '#009688', '#4CAF50']
     for (let i = 0; i < 15; i++) {
-      this.images.push({
+      const imageData: ImageData = {
         id: i,
         height: Math.floor(Math.random() * 150) + 100,
         color: colors[i % colors.length]
-      })
+      }
+      this.images.push(imageData)
     }
   }
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('图片瀑布流')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .margin({ bottom: 8 })
+        .fontColor('#333333')
 
       WaterFlow() {
-        ForEach(this.images, (image: { id: number, height: number, color: string }) => {
+        ForEach(this.images, (image: ImageData) => {
           FlowItem() {
             Column() {
               // 模拟图片
@@ -159,7 +178,7 @@ export struct ImageWaterFlowExample {
             .backgroundColor('#FFFFFF')
             .borderRadius(8)
           }
-        }, (image: { id: number, height: number, color: string }) => image.id.toString())
+        }, (image: ImageData) => image.id.toString())
       }
       .columnsTemplate('1fr 1fr')
       .columnsGap(10)
@@ -168,11 +187,13 @@ export struct ImageWaterFlowExample {
       .height(600)
       .padding(10)
       .backgroundColor('#F5F5F5')
+      .borderRadius(8)
     }
     .width('100%')
     .padding(16)
     .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -182,25 +203,32 @@ export struct ImageWaterFlowExample {
  */
 @ComponentV2
 export struct ScrollControlWaterFlowExample {
-  @Local dataSource: number[] = Array.from({ length: 50 }, (_, i) => i + 1)
+    @Local dataSource: number[] = []
+  aboutToAppear(): void {
+    for (let i = 0; i < 50; i++) {
+      this.dataSource.push(i + 1)
+    }
+  }
   private scroller: Scroller = new Scroller()
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('带滚动控制的瀑布流')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .margin({ bottom: 8 })
+        .fontColor('#333333')
 
       // 控制按钮
       Row({ space: 8 }) {
         Button('滚动到顶部')
+          .fontSize(14)
           .onClick(() => {
             this.scroller.scrollEdge(Edge.Top)
           })
 
         Button('滚动到底部')
+          .fontSize(14)
           .onClick(() => {
             this.scroller.scrollEdge(Edge.Bottom)
           })
@@ -231,6 +259,7 @@ export struct ScrollControlWaterFlowExample {
       .height(500)
       .padding(8)
       .backgroundColor('#F5F5F5')
+      .borderRadius(8)
       .onReachEnd(() => {
         console.info('滚动到底部')
       })
@@ -239,6 +268,7 @@ export struct ScrollControlWaterFlowExample {
     .padding(16)
     .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -248,16 +278,21 @@ export struct ScrollControlWaterFlowExample {
  */
 @ComponentV2
 export struct DynamicLoadWaterFlowExample {
-  @Local items: number[] = Array.from({ length: 20 }, (_, i) => i + 1)
+    @Local items: number[] = []
+  aboutToAppear(): void {
+    for (let i = 0; i < 20; i++) {
+      this.items.push(i + 1)
+    }
+  }
   @Local loading: boolean = false
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('动态加载瀑布流')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .margin({ bottom: 8 })
+        .fontColor('#333333')
 
       Text('滚动到底部自动加载更多')
         .fontSize(14)
@@ -293,8 +328,6 @@ export struct DynamicLoadWaterFlowExample {
             }
             .width('100%')
           }
-          .columnStart(0)
-          .columnEnd(1)
         }
       }
       .columnsTemplate('1fr 1fr')
@@ -304,12 +337,17 @@ export struct DynamicLoadWaterFlowExample {
       .height(500)
       .padding(10)
       .backgroundColor('#F5F5F5')
+      .borderRadius(8)
       .onReachEnd(() => {
         if (!this.loading) {
           this.loading = true
           // 模拟网络请求
           setTimeout(() => {
-            const newItems = Array.from({ length: 10 }, (_, i) => this.items.length + i + 1)
+            const newItems: number[] = []
+            const currentLength = this.items.length
+            for (let i = 0; i < 10; i++) {
+              newItems.push(this.items.length + i + 1)
+            }
             this.items = [...this.items, ...newItems]
             this.loading = false
           }, 1000)
@@ -320,6 +358,7 @@ export struct DynamicLoadWaterFlowExample {
     .padding(16)
     .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -329,15 +368,20 @@ export struct DynamicLoadWaterFlowExample {
  */
 @ComponentV2
 export struct CustomSpacingWaterFlowExample {
-  @Local dataSource: number[] = Array.from({ length: 30 }, (_, i) => i + 1)
+    @Local dataSource: number[] = []
+  aboutToAppear(): void {
+    for (let i = 0; i < 30; i++) {
+      this.dataSource.push(i + 1)
+    }
+  }
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('自定义间距瀑布流')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .margin({ bottom: 8 })
+        .fontColor('#333333')
 
       Text('列间距: 16px, 行间距: 16px')
         .fontSize(14)
@@ -367,12 +411,14 @@ export struct CustomSpacingWaterFlowExample {
       .width('100%')
       .height(600)
       .padding(16)
-      .backgroundColor('#FAFAFA')
+      .backgroundColor('#F5F5F5')
+      .borderRadius(8)
     }
     .width('100%')
     .padding(16)
     .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -382,20 +428,26 @@ export struct CustomSpacingWaterFlowExample {
  */
 @ComponentV2
 export struct ColumnCountWaterFlowExample {
-  @Local items: number[] = Array.from({ length: 12 }, (_, i) => i + 1)
+    @Local items: number[] = []
+  aboutToAppear(): void {
+    for (let i = 0; i < 12; i++) {
+      this.items.push(i + 1)
+    }
+  }
   @Local columnCount: number = 2
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('不同列数对比')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
         .width('100%')
-        .margin({ bottom: 8 })
+        .fontColor('#333333')
 
       // 列数选择器
       Row({ space: 8 }) {
         Button('2列')
+          .fontSize(14)
           .type(this.columnCount === 2 ? ButtonType.Capsule : ButtonType.Normal)
           .backgroundColor(this.columnCount === 2 ? '#2196F3' : '#E0E0E0')
           .onClick(() => {
@@ -403,6 +455,7 @@ export struct ColumnCountWaterFlowExample {
           })
 
         Button('3列')
+          .fontSize(14)
           .type(this.columnCount === 3 ? ButtonType.Capsule : ButtonType.Normal)
           .backgroundColor(this.columnCount === 3 ? '#2196F3' : '#E0E0E0')
           .onClick(() => {
@@ -410,6 +463,7 @@ export struct ColumnCountWaterFlowExample {
           })
 
         Button('4列')
+          .fontSize(14)
           .type(this.columnCount === 4 ? ButtonType.Capsule : ButtonType.Normal)
           .backgroundColor(this.columnCount === 4 ? '#2196F3' : '#E0E0E0')
           .onClick(() => {
@@ -444,11 +498,13 @@ export struct ColumnCountWaterFlowExample {
       .height(400)
       .padding(8)
       .backgroundColor('#F5F5F5')
+      .borderRadius(8)
     }
     .width('100%')
     .padding(16)
     .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -459,26 +515,35 @@ export struct ColumnCountWaterFlowExample {
 @ComponentV2
 export struct WaterFlowExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('WaterFlow Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('WaterFlow Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicWaterFlowExample()
-        MultiColumnWaterFlowExample()
-        ImageWaterFlowExample()
-        ScrollControlWaterFlowExample()
-        DynamicLoadWaterFlowExample()
-        CustomSpacingWaterFlowExample()
-        ColumnCountWaterFlowExample()
+          BasicWaterFlowExample()
+          MultiColumnWaterFlowExample()
+          ImageWaterFlowExample()
+          ScrollControlWaterFlowExample()
+          DynamicLoadWaterFlowExample()
+          CustomSpacingWaterFlowExample()
+          ColumnCountWaterFlowExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('WaterFlow 瀑布流')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function WaterFlowExamplePageBuilder() {
+  WaterFlowExamplePage()
 }

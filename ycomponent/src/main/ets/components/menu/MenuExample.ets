@@ -650,33 +650,46 @@ export struct ManualControlMenuExample {
  * Menu 菜单示例主页面
  * 汇总所有菜单示例
  */
-@Entry
 @ComponentV2
 export struct MenuExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Menu Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Menu Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({
+              left: 16,
+              right: 16,
+              top: 16,
+              bottom: 8
+            })
 
-        BasicMenuExample()
-        IconMenuExample()
-        ContextMenuExample()
-        GroupedMenuExample()
-        ListItemContextMenuExample()
-        TextEditorContextMenuExample()
-        SubMenuExample()
-        ManualControlMenuExample()
+          BasicMenuExample()
+          IconMenuExample()
+          ContextMenuExample()
+          GroupedMenuExample()
+          ListItemContextMenuExample()
+          TextEditorContextMenuExample()
+          SubMenuExample()
+          ManualControlMenuExample()
+        }
+        .width('100%')
+        .padding({ left: 16, right: 16, bottom: 16 })
       }
       .width('100%')
-      .padding({ left: 16, right: 16, bottom: 16 })
+      .height('100%')
+      .backgroundColor('#FFFFFF')
+      .scrollBar(BarState.Auto)
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
-    .scrollBar(BarState.Auto)
+    .title('Menu 菜单')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function MenuExamplePageBuilder() {
+  MenuExamplePage()
 }

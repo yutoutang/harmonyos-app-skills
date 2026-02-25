@@ -1,26 +1,26 @@
 /**
- * RowSplit Component Examples
- * OpenHarmony RowSplit Component 使用示例
+ * ColumnSplit Component Examples
+ * OpenHarmony ColumnSplit Component 使用示例
  *
- * 展示 RowSplit 组件的各种用法,包括不同布局模式、样式和交互
+ * 展示 ColumnSplit 组件的各种用法,包括不同布局模式、样式和交互
  */
 
 /**
  * 基础分割布局示例
- * 展示最简单的 RowSplit 用法
+ * 展示最简单的 ColumnSplit 用法
  */
 @ComponentV2
-export struct BasicRowSplitExample {
+export struct BasicColumnSplitExample {
   build() {
     Column({ space: 16 }) {
-      Text('RowSplit 基础示例')
+      Text('ColumnSplit 基础示例')
         .fontSize(20)
         .fontWeight(FontWeight.Bold)
         .width('100%')
         .margin({ bottom: 8 })
 
-      RowSplit() {
-        Row() {
+      ColumnSplit() {
+        Column() {
           Text('区域 1')
             .fontSize(16)
             .textAlign(TextAlign.Center)
@@ -30,7 +30,7 @@ export struct BasicRowSplitExample {
         .backgroundColor('#E3F2FD')
         .justifyContent(FlexAlign.Center)
 
-        Row() {
+        Column() {
           Text('区域 2')
             .fontSize(16)
             .textAlign(TextAlign.Center)
@@ -40,7 +40,7 @@ export struct BasicRowSplitExample {
         .backgroundColor('#BBDEFB')
         .justifyContent(FlexAlign.Center)
 
-        Row() {
+        Column() {
           Text('区域 3')
             .fontSize(16)
             .textAlign(TextAlign.Center)
@@ -51,13 +51,7 @@ export struct BasicRowSplitExample {
         .justifyContent(FlexAlign.Center)
       }
       .width('100%')
-      .height(400)
-      .divider({
-        strokeWidth: 2,
-        color: '#2196F3',
-        startMargin: 8,
-        endMargin: 8
-      })
+      .height(200)
     }
     .width('100%')
     .padding(16)
@@ -71,7 +65,7 @@ export struct BasicRowSplitExample {
  * 展示如何使用 layoutWeight 设置固定比例
  */
 @ComponentV2
-export struct FixedRatioRowSplitExample {
+export struct FixedRatioColumnSplitExample {
   build() {
     Column({ space: 16 }) {
       Text('固定比例分割')
@@ -85,8 +79,8 @@ export struct FixedRatioRowSplitExample {
         .fontColor('#666666')
         .width('100%')
 
-      RowSplit() {
-        Row() {
+      ColumnSplit() {
+        Column() {
           Text('25%')
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
@@ -98,7 +92,7 @@ export struct FixedRatioRowSplitExample {
         .justifyContent(FlexAlign.Center)
         .layoutWeight(1)
 
-        Row() {
+        Column() {
           Text('50%')
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
@@ -110,7 +104,7 @@ export struct FixedRatioRowSplitExample {
         .justifyContent(FlexAlign.Center)
         .layoutWeight(2)
 
-        Row() {
+        Column() {
           Text('25%')
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
@@ -123,11 +117,7 @@ export struct FixedRatioRowSplitExample {
         .layoutWeight(1)
       }
       .width('100%')
-      .height(400)
-      .divider({
-        strokeWidth: 1,
-        color: '#FFFFFF'
-      })
+      .height(200)
     }
     .width('100%')
     .padding(16)
@@ -141,7 +131,7 @@ export struct FixedRatioRowSplitExample {
  * 展示如何禁用分割线拖动功能
  */
 @ComponentV2
-export struct NoResizeRowSplitExample {
+export struct NoResizeColumnSplitExample {
   build() {
     Column({ space: 16 }) {
       Text('禁用拖动调整')
@@ -155,9 +145,9 @@ export struct NoResizeRowSplitExample {
         .fontColor('#666666')
         .width('100%')
 
-      RowSplit() {
-        Row() {
-          Text('顶部栏')
+      ColumnSplit() {
+        Column() {
+          Text('侧边栏')
             .fontSize(16)
         }
         .width('100%')
@@ -166,7 +156,7 @@ export struct NoResizeRowSplitExample {
         .justifyContent(FlexAlign.Center)
         .layoutWeight(1)
 
-        Row() {
+        Column() {
           Text('主内容区')
             .fontSize(16)
         }
@@ -177,12 +167,8 @@ export struct NoResizeRowSplitExample {
         .layoutWeight(3)
       }
       .width('100%')
-      .height(400)
+      .height(200)
       .resizeable(false)
-      .divider({
-        strokeWidth: 1,
-        color: '#B0BEC5'
-      })
     }
     .width('100%')
     .padding(16)
@@ -192,83 +178,11 @@ export struct NoResizeRowSplitExample {
 }
 
 /**
- * 带最小高度限制示例
- * 展示如何设置子组件的最小高度
- */
-@ComponentV2
-export struct MinHeightRowSplitExample {
-  build() {
-    Column({ space: 16 }) {
-      Text('最小高度限制')
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .margin({ bottom: 8 })
-
-      Text('每个区域有最小高度限制,防止过度压缩')
-        .fontSize(14)
-        .fontColor('#666666')
-        .width('100%')
-
-      RowSplit() {
-        Row() {
-          Text('最小 60')
-            .fontSize(14)
-            .textAlign(TextAlign.Center)
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#FFCDD2')
-        .justifyContent(FlexAlign.Center)
-        .layoutWeight(1)
-        .minHeight(60)
-
-        Row() {
-          Text('最小 100')
-            .fontSize(14)
-            .textAlign(TextAlign.Center)
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#C8E6C9')
-        .justifyContent(FlexAlign.Center)
-        .layoutWeight(2)
-        .minHeight(100)
-
-        Row() {
-          Text('最小 60')
-            .fontSize(14)
-            .textAlign(TextAlign.Center)
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#BBDEFB')
-        .justifyContent(FlexAlign.Center)
-        .layoutWeight(1)
-        .minHeight(60)
-      }
-      .width('100%')
-      .height(400)
-      .divider({
-        strokeWidth: 2,
-        color: '#FFFFFF',
-        startMargin: 4,
-        endMargin: 4
-      })
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#F5F5F5')
-    .borderRadius(12)
-  }
-}
-
-/**
  * 自定义分割线样式示例
  * 展示不同的分割线样式
  */
 @ComponentV2
-export struct CustomDividerRowSplitExample {
+export struct CustomDividerColumnSplitExample {
   build() {
     Column({ space: 16 }) {
       Text('自定义分割线样式')
@@ -282,8 +196,8 @@ export struct CustomDividerRowSplitExample {
         .fontSize(14)
         .fontColor('#666666')
 
-      RowSplit() {
-        Row() {
+      ColumnSplit() {
+        Column() {
           Text('区域 1')
             .fontSize(16)
         }
@@ -292,7 +206,7 @@ export struct CustomDividerRowSplitExample {
         .backgroundColor('#FFF3E0')
         .justifyContent(FlexAlign.Center)
 
-        Row() {
+        Column() {
           Text('区域 2')
             .fontSize(16)
         }
@@ -302,11 +216,7 @@ export struct CustomDividerRowSplitExample {
         .justifyContent(FlexAlign.Center)
       }
       .width('100%')
-      .height(300)
-      .divider({
-        strokeWidth: 4,
-        color: '#FF9800'
-      })
+      .height(150)
       .margin({ bottom: 16 })
 
       // 带边距的分割线
@@ -314,8 +224,8 @@ export struct CustomDividerRowSplitExample {
         .fontSize(14)
         .fontColor('#666666')
 
-      RowSplit() {
-        Row() {
+      ColumnSplit() {
+        Column() {
           Text('区域 A')
             .fontSize(16)
         }
@@ -324,7 +234,7 @@ export struct CustomDividerRowSplitExample {
         .backgroundColor('#F3E5F5')
         .justifyContent(FlexAlign.Center)
 
-        Row() {
+        Column() {
           Text('区域 B')
             .fontSize(16)
         }
@@ -333,7 +243,7 @@ export struct CustomDividerRowSplitExample {
         .backgroundColor('#E1BEE7')
         .justifyContent(FlexAlign.Center)
 
-        Row() {
+        Column() {
           Text('区域 C')
             .fontSize(16)
         }
@@ -343,13 +253,7 @@ export struct CustomDividerRowSplitExample {
         .justifyContent(FlexAlign.Center)
       }
       .width('100%')
-      .height(300)
-      .divider({
-        strokeWidth: 2,
-        color: '#9C27B0',
-        startMargin: 20,
-        endMargin: 20
-      })
+      .height(150)
     }
     .width('100%')
     .padding(16)
@@ -363,13 +267,13 @@ export struct CustomDividerRowSplitExample {
  * 展示如何动态显示/隐藏子组件
  */
 @ComponentV2
-export struct DynamicRowSplitExample {
+export struct DynamicColumnSplitExample {
   @Local showPanel: boolean = true
 
   build() {
     Column({ space: 16 }) {
       Row() {
-        Button(this.showPanel ? '隐藏顶部栏' : '显示顶部栏')
+        Button(this.showPanel ? '隐藏侧边栏' : '显示侧边栏')
           .onClick(() => {
             this.showPanel = !this.showPanel
           })
@@ -377,10 +281,10 @@ export struct DynamicRowSplitExample {
       .width('100%')
       .justifyContent(FlexAlign.Center)
 
-      RowSplit() {
+      ColumnSplit() {
         if (this.showPanel) {
-          Row() {
-            Text('顶部面板')
+          Column() {
+            Text('侧边面板')
               .fontSize(16)
           }
           .width('100%')
@@ -388,10 +292,9 @@ export struct DynamicRowSplitExample {
           .backgroundColor('#E8EAF6')
           .justifyContent(FlexAlign.Center)
           .layoutWeight(1)
-          .minHeight(80)
         }
 
-        Row() {
+        Column() {
           Text('主内容区')
             .fontSize(16)
         }
@@ -402,11 +305,7 @@ export struct DynamicRowSplitExample {
         .layoutWeight(3)
       }
       .width('100%')
-      .height(400)
-      .divider({
-        strokeWidth: 1,
-        color: '#3F51B5'
-      })
+      .height(250)
     }
     .width('100%')
     .padding(16)
@@ -417,10 +316,10 @@ export struct DynamicRowSplitExample {
 
 /**
  * 三栏布局示例
- * 展示经典的上中下三栏布局
+ * 展示经典的左中右三栏布局
  */
 @ComponentV2
-export struct ThreeRowLayoutExample {
+export struct ThreeColumnLayoutExample {
   build() {
     Column({ space: 16 }) {
       Text('三栏布局')
@@ -434,23 +333,22 @@ export struct ThreeRowLayoutExample {
         .fontColor('#666666')
         .width('100%')
 
-      RowSplit() {
-        // 顶部导航栏
-        Row() {
+      ColumnSplit() {
+        // 左侧导航栏
+        Column() {
           Text('导航')
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
+            .fontColor(Color.White)
         }
         .width('100%')
         .height('100%')
         .backgroundColor('#263238')
-        .fontColor(Color.White)
         .justifyContent(FlexAlign.Center)
         .layoutWeight(1)
-        .minHeight(60)
 
         // 中间内容区
-        Row() {
+        Column() {
           Text('内容')
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
@@ -461,8 +359,8 @@ export struct ThreeRowLayoutExample {
         .justifyContent(FlexAlign.Center)
         .layoutWeight(4)
 
-        // 底部工具栏
-        Row() {
+        // 右侧工具栏
+        Column() {
           Text('工具')
             .fontSize(18)
             .fontWeight(FontWeight.Bold)
@@ -472,14 +370,9 @@ export struct ThreeRowLayoutExample {
         .backgroundColor('#ECEFF1')
         .justifyContent(FlexAlign.Center)
         .layoutWeight(1)
-        .minHeight(60)
       }
       .width('100%')
-      .height(400)
-      .divider({
-        strokeWidth: 1,
-        color: '#CFD8DC'
-      })
+      .height(250)
     }
     .width('100%')
     .padding(16)
@@ -489,185 +382,108 @@ export struct ThreeRowLayoutExample {
 }
 
 /**
- * 聊天界面布局示例
- * 展示经典聊天应用的布局
+ * 代码编辑器布局示例
+ * 展示类似 IDE 的复杂布局
  */
 @ComponentV2
-export struct ChatLayoutExample {
-  @Local messageList: string[] = [
-    '消息 1', '消息 2', '消息 3', '消息 4', '消息 5'
-  ]
-
+export struct CodeEditorLayoutExample {
   build() {
-    Column({ space: 16 }) {
-      Text('聊天界面布局')
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .margin({ bottom: 8 })
-
-      RowSplit() {
-        // 顶部用户信息
-        Row() {
-          Text('聊天对象')
-            .fontSize(18)
-            .fontWeight(FontWeight.Bold)
-        }
-        .width('100%')
-        .height('100%')
-        .backgroundColor('#E3F2FD')
-        .padding({ left: 16, right: 16 })
-        .layoutWeight(0)
-        .minHeight(60)
-
-        // 中间消息列表
-        Column() {
-          ForEach(this.messageList, (message: string) => {
-            Text(message)
-              .fontSize(16)
-              .width('100%')
-              .padding(12)
-              .backgroundColor('#F5F5F5')
-              .borderRadius(8)
-              .margin({ bottom: 8 })
-          })
-        }
-        .width('100%')
-        .height('100%')
-        .padding(16)
-        .backgroundColor('#FFFFFF')
-        .layoutWeight(1)
-
-        // 底部输入框
-        Row({ space: 8 }) {
-          TextInput({ placeholder: '输入消息' })
-            .layoutWeight(1)
-          Button('发送')
-        }
-        .width('100%')
-        .height('100%')
-        .padding(16)
-        .backgroundColor('#FAFAFA')
-        .layoutWeight(0)
-        .minHeight(60)
-      }
-      .width('100%')
-      .height(500)
-      .divider({
-        strokeWidth: 1,
-        color: '#E0E0E0'
-      })
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#F5F5F5')
-    .borderRadius(12)
-  }
-}
-
-/**
- * 邮件界面布局示例
- * 展示邮件应用的布局
- */
-@ComponentV2
-export struct EmailLayoutExample {
-  build() {
-    Column({ space: 16 }) {
-      Text('邮件界面布局')
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .margin({ bottom: 8 })
-
-      RowSplit() {
-        // 邮件头部
-        Column({ space: 8 }) {
-          Text('邮件标题')
-            .fontSize(20)
-            .fontWeight(FontWeight.Bold)
-          Row({ space: 16 }) {
-            Text('发件人: xxx@example.com')
-              .fontSize(14)
-            Text('时间: 2024-01-01')
-              .fontSize(14)
-          }
-        }
-        .width('100%')
-        .height('100%')
-        .padding(16)
-        .backgroundColor('#F5F5F5')
-        .layoutWeight(0)
-        .minHeight(100)
-
-        // 邮件内容
-        Column() {
-          Text('邮件正文内容')
-            .fontSize(16)
-            .lineHeight(24)
-        }
-        .width('100%')
-        .height('100%')
-        .padding(16)
-        .backgroundColor('#FFFFFF')
-        .justifyContent(FlexAlign.Start)
-        .layoutWeight(1)
-
-        // 底部回复栏
-        Row({ space: 8 }) {
-          TextInput({ placeholder: '回复邮件...' })
-            .layoutWeight(1)
-          Button('发送')
-        }
-        .width('100%')
-        .height('100%')
-        .padding(16)
-        .backgroundColor('#FAFAFA')
-        .layoutWeight(0)
-        .minHeight(60)
-      }
-      .width('100%')
-      .height(600)
-      .divider({
-        strokeWidth: 1,
-        color: '#E0E0E0'
-      })
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#F5F5F5')
-    .borderRadius(12)
-  }
-}
-
-/**
- * 完整的 RowSplit 示例页面
- * 集成所有 RowSplit 示例
- */
-@ComponentV2
-export struct RowSplitExamplePage {
-  build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('RowSplit Component Examples')
-          .fontSize(24)
+    Column({ space: 0 }) {
+      // 顶部工具栏
+      Row() {
+        Text('代码编辑器')
+          .fontSize(18)
           .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
-
-        BasicRowSplitExample()
-        FixedRatioRowSplitExample()
-        NoResizeRowSplitExample()
-        MinHeightRowSplitExample()
-        CustomDividerRowSplitExample()
-        DynamicRowSplitExample()
-        ThreeRowLayoutExample()
-        ChatLayoutExample()
-        EmailLayoutExample()
+          .fontColor(Color.White)
       }
       .width('100%')
+      .height(50)
+      .padding({ left: 16, right: 16 })
+      .backgroundColor('#37474F')
+
+      // 分割区域
+      ColumnSplit() {
+        // 文件树
+        Column() {
+          Text('文件树')
+            .fontSize(16)
+            .fontColor(Color.White)
+        }
+        .width('100%')
+        .height('100%')
+        .backgroundColor('#263238')
+        .justifyContent(FlexAlign.Center)
+        .layoutWeight(1)
+
+        // 代码编辑区
+        Column() {
+          Text('代码编辑区')
+            .fontSize(16)
+            .fontColor(Color.White)
+        }
+        .width('100%')
+        .height('100%')
+        .backgroundColor('#212121')
+        .justifyContent(FlexAlign.Center)
+        .layoutWeight(3)
+
+        // 预览区
+        Column() {
+          Text('预览')
+            .fontSize(16)
+        }
+        .width('100%')
+        .height('100%')
+        .backgroundColor('#FFFFFF')
+        .justifyContent(FlexAlign.Center)
+        .layoutWeight(2)
+      }
+      .width('100%')
+      .height(300)
     }
     .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .height(400)
+    .borderRadius(12)
+    .clip(true)
   }
+}
+
+/**
+ * 完整的 ColumnSplit 示例页面
+ * 集成所有 ColumnSplit 示例
+ */
+@ComponentV2
+export struct ColumnSplitExamplePage {
+  build() {
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('ColumnSplit Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+          BasicColumnSplitExample()
+          FixedRatioColumnSplitExample()
+          NoResizeColumnSplitExample()
+          CustomDividerColumnSplitExample()
+          DynamicColumnSplitExample()
+          ThreeColumnLayoutExample()
+          CodeEditorLayoutExample()
+        }
+        .width('100%')
+      }
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
+    }
+    .title('ColumnSplit 分割容器')
+    .mode(NavDestinationMode.STANDARD)
+  }
+}
+
+@Builder
+export function ColumnSplitExamplePageBuilder() {
+  ColumnSplitExamplePage()
 }

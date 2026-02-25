@@ -481,28 +481,37 @@ export struct BottomBarBlankExample {
 @ComponentV2
 export struct BlankExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Blank Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Blank Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        FlexBlankExample()
-        ToolbarBlankExample()
-        MultipleBlankExample()
-        CardAlignExample()
-        ColoredBlankExample()
-        NavbarBlankExample()
-        FormBlankExample()
-        SettingsBlankExample()
-        BottomBarBlankExample()
+          FlexBlankExample()
+          ToolbarBlankExample()
+          MultipleBlankExample()
+          CardAlignExample()
+          ColoredBlankExample()
+          NavbarBlankExample()
+          FormBlankExample()
+          SettingsBlankExample()
+          BottomBarBlankExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Blank 空白填充')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function BlankExamplePageBuilder() {
+  BlankExamplePage()
 }

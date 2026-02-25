@@ -422,25 +422,34 @@ export struct NestedScrollTabContentExample {
 @ComponentV2
 export struct TabContentExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('TabContent Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('TabContent Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        TextTabBarExample()
-        IconTabBarExample()
-        BadgeTabBarExample()
-        ComplexTabContentExample()
-        ConditionalTabContentExample()
-        NestedScrollTabContentExample()
+          TextTabBarExample()
+          IconTabBarExample()
+          BadgeTabBarExample()
+          ComplexTabContentExample()
+          ConditionalTabContentExample()
+          NestedScrollTabContentExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('TabContent 标签内容')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function TabContentExamplePageBuilder() {
+  TabContentExamplePage()
 }

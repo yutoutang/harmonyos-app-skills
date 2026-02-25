@@ -364,61 +364,70 @@ export struct CustomToolBarExample {
 @ComponentV2
 export struct SideBarExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        // 页面标题
-        Text('SideBar & ToolBar 组件示例')
-          .fontSize(28)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .fontColor('#333333')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
-
-        // 基础侧边栏示例
-        SideBarExample()
-
-        // 基础工具栏示例
-        ToolBarExample()
-
-        // 右侧边栏示例
-        RightSideBarExample()
-
-        // 自定义工具栏示例
-        CustomToolBarExample()
-
-        // 底部说明
-        Column({ space: 8 }) {
-          Text('组件说明')
-            .fontSize(18)
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          // 页面标题
+          Text('SideBar & ToolBar 组件示例')
+            .fontSize(28)
             .fontWeight(FontWeight.Bold)
+            .width('100%')
             .fontColor('#333333')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-          Text('SideBarContainer: 侧边栏容器组件，支持左侧或右侧边栏')
-            .fontSize(14)
-            .fontColor('#666666')
-            .lineHeight(22)
+          // 基础侧边栏示例
+          SideBarExample()
 
-          Text('ToolBar: 工具栏组件，用于展示操作按钮或导航项')
-            .fontSize(14)
-            .fontColor('#666666')
-            .lineHeight(22)
+          // 基础工具栏示例
+          ToolBarExample()
 
-          Text('ToolBarItem: 工具栏子项组件，可自定义内容和样式')
-            .fontSize(14)
-            .fontColor('#666666')
-            .lineHeight(22)
+          // 右侧边栏示例
+          RightSideBarExample()
+
+          // 自定义工具栏示例
+          CustomToolBarExample()
+
+          // 底部说明
+          Column({ space: 8 }) {
+            Text('组件说明')
+              .fontSize(18)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#333333')
+
+            Text('SideBarContainer: 侧边栏容器组件，支持左侧或右侧边栏')
+              .fontSize(14)
+              .fontColor('#666666')
+              .lineHeight(22)
+
+            Text('ToolBar: 工具栏组件，用于展示操作按钮或导航项')
+              .fontSize(14)
+              .fontColor('#666666')
+              .lineHeight(22)
+
+            Text('ToolBarItem: 工具栏子项组件，可自定义内容和样式')
+              .fontSize(14)
+              .fontColor('#666666')
+              .lineHeight(22)
+          }
+          .width('100%')
+          .padding(16)
+          .backgroundColor('#F0F7FF')
+          .borderRadius(12)
+          .margin({ bottom: 16 })
         }
         .width('100%')
-        .padding(16)
-        .backgroundColor('#F0F7FF')
-        .borderRadius(12)
-        .margin({ bottom: 16 })
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#F5F5F5')
+      .scrollBar(BarState.Auto)
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#F5F5F5')
-    .scrollBar(BarState.Auto)
+    .title('SideBar 侧边栏')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function SideBarExamplePageBuilder() {
+  SideBarExamplePage()
 }

@@ -481,7 +481,75 @@ GridRow({ columns: 12 }) {
 }
 ```
 
-## 六、版本兼容性
+## 六、常见问题与陷阱 (Common Pitfalls)
+
+### ❌ GridRow/GridCol 在 SDK 6.0.1 中的 API 限制
+
+**问题：**
+GridRow 和 GridCol 组件在 HarmonyOS SDK 6.0.1 中的 API 支持不完整，多个属性和方法不可用。
+
+**不支持的 API：**
+- `GridRow().columnsTemplate()` - 不存在此属性方法
+- `GridRow().columnsGap()` - 不存在，使用构造参数 `gutter`
+- `GridRow().rowsGap()` - 不支持
+- 响应式断点功能可能不完整
+
+**错误示例：**
+```typescript
+// ❌ WRONG: 尝试使用 columnsTemplate 属性
+GridRow()
+  .columnsTemplate('1fr 1fr 1fr')  // Error: Property does not exist
+```
+
+**正确用法：**
+```typescript
+// ✅ CORRECT: 使用构造参数
+GridRow({
+  columns: 3,      // 列数
+  gutter: 16        // 间距
+}) {
+  GridCol({ span: 1 }) {
+    Text('Item')
+  }
+}
+```
+
+**替代方案：**
+由于 GridRow/GridCol 在 SDK 6.0.1 中的限制，建议使用以下布局方式：
+
+```typescript
+// 方案1: 使用 Flex + 权重
+Column() {
+  Row() {
+    Column()
+      .layoutWeight(1)  // 1/3 宽度
+    Column()
+      .layoutWeight(1)  // 1/3 宽度
+    Column()
+      .layoutWeight(1)  // 1/3 宽度
+  }
+  .width('100%')
+}
+
+// 方案2: 使用百分比宽度
+Row() {
+  Column()
+    .width('33.3%')
+  Column()
+    .width('33.3%')
+  Column()
+    .width('33.3%')
+}
+```
+
+**SDK 版本注意事项：**
+- SDK 6.0.1 中 GridRow/GridCol API 不完整
+- 推荐使用 Flex、Column、Row 等基础布局组件
+- 如必须使用栅格系统，建议手动计算宽度或使用 layoutWeight
+
+---
+
+## 七、版本兼容性
 
 | API 版本 | 支持状态 | 备注 |
 |----------|----------|------|

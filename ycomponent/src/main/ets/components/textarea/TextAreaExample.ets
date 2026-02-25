@@ -50,7 +50,7 @@ export struct AutoHeightExample {
 
       TextArea({ placeholder: '输入内容会自动调整高度...' })
         .width('100%')
-        .type(TextAreaType.AutoSize)
+        .type(TextAreaType.NORMAL)
         .onChange((value: string) => {
           this.textValue = value
         })
@@ -237,7 +237,7 @@ export struct MessageInputExample {
         TextArea({ placeholder: '输入消息...' })
           .layoutWeight(1)
           .height(40)
-          .type(TextAreaType.AutoSize)
+          .type(TextAreaType.NORMAL)
           .maxLines(4)
           .onChange((value: string) => {
             this.message = value
@@ -335,13 +335,11 @@ export struct TextAreaControllerExample {
       Row({ space: 12 }) {
         Button('清空')
           .onClick(() => {
-            this.textAreaController.clear()
             this.textValue = ''
           })
 
         Button('获取焦点')
           .onClick(() => {
-            this.textAreaController.requestFocus()
           })
 
         Button('失去焦点')
@@ -407,7 +405,6 @@ export struct AdvancedCommentBox {
             .fontColor('#666666')
             .onClick(() => {
               this.comment = ''
-              this.textAreaController.clear()
             })
 
           Button('发布')
@@ -416,7 +413,6 @@ export struct AdvancedCommentBox {
             .onClick(() => {
               console.info('发布评论: ' + this.comment)
               this.comment = ''
-              this.textAreaController.clear()
             })
         }
       }
@@ -435,28 +431,37 @@ export struct AdvancedCommentBox {
 @ComponentV2
 export struct TextAreaExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('TextArea Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('TextArea Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicTextAreaExample()
-        AutoHeightExample()
-        LimitedTextAreaExample()
-        StyledTextAreaExample()
-        CommentBoxExample()
-        MessageInputExample()
-        TextAreaFocusExample()
-        TextAreaControllerExample()
-        AdvancedCommentBox()
+          BasicTextAreaExample()
+          AutoHeightExample()
+          LimitedTextAreaExample()
+          StyledTextAreaExample()
+          CommentBoxExample()
+          MessageInputExample()
+          TextAreaFocusExample()
+          TextAreaControllerExample()
+          AdvancedCommentBox()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('TextArea 多行文本输入组件示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function TextAreaExamplePageBuilder() {
+  TextAreaExamplePage()
 }

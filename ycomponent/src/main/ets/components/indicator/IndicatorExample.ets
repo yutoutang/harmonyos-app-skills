@@ -1,0 +1,744 @@
+/**
+ * IndicatorComponent/PasteButton/SaveButton Component Examples
+ * OpenHarmony 指示器、粘贴按钮和保存按钮组件使用示例
+ */
+
+import { pasteboard } from '@kit.BasicServicesKit';
+import { photoAccessHelper } from '@kit.MediaLibraryKit';
+
+/**
+ * IndicatorComponent 指示器示例
+ * 展示基础指示器用法,支持轮播图场景
+ */
+@ComponentV2
+export struct IndicatorExample {
+  @Local currentIndex: number = 0
+  private totalCount: number = 5
+  private indicatorController: IndicatorComponentController = new IndicatorComponentController()
+
+  build() {
+    Column({ space: 16 }) {
+      Text('IndicatorComponent 指示器示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 显示当前索引
+      Text(`当前页面: ${this.currentIndex + 1} / ${this.totalCount}`)
+        .fontSize(14)
+        .fontColor('#666666')
+
+      // Dot indicators - 圆形指示器
+      IndicatorComponent(this.indicatorController)
+        .count(this.totalCount)
+        .initialIndex(0)
+        .style(
+          new DotIndicator()
+            .itemWidth(8)
+            .itemHeight(8)
+            .selectedItemWidth(16)
+            .selectedItemHeight(8)
+            .color('#CCCCCC')
+            .selectedColor('#007DFF')
+        )
+        .onChange((index: number) => {
+          this.currentIndex = index
+          console.info('当前索引: ' + index)
+        })
+
+      // 控制按钮
+      Row({ space: 12 }) {
+        Button('上一页')
+          .fontSize(14)
+          .enabled(this.currentIndex > 0)
+          .opacity(this.currentIndex > 0 ? 1 : 0.5)
+          .onClick(() => {
+            if (this.currentIndex > 0) {
+              this.indicatorController.showPrevious()
+            }
+          })
+
+        Button('下一页')
+          .fontSize(14)
+          .enabled(this.currentIndex < this.totalCount - 1)
+          .opacity(this.currentIndex < this.totalCount - 1 ? 1 : 0.5)
+          .onClick(() => {
+            if (this.currentIndex < this.totalCount - 1) {
+              this.indicatorController.showNext()
+            }
+          })
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.Center)
+
+      // 跳转按钮
+      Button('跳转到第一页')
+        .fontSize(14)
+        .type(ButtonType.Capsule)
+        .backgroundColor('#FF9800')
+        .onClick(() => {
+          this.indicatorController.changeIndex(0, true)
+        })
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * IndicatorComponent 胶囊形指示器示例
+ * 展示不同样式的指示器
+ */
+@ComponentV2
+export struct CapsuleIndicatorExample {
+  @Local currentIndex: number = 0
+  private totalCount: number = 4
+  private indicatorController: IndicatorComponentController = new IndicatorComponentController()
+
+  build() {
+    Column({ space: 16 }) {
+      Text('胶囊形指示器示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 胶囊形指示器
+      IndicatorComponent(this.indicatorController)
+        .count(this.totalCount)
+        .initialIndex(0)
+        .style(
+          new DotIndicator()
+            .itemWidth(6)
+            .itemHeight(6)
+            .selectedItemWidth(20)
+            .selectedItemHeight(6)
+            .color('#BDBDBD')
+            .selectedColor('#4CAF50')
+        )
+        .onChange((index: number) => {
+          this.currentIndex = index
+        })
+
+      Row({ space: 12 }) {
+        Button('<')
+          .width(40)
+          .height(40)
+          .fontSize(20)
+          .enabled(this.currentIndex > 0)
+          .onClick(() => {
+            if (this.currentIndex > 0) {
+              this.indicatorController.showPrevious()
+            }
+          })
+
+        Button('>')
+          .width(40)
+          .height(40)
+          .fontSize(20)
+          .enabled(this.currentIndex < this.totalCount - 1)
+          .onClick(() => {
+            if (this.currentIndex < this.totalCount - 1) {
+              this.indicatorController.showNext()
+            }
+          })
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+    .border({ width: 1, color: '#E0E0E0' })
+  }
+}
+
+/**
+ * DigitIndicator 数字指示器示例
+ * 展示数字样式的指示器
+ */
+@ComponentV2
+export struct DigitIndicatorExample {
+  @Local currentIndex: number = 0
+  private totalCount: number = 10
+  private indicatorController: IndicatorComponentController = new IndicatorComponentController()
+
+  build() {
+    Column({ space: 16 }) {
+      Text('数字指示器示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 数字指示器
+      IndicatorComponent(this.indicatorController)
+        .count(this.totalCount)
+        .initialIndex(0)
+        .style(
+          new DigitIndicator()
+            .fontSize(16)
+            .fontColor('#666666')
+            .selectedFontColor('#007DFF')
+            .selectedFontSize(20)
+        )
+        .onChange((index: number) => {
+          this.currentIndex = index
+        })
+
+      Row({ space: 12 }) {
+        Button('上一页')
+          .onClick(() => {
+            this.indicatorController.showPrevious()
+          })
+
+        Button('下一页')
+          .onClick(() => {
+            this.indicatorController.showNext()
+          })
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * PasteButton 粘贴按钮示例
+ * 展示文本粘贴功能
+ */
+@ComponentV2
+export struct PasteButtonExample {
+  @Local pastedText: string = ''
+  @Local showPasteToast: boolean = false
+  @Local pasteMessage: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('PasteButton 粘贴按钮示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 粘贴内容显示区
+      Column() {
+        Text(this.pastedText || '点击下方按钮粘贴内容')
+          .fontSize(14)
+          .fontColor(this.pastedText ? '#000000' : '#999999')
+          .width('100%')
+          .height(80)
+          .padding(12)
+          .backgroundColor('#FFFFFF')
+          .borderRadius(8)
+          .border({ width: 1, color: '#E0E0E0' })
+      }
+      .width('100%')
+
+      // 粘贴按钮
+      PasteButton({
+        icon: PasteIconStyle.LINES,
+        text: PasteDescription.PASTE,
+        buttonType: ButtonType.Capsule
+      })
+        .width(140)
+        .height(40)
+        .onClick((event: ClickEvent, result: PasteButtonOnClickResult) => {
+          if (result === PasteButtonOnClickResult.SUCCESS) {
+            // 获取剪贴板内容
+            const systemPasteboard = pasteboard.getSystemPasteboard()
+            systemPasteboard.getData((err: BusinessError, pasteData: pasteboard.PasteData) => {
+              if (!err && pasteData) {
+                this.pastedText = pasteData.getPrimaryText() || ''
+                this.showPasteSuccess('粘贴成功')
+                console.info('粘贴内容: ' + this.pastedText)
+              } else {
+                this.showPasteSuccess('粘贴失败: 剪贴板为空')
+              }
+            })
+          } else {
+            this.showPasteSuccess('粘贴被取消')
+          }
+        })
+
+      // 粘贴提示
+      if (this.showPasteToast) {
+        Text(this.pasteMessage)
+          .fontSize(14)
+          .fontColor('#4CAF50')
+          .padding(8)
+          .backgroundColor('#E8F5E9')
+          .borderRadius(4)
+          .onAppear(() => {
+            setTimeout(() => {
+              this.showPasteToast = false
+            }, 2000)
+          })
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+
+  private showPasteSuccess(message: string): void {
+    this.pasteMessage = message
+    this.showPasteToast = true
+  }
+}
+
+/**
+ * PasteButton 搜索框粘贴示例
+ * 展示在搜索场景中的粘贴功能
+ */
+@ComponentV2
+export struct SearchPasteExample {
+  @Local searchText: string = ''
+  @Local placeholderText: string = '搜索内容'
+
+  build() {
+    Column({ space: 16 }) {
+      Text('搜索框粘贴示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 搜索栏
+      Row({ space: 10 }) {
+        Search({ placeholder: this.placeholderText })
+          .searchButton('搜索')
+          .layoutWeight(1)
+          .onChange((value: string) => {
+            this.searchText = value
+          })
+
+        PasteButton({
+          icon: PasteIconStyle.LINES,
+          text: '',
+          buttonType: ButtonType.Circle
+        })
+          .width(40)
+          .height(40)
+          .onClick((event: ClickEvent, result: PasteButtonOnClickResult) => {
+            if (result === PasteButtonOnClickResult.SUCCESS) {
+              const systemPasteboard = pasteboard.getSystemPasteboard()
+              systemPasteboard.getData((err: BusinessError, pasteData: pasteboard.PasteData) => {
+                if (!err && pasteData) {
+                  this.searchText = pasteData.getPrimaryText() || ''
+                  this.performSearch(this.searchText)
+                }
+              })
+            }
+          })
+      }
+      .width('100%')
+
+      // 显示搜索内容
+      if (this.searchText) {
+        Text(`搜索内容: ${this.searchText}`)
+          .fontSize(14)
+          .fontColor('#666666')
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+    .border({ width: 1, color: '#E0E0E0' })
+  }
+
+  private performSearch(query: string): void {
+    console.info('执行搜索: ' + query)
+  }
+}
+
+/**
+ * PasteButton 验证码粘贴示例
+ * 展示验证码自动填充场景
+ */
+@ComponentV2
+export struct VerificationCodePasteExample {
+  @Local verificationCode: string = ''
+  @Local isValidCode: boolean = false
+
+  build() {
+    Column({ space: 16 }) {
+      Text('验证码粘贴示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 验证码输入框
+      TextInput({ placeholder: '请输入6位验证码', text: this.verificationCode })
+        .type(InputType.Number)
+        .maxLength(6)
+        .onChange((value: string) => {
+          this.verificationCode = value
+          this.isValidCode = /^\d{6}$/.test(value)
+        })
+
+      // 粘贴按钮
+      PasteButton({
+        icon: PasteIconStyle.LINES,
+        text: PasteDescription.PASTE_VERIFICATION_CODE,
+        buttonType: ButtonType.Normal
+      })
+        .onClick((event: ClickEvent, result: PasteButtonOnClickResult) => {
+          if (result === PasteButtonOnClickResult.SUCCESS) {
+            const systemPasteboard = pasteboard.getSystemPasteboard()
+            systemPasteboard.getData((err: BusinessError, pasteData: pasteboard.PasteData) => {
+              if (!err && pasteData) {
+                const text = pasteData.getPrimaryText() || ''
+                // 验证是否为6位数字
+                if (/^\d{6}$/.test(text)) {
+                  this.verificationCode = text
+                  this.isValidCode = true
+                  console.info('验证码粘贴成功')
+                } else {
+                  console.warn('剪贴板内容不是有效的6位验证码')
+                }
+              }
+            })
+          }
+        })
+
+      // 验证状态提示
+      if (this.verificationCode) {
+        Text(this.isValidCode ? '✓ 验证码格式正确' : '✗ 验证码格式错误')
+          .fontSize(14)
+          .fontColor(this.isValidCode ? '#4CAF50' : '#F44336')
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+}
+
+/**
+ * SaveButton 保存按钮示例
+ * 展示基础保存功能
+ */
+@ComponentV2
+export struct SaveButtonExample {
+  @Local saveStatus: string = '未保存'
+  @Local savedUri: string = ''
+  @Local isSaving: boolean = false
+  private imageUrl: string = 'https://example.com/image.jpg'
+
+  build() {
+    Column({ space: 16 }) {
+      Text('SaveButton 保存按钮示例')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 图片预览
+      Image(this.imageUrl)
+        .width(200)
+        .height(150)
+        .objectFit(ImageFit.Cover)
+        .borderRadius(8)
+        .backgroundColor('#E0E0E0')
+
+      // 状态显示
+      Column({ space: 8 }) {
+        Text('保存状态: ' + this.saveStatus)
+          .fontSize(14)
+          .fontColor(this.getStatusColor())
+
+        if (this.savedUri) {
+          Text('保存路径: ' + this.savedUri)
+            .fontSize(12)
+            .fontColor('#666666')
+            .maxLines(2)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+        }
+      }
+      .width('100%')
+
+      // 保存按钮
+      SaveButton({
+        icon: SaveIconStyle.FULL_FILLED,
+        text: SaveDescription.SAVE,
+        buttonType: ButtonType.Capsule
+      })
+        .width(120)
+        .height(40)
+        .onClick(async (event: ClickEvent, result: SaveButtonOnClickResult) => {
+          if (result === SaveButtonOnClickResult.SUCCESS) {
+            this.isSaving = true
+            this.saveStatus = '保存中...'
+
+            try {
+              // 创建图片资源
+              const helper = photoAccessHelper.getPhotoAccessHelper(getContext(this))
+              const uri = await helper.createAsset(
+                photoAccessHelper.PhotoType.IMAGE,
+                'jpg'
+              )
+
+              // 这里应该实际写入图片数据
+              // 示例简化处理,实际需要下载/转换图片数据
+              this.savedUri = uri
+              this.saveStatus = '保存成功'
+              console.info('文件已保存: ' + uri)
+            } catch (error) {
+              this.saveStatus = '保存失败'
+              console.error('保存失败: ' + JSON.stringify(error))
+            } finally {
+              this.isSaving = false
+            }
+          } else {
+            this.saveStatus = '保存被取消'
+          }
+        })
+
+      // 保存中的加载状态
+      if (this.isSaving) {
+        Row({ space: 8 }) {
+          LoadingProgress()
+            .width(20)
+            .height(20)
+          Text('保存中...')
+            .fontSize(14)
+            .fontColor('#999999')
+        }
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#F5F5F5')
+    .borderRadius(12)
+  }
+
+  private getStatusColor(): string {
+    switch (this.saveStatus) {
+      case '保存成功':
+        return '#4CAF50'
+      case '保存失败':
+        return '#F44336'
+      case '保存中...':
+        return '#FF9800'
+      default:
+        return '#666666'
+    }
+  }
+}
+
+/**
+ * SaveButton 文本编辑器保存示例
+ * 展示文本编辑场景中的保存功能
+ */
+@ComponentV2
+export struct TextEditorSaveExample {
+  @Local editorContent: string = ''
+  @Local fileName: string = ''
+  @Local isSaving: boolean = false
+  @Local lastSaveTime: string = ''
+
+  build() {
+    Column({ space: 12 }) {
+      Text('文本编辑器保存示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 文件名输入
+      Row({ space: 8 }) {
+        Text('文件名:')
+          .fontSize(14)
+          .width(60)
+
+        TextInput({ placeholder: '请输入文件名', text: this.fileName })
+          .layoutWeight(1)
+          .onChange((value: string) => {
+            this.fileName = value
+          })
+      }
+      .width('100%')
+
+      // 文本编辑区
+      TextArea({ placeholder: '输入内容...', text: this.editorContent })
+        .width('100%')
+        .height(120)
+        .onChange((value: string) => {
+          this.editorContent = value
+        })
+
+      // 保存按钮和状态
+      Row({ space: 12 }) {
+        SaveButton({
+          icon: SaveIconStyle.FULL_FILLED,
+          text: SaveDescription.SAVE,
+          buttonType: ButtonType.Normal
+        })
+          .onClick(async (event: ClickEvent, result: SaveButtonOnClickResult) => {
+            if (result === SaveButtonOnClickResult.SUCCESS) {
+              this.isSaving = true
+              try {
+                // 模拟保存过程
+                await new Promise(resolve => setTimeout(resolve, 1000))
+                this.lastSaveTime = new Date().toLocaleTimeString()
+                console.info('保存成功')
+              } catch (error) {
+                console.error('保存失败')
+              } finally {
+                this.isSaving = false
+              }
+            }
+          })
+
+        if (this.isSaving) {
+          LoadingProgress()
+            .width(20)
+            .height(20)
+        }
+
+        if (this.lastSaveTime) {
+          Text('已保存 ' + this.lastSaveTime)
+            .fontSize(12)
+            .fontColor('#4CAF50')
+        }
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+    .border({ width: 1, color: '#E0E0E0' })
+  }
+}
+
+/**
+ * SaveButton 多文件保存示例
+ * 展示批量保存功能
+ */
+@ComponentV2
+export struct BatchSaveExample {
+  @Local savedCount: number = 0
+  @Local totalCount: number = 3
+  @Local saveStatus: string = ''
+
+  build() {
+    Column({ space: 16 }) {
+      Text('批量保存示例')
+        .fontSize(18)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      // 文件列表
+      Column({ space: 8 }) {
+        ForEach([1, 2, 3], (num: number) => {
+          Row({ space: 12 }) {
+            Text(`文件${num}.jpg`)
+              .fontSize(14)
+              .layoutWeight(1)
+
+            Text('待保存')
+              .fontSize(12)
+              .fontColor('#999999')
+          }
+          .width('100%')
+          .padding(12)
+          .backgroundColor('#F5F5F5')
+          .borderRadius(8)
+        })
+      }
+      .width('100%')
+
+      // 批量保存按钮
+      SaveButton({
+        icon: SaveIconStyle.FULL_FILLED,
+        text: SaveDescription.SAVE_TO_GALLERY,
+        buttonType: ButtonType.Capsule
+      })
+        .onClick(async (event: ClickEvent, result: SaveButtonOnClickResult) => {
+          if (result === SaveButtonOnClickResult.SUCCESS) {
+            try {
+              const helper = photoAccessHelper.getPhotoAccessHelper(getContext(this))
+              const promises: Promise<string>[] = []
+
+              // 批量创建资源
+              for (let i = 0; i < this.totalCount; i++) {
+                promises.push(
+                  helper.createAsset(photoAccessHelper.PhotoType.IMAGE, 'jpg')
+                )
+              }
+
+              const uris = await Promise.all(promises)
+              this.savedCount = uris.length
+              this.saveStatus = `成功保存 ${this.savedCount} 个文件`
+              console.info('批量保存成功: ' + uris.join(', '))
+            } catch (error) {
+              this.saveStatus = '保存失败'
+              console.error('批量保存失败: ' + JSON.stringify(error))
+            }
+          }
+        })
+
+      // 状态显示
+      if (this.saveStatus) {
+        Text(this.saveStatus)
+          .fontSize(14)
+          .fontColor(this.savedCount > 0 ? '#4CAF50' : '#F44336')
+          .padding(8)
+          .backgroundColor(this.savedCount > 0 ? '#E8F5E9' : '#FFEBEE')
+          .borderRadius(4)
+      }
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+    .border({ width: 1, color: '#E0E0E0' })
+  }
+}
+
+/**
+ * IndicatorComponent 主页面
+ */
+@ComponentV2
+export struct IndicatorExamplePage {
+  build() {
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          // 标题
+          Text('IndicatorComponent 指示器组件')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+
+          // IndicatorComponent 示例
+          IndicatorExample()
+          CapsuleIndicatorExample()
+          DigitIndicatorExample()
+
+          // 底部空白
+          Blank()
+            .height(20)
+        }
+        .width('100%')
+        .backgroundColor('#FAFAFA')
+      }
+      .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
+      .scrollBar(BarState.Auto)
+      .edgeEffect(EdgeEffect.Spring)
+    }
+    .title('IndicatorComponent 指示器')
+    .mode(NavDestinationMode.STANDARD)
+  }
+
+
+@Builder
+export function IndicatorExamplePageBuilder() {
+  IndicatorExamplePage()
+}
+}

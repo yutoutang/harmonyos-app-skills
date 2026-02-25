@@ -526,60 +526,69 @@ export struct DateTimePickerExample {
 @ComponentV2
 export struct PickerExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Picker Components Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Picker Components Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        // DatePicker 示例
-        Text('DatePicker - 日期选择器')
-          .fontSize(18)
-          .fontWeight(FontWeight.Medium)
-          .width('100%')
-          .padding({ left: 16, right: 16 })
-        BasicDatePickerExample()
-        BirthdayDatePickerExample()
-        CustomStyleDatePickerExample()
-        LunarDatePickerExample()
+          // DatePicker 示例
+          Text('DatePicker - 日期选择器')
+            .fontSize(18)
+            .fontWeight(FontWeight.Medium)
+            .width('100%')
+            .padding({ left: 16, right: 16 })
+          BasicDatePickerExample()
+          BirthdayDatePickerExample()
+          CustomStyleDatePickerExample()
+          LunarDatePickerExample()
 
-        // TimePicker 示例
-        Text('TimePicker - 时间选择器')
-          .fontSize(18)
-          .fontWeight(FontWeight.Medium)
-          .width('100%')
-          .padding({ left: 16, right: 16 })
-        BasicTimePickerExample()
-        Hour12TimePickerExample()
-        AlarmTimePickerExample()
-        CustomStyleTimePickerExample()
+          // TimePicker 示例
+          Text('TimePicker - 时间选择器')
+            .fontSize(18)
+            .fontWeight(FontWeight.Medium)
+            .width('100%')
+            .padding({ left: 16, right: 16 })
+          BasicTimePickerExample()
+          Hour12TimePickerExample()
+          AlarmTimePickerExample()
+          CustomStyleTimePickerExample()
 
-        // TextPicker 示例
-        Text('TextPicker - 文本选择器')
-          .fontSize(18)
-          .fontWeight(FontWeight.Medium)
-          .width('100%')
-          .padding({ left: 16, right: 16 })
-        BasicTextPickerExample()
-        CityPickerExample()
-        AgePickerExample()
-        CanLoopTextPickerExample()
-        CustomStyleTextPickerExample()
+          // TextPicker 示例
+          Text('TextPicker - 文本选择器')
+            .fontSize(18)
+            .fontWeight(FontWeight.Medium)
+            .width('100%')
+            .padding({ left: 16, right: 16 })
+          BasicTextPickerExample()
+          CityPickerExample()
+          AgePickerExample()
+          CanLoopTextPickerExample()
+          CustomStyleTextPickerExample()
 
-        // 组合示例
-        Text('组合示例')
-          .fontSize(18)
-          .fontWeight(FontWeight.Medium)
-          .width('100%')
-          .padding({ left: 16, right: 16 })
-        DateTimePickerExample()
+          // 组合示例
+          Text('组合示例')
+            .fontSize(18)
+            .fontWeight(FontWeight.Medium)
+            .width('100%')
+            .padding({ left: 16, right: 16 })
+          DateTimePickerExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Picker 选择器')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function PickerExamplePageBuilder() {
+  PickerExamplePage()
 }

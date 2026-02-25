@@ -1,10 +1,9 @@
 /**
  * Media Components Examples
- * OpenHarmony Video, Web, and ImageAnimator Components 使用示例
+ * OpenHarmony Video and ImageAnimator Components 使用示例
  *
- * 展示 Video、Web、ImageAnimator 组件的各种用法
+ * 展示 Video、ImageAnimator 组件的各种用法
  */
-import { webview } from '@kit.ArkWeb'
 
 /**
  * 基础 Video 播放示例
@@ -124,50 +123,6 @@ export struct VideoWithCoverExample {
     .borderRadius(12)
   }
 }
-
-/**
- * 简化 Web 浏览器示例
- * 展示网页加载功能
- */
-@ComponentV2
-export struct SimpleWebExample {
-  @Local progress: number = 0
-  private controller: webview.WebviewController = new webview.WebviewController()
-
-  build() {
-    Column({ space: 12 }) {
-      Text('Web Browser')
-        .fontSize(20)
-        .fontWeight(FontWeight.Bold)
-        .width('100%')
-        .margin({ bottom: 8 })
-
-      // 进度条
-      Progress({ value: this.progress, total: 100, type: ProgressType.Linear })
-        .width('100%')
-        .height(4)
-        .color('#007DFF')
-
-      // Web 内容
-      Web({ src: 'https://www.example.com', controller: this.controller })
-        .width('100%')
-        .height(250)
-        .borderRadius(8)
-        .backgroundColor('#FFFFFF')
-        .onPageBegin(() => {
-          this.progress = 10
-        })
-        .onPageEnd(() => {
-          this.progress = 100
-        })
-    }
-    .width('100%')
-    .padding(16)
-    .backgroundColor('#F5F5F5')
-    .borderRadius(12)
-  }
-}
-
 
 /**
  * 基础 ImageAnimator 示例
@@ -806,39 +761,45 @@ export struct ImageAnimatorRealExample {
 @ComponentV2
 export struct MediaExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Media Components Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Media Components Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        // Video 组件示例
-        BasicVideoExample()
-        VideoWithCoverExample()
+          // Video 组件示例
+          BasicVideoExample()
+          VideoWithCoverExample()
 
-        // Web 组件示例
-        SimpleWebExample()
+          // ImageAnimator 组件示例（模拟实现）
+          BasicAnimatorExample()
+          LoopAnimatorExample()
+          AnimatorEventsExample()
+          ImageAnimatorRealExample()
 
-        // ImageAnimator 组件示例（模拟实现）
-        BasicAnimatorExample()
-        LoopAnimatorExample()
-        AnimatorEventsExample()
-        ImageAnimatorRealExample()
+          // TextClock 组件示例
+          TextClockExample()
 
-        // TextClock 组件示例
-        TextClockExample()
-
-        // TextTimer 组件示例
-        TextTimerExample()
-        TextTimerCountdownExample()
+          // TextTimer 组件示例
+          TextTimerExample()
+          TextTimerCountdownExample()
+        }
+        .width('100%')
+        .padding({ bottom: 20 })
       }
       .width('100%')
-      .padding({ bottom: 20 })
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Media 媒体组件')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function MediaExamplePageBuilder() {
+  MediaExamplePage()
 }

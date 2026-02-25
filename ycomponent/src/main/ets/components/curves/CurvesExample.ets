@@ -26,25 +26,25 @@ export struct PredefinedCurvesExample {
 
       Grid() {
         GridItem() {
-          this.CurveButton('Linear', curves.Curve.Linear, '#007DFF')
+          this.CurveButton('Linear', Curve.Linear, '#007DFF')
         }
         GridItem() {
-          this.CurveButton('Ease', curves.Curve.Ease, '#28A745')
+          this.CurveButton('Ease', Curve.Ease, '#28A745')
         }
         GridItem() {
-          this.CurveButton('EaseIn', curves.Curve.EaseIn, '#17A2B8')
+          this.CurveButton('EaseIn', Curve.EaseIn, '#17A2B8')
         }
         GridItem() {
-          this.CurveButton('EaseOut', curves.Curve.EaseOut, '#6C757D')
+          this.CurveButton('EaseOut', Curve.EaseOut, '#6C757D')
         }
         GridItem() {
-          this.CurveButton('EaseInOut', curves.Curve.EaseInOut, '#FFC107')
+          this.CurveButton('EaseInOut', Curve.EaseInOut, '#FFC107')
         }
         GridItem() {
-          this.CurveButton('FastOutSlowIn', curves.Curve.FastOutSlowIn, '#343A40')
+          this.CurveButton('FastOutSlowIn', Curve.FastOutSlowIn, '#343A40')
         }
         GridItem() {
-          this.CurveButton('Sharp', curves.Curve.Sharp, '#E83E8C')
+          this.CurveButton('Sharp', Curve.Sharp, '#E83E8C')
         }
       }
       .columnsTemplate('1fr 1fr 1fr')
@@ -80,7 +80,7 @@ export struct PredefinedCurvesExample {
   }
 
   @Builder
-  CurveButton(name: string, curveType: curves.Curve, color: string) {
+  CurveButton(name: string, curveType: Curve, color: string) {
     Button(name)
       .width('100%')
       .height(40)
@@ -91,7 +91,7 @@ export struct PredefinedCurvesExample {
       })
   }
 
-  animateWithCurve(curveType: curves.Curve) {
+  animateWithCurve(curveType: Curve) {
     if (this.isAnimating) return
 
     this.isAnimating = true
@@ -486,23 +486,32 @@ export struct CustomCurvesExample {
 @ComponentV2
 export struct CurvesExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Curves API Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Curves API Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        PredefinedCurvesExample()
-        BezierCurvesExample()
-        SpringCurvesExample()
-        CustomCurvesExample()
+          PredefinedCurvesExample()
+          BezierCurvesExample()
+          SpringCurvesExample()
+          CustomCurvesExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Curves 曲线动画示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function CurvesExamplePageBuilder() {
+  CurvesExamplePage()
 }

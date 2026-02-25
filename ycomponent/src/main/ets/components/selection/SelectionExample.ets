@@ -134,23 +134,32 @@ export struct ProgressExample {
 @ComponentV2
 export struct SelectionExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Selection Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Selection Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        ToggleExample()
-        SliderExample()
-        RatingExample()
-        ProgressExample()
+          ToggleExample()
+          SliderExample()
+          RatingExample()
+          ProgressExample()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Selection 选择组件示例')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function SelectionExamplePageBuilder() {
+  SelectionExamplePage()
 }

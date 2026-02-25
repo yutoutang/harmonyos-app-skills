@@ -652,6 +652,95 @@ A: 需要在 Native 层处理：
 OH_NativeXComponent_RegisterCallback(nativeXComponent, &callbacks);
 ```
 
+## 常见问题与陷阱 (Common Pitfalls)
+
+### ⚠️ XComponent 需要 Native C++ 配置
+
+**问题：**
+XComponent 是一个需要 Native C++ 配置的复杂组件，不能直接使用。
+
+**必须的配置：**
+1. **CMakeLists.txt** - Native 构建配置
+2. **.so 动态库** - 编译的 Native 库
+3. **build-profile.json5** - 启用 C++ 支持
+4. **oh-package.json5** - Native 依赖
+
+**常见错误：**
+```
+Error: Cannot load native library
+Error: XComponent initialization failed
+```
+
+**解决方案：**
+```typescript
+// 在开发阶段，使用占位符代替实际的 XComponent
+@ComponentV2
+struct XComponentPlaceholder {
+  build() {
+    Column() {
+      Text('XComponent 容器区域')
+        .fontSize(14)
+        .fontColor('#999999')
+      Text('需要配置 native C++ 项目')
+        .fontSize(12)
+        .fontColor('#CCCCCC')
+        .margin({ top: 4 })
+    }
+    .width('100%')
+    .height(200)
+    .justifyContent(FlexAlign.Center)
+    .padding(32)
+    .border({ width: 2, color: '#DDDDDD', style: BorderStyle.Dashed })
+    .borderRadius(8)
+    .backgroundColor('#FAFAFA')
+  }
+}
+
+// 实际使用时的代码（需要完整的 Native 配置）
+/*
+XComponent({
+  id: 'x_component_id',
+  type: 'surface',
+  libraryname: 'xcomponentdemo',  // 对应 libxcomponentdemo.so
+  onload: (context) => {
+    console.info('XComponent loaded:', context.xComponentId)
+  },
+  onDestroy: () => {
+    console.info('XComponent destroyed')
+  }
+})
+  .width('100%')
+  .height(200)
+*/
+```
+
+**开发建议：**
+1. 先完成 ArkTS UI 部分，使用占位符
+2. 配置 Native C++ 环境
+3. 编写 .so 动态库
+4. 最后集成 XComponent
+
+### ⚠️ XComponent 独立为单独组件
+
+**说明：**
+在项目重构中，XComponent 已从 EmbeddedExample 中独立出来，作为单独的示例组件。
+
+**原因：**
+- EmbeddedExample 包含 EmbeddedComponent 和 XComponent 两个不同的组件
+- XComponent 功能复杂，需要详细的 Native 配置说明
+- 便于组织和维护
+
+**新位置：**
+- 示例文件：`ycomponent/src/main/ets/components/xcomponent/XComponentExample.ets`
+- 路由名称：`XComponentExamplePage`
+
+**EmbeddedComponent 说明：**
+- 用于嵌入其他 Ability 或组件
+- 需要配置 Want 对象
+- 与 XComponent 是不同的组件
+
+---
+
 ## 相关组件
 
 - **EmbeddedComponent**: 用于嵌入其他 Ability 或组件

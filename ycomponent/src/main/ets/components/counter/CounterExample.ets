@@ -11,10 +11,11 @@ export struct BasicCounterExample {
   @Local count: number = 1
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('基础 Counter')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
+        .fontColor('#333333')
 
       // 基础计数器
       Counter() {
@@ -33,13 +34,14 @@ export struct BasicCounterExample {
       })
 
       Text(`当前数量: ${this.count}`)
-        .fontSize(16)
+        .fontSize(14)
         .fontColor('#666666')
     }
     .width('100%')
     .padding(16)
-    .backgroundColor('#F5F5F5')
+    .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -58,20 +60,21 @@ export struct ProductCounterExample {
   }
 
   build() {
-    Column({ space: 20 }) {
+    Column({ space: 12 }) {
       Text('商品数量选择')
-        .fontSize(24)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
+        .fontColor('#333333')
 
       // 商品信息
       Row() {
         Column({ space: 8 }) {
           Text('精选商品')
-            .fontSize(18)
+            .fontSize(16)
             .fontWeight(FontWeight.Medium)
 
           Text(`¥${this.price}`)
-            .fontSize(20)
+            .fontSize(18)
             .fontColor('#FF5722')
             .fontWeight(FontWeight.Bold)
         }
@@ -80,7 +83,7 @@ export struct ProductCounterExample {
 
         Counter() {
           Text(`${this.quantity}`)
-            .fontSize(18)
+            .fontSize(16)
             .fontWeight(FontWeight.Medium)
             .width(40)
             .textAlign(TextAlign.Center)
@@ -106,24 +109,25 @@ export struct ProductCounterExample {
       // 总价显示
       Row() {
         Text('总价:')
-          .fontSize(16)
+          .fontSize(14)
           .fontColor('#666666')
 
         Text(`¥${this.getTotalPrice()}`)
-          .fontSize(24)
+          .fontSize(20)
           .fontColor('#FF5722')
           .fontWeight(FontWeight.Bold)
           .margin({ left: 8 })
       }
 
       Text(`库存: ${this.maxQuantity} 件`)
-        .fontSize(14)
+        .fontSize(12)
         .fontColor('#999999')
     }
     .width('100%')
     .padding(16)
-    .backgroundColor('#F5F5F5')
+    .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -137,19 +141,20 @@ export struct RangedCounterExample {
   readonly maxValue: number = 100
 
   build() {
-    Column({ space: 16 }) {
+    Column({ space: 12 }) {
       Text('范围限制 Counter')
-        .fontSize(20)
+        .fontSize(18)
         .fontWeight(FontWeight.Bold)
+        .fontColor('#333333')
 
       // 显示范围
       Text(`范围: ${this.minValue} - ${this.maxValue}`)
-        .fontSize(14)
+        .fontSize(12)
         .fontColor('#666666')
 
       Counter() {
         Text(`${this.count}`)
-          .fontSize(20)
+          .fontSize(18)
           .fontWeight(FontWeight.Medium)
           .width(60)
           .textAlign(TextAlign.Center)
@@ -176,13 +181,14 @@ export struct RangedCounterExample {
         .color('#007DFF')
 
       Text(`当前值: ${this.count}`)
-        .fontSize(16)
+        .fontSize(14)
         .fontColor('#666666')
     }
     .width('100%')
     .padding(16)
-    .backgroundColor('#F5F5F5')
+    .backgroundColor('#FFFFFF')
     .borderRadius(12)
+    .margin({ bottom: 8 })
   }
 }
 
@@ -532,35 +538,44 @@ export struct TimeAdjustCounter {
 @ComponentV2
 export struct CounterExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('Counter Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('Counter Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        BasicCounterExample()
-        ProductCounterExample()
-        RangedCounterExample()
-        CustomStyleCounterExample()
-        StepSizeCounterExample()
+          BasicCounterExample()
+          ProductCounterExample()
+          RangedCounterExample()
+          CustomStyleCounterExample()
+          StepSizeCounterExample()
 
-        Text('购物车商品管理')
-          .fontSize(18)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16 })
+          Text('购物车商品管理')
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16 })
 
-        CartItemCounter({ productName: '苹果手机', price: 5999, stock: 10 })
-        CartItemCounter({ productName: '笔记本电脑', price: 7999, stock: 5 })
+          CartItemCounter({ productName: '苹果手机', price: 5999, stock: 10 })
+          CartItemCounter({ productName: '笔记本电脑', price: 7999, stock: 5 })
 
-        TimeAdjustCounter()
+          TimeAdjustCounter()
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('Counter 计数器')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function CounterExamplePageBuilder() {
+  CounterExamplePage()
 }

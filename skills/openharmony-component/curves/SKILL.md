@@ -48,10 +48,10 @@ animateTo({
 ```typescript
 // ✅ CORRECT: Use appropriate curve types
 // Linear animations
-curves.initCurve(curves.Curve.Linear)
+curves.initCurve(Curve.Linear)
 
 // Standard UI animations
-curves.initCurve(curves.Curve.EaseInOut)
+curves.initCurve(Curve.EaseInOut)
 
 // Custom Bezier curves
 curves.cubicBezierCurve(0.42, 0.0, 0.58, 1.0)
@@ -108,7 +108,7 @@ Initializes a predefined curve.
 **Example:**
 ```typescript
 // Create a standard easing curve
-const curve = curves.initCurve(curves.Curve.EaseInOut)
+const curve = curves.initCurve(Curve.EaseInOut)
 animateTo({
   duration: 1000,
   curve: curve
@@ -298,19 +298,19 @@ Standard curve types for common animation patterns.
 
 ```typescript
 // Entry animations - gentle ease
-const entryCurve = curves.initCurve(curves.Curve.EaseOut)
+const entryCurve = curves.initCurve(Curve.EaseOut)
 
 // Touch feedback - responsive spring
 const touchCurve = curves.responsiveSpringMotion(0.15, 0.86, 0.25)
 
 // Loading animations - linear or ease
-const loadingCurve = curves.initCurve(curves.Curve.Linear)
+const loadingCurve = curves.initCurve(Curve.Linear)
 
 // Alert/dismissal - sharp attention
-const alertCurve = curves.initCurve(curves.Curve.FastOutSlowIn)
+const alertCurve = curves.initCurve(Curve.FastOutSlowIn)
 
 // Page transitions - smooth ease
-const pageCurve = curves.initCurve(curves.Curve.EaseInOut)
+const pageCurve = curves.initCurve(Curve.EaseInOut)
 ```
 
 ### Performance Considerations
@@ -400,6 +400,71 @@ animateTo({
 
 ---
 
+## Common Pitfalls & Troubleshooting
+
+### ❌ ERROR: Cannot read property Linear of undefined
+
+**Problem:**
+Using `curves.Curve.Linear` instead of `Curve.Linear` causes runtime error in HarmonyOS SDK 6.0+.
+
+**Error Message:**
+```
+Cannot read property Linear of undefined
+at observedDeepRender ycomponent (ycomponent/src/main/ets/components/curves/CurvesExample.ets:29:51)
+```
+
+**Wrong Usage:**
+```typescript
+// ❌ WRONG: curves.Curve.Linear doesn't exist in SDK 6.0+
+import curves from '@ohos.curves'
+
+// This causes runtime error
+Grid() {
+  GridItem() {
+    this.CurveButton('Linear', curves.Curve.Linear, '#007DFF')  // ❌ Error
+  }
+}
+
+@Builder
+CurveButton(name: string, curveType: curves.Curve, color: string) {  // ❌ Wrong type
+  // ...
+}
+```
+
+**Correct Usage:**
+```typescript
+// ✅ CORRECT: Use Curve enum directly
+import curves from '@ohos.curves'
+
+Grid() {
+  GridItem() {
+    this.CurveButton('Linear', Curve.Linear, '#007DFF')  // ✅ Correct
+  }
+}
+
+@Builder
+CurveButton(name: string, curveType: Curve, color: string) {  // ✅ Correct type
+  // ...
+}
+
+animateWithCurve(curveType: Curve) {  // ✅ Correct type
+  curves.initCurve(curveType)  // ✅ Correct
+  // ...
+}
+```
+
+**Key Points:**
+1. Use `Curve.Linear`, `Curve.Ease`, `Curve.EaseIn`, etc. - NOT `curves.Curve.Linear`
+2. Type should be `Curve` (from global namespace), NOT `curves.Curve`
+3. Pass `Curve` enum values directly to `curves.initCurve()`
+
+**SDK Version Note:**
+- SDK 6.0+ requires direct use of `Curve` enum
+- `curves.Curve` namespace does not exist
+- This is a breaking change from earlier SDK versions
+
+---
+
 ## Common Patterns
 
 ### Sequence Animation
@@ -409,7 +474,7 @@ animateTo({
 ```typescript
 animateTo({
   duration: 300,
-  curve: curves.initCurve(curves.Curve.EaseOut)
+  curve: curves.initCurve(Curve.EaseOut)
 }, () => {
   this.firstElement = true
 })
@@ -426,7 +491,7 @@ setTimeout(() => {
 setTimeout(() => {
   animateTo({
     duration: 500,
-    curve: curves.initCurve(curves.Curve.EaseInOut)
+    curve: curves.initCurve(Curve.EaseInOut)
   }, () => {
     this.thirdElement = true
   })
@@ -443,13 +508,13 @@ struct ResponsiveButton {
   @Param isImportant: boolean = false
   @Param isLarge: boolean = false
   
-  getCurve(): curves.ICurve {
+  getCurve(): ICurve {
     if (this.isImportant) {
-      return this.isLarge 
+      return this.isLarge
         ? curves.springMotion(0.2, 0.8, 0.2)
         : curves.springMotion(0.15, 0.86, 0.25)
     } else {
-      return curves.initCurve(curves.Curve.EaseInOut)
+      return curves.initCurve(Curve.EaseInOut)
     }
   }
   
@@ -485,7 +550,7 @@ struct LoadingProgress {
     setTimeout(() => {
       animateTo({
         duration: 500,
-        curve: curves.initCurve(curves.Curve.EaseOut)
+        curve: curves.initCurve(Curve.EaseOut)
       }, () => {
         this.progress = 1.0
       })

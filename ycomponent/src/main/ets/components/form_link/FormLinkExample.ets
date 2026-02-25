@@ -662,46 +662,55 @@ export struct FormLinkApiInfo {
 @ComponentV2
 export struct FormLinkExamplePage {
   build() {
-    Scroll() {
-      Column({ space: 20 }) {
-        Text('FormLink Component Examples')
-          .fontSize(24)
-          .fontWeight(FontWeight.Bold)
-          .width('100%')
-          .padding({ left: 16, right: 16, top: 16, bottom: 8 })
+    NavDestination() {
+      Scroll() {
+        Column({ space: 20 }) {
+          Text('FormLink Component Examples')
+            .fontSize(24)
+            .fontWeight(FontWeight.Bold)
+            .width('100%')
+            .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
-        FormLinkApiInfo()
-          .padding({ left: 16, right: 16 })
+          FormLinkApiInfo()
+            .padding({ left: 16, right: 16 })
 
-        BasicTextLinkExample()
-          .padding({ left: 16, right: 16 })
+          BasicTextLinkExample()
+            .padding({ left: 16, right: 16 })
 
-        QuickActionsExample()
-          .padding({ left: 16, right: 16 })
+          QuickActionsExample()
+            .padding({ left: 16, right: 16 })
 
-        TodoListExample()
-          .padding({ left: 16, right: 16 })
+          TodoListExample()
+            .padding({ left: 16, right: 16 })
 
-        MusicControlExample()
-          .padding({ left: 16, right: 16 })
+          MusicControlExample()
+            .padding({ left: 16, right: 16 })
 
-        NewsCardExample()
-          .padding({ left: 16, right: 16 })
+          NewsCardExample()
+            .padding({ left: 16, right: 16 })
 
-        ShopShortcutsExample()
-          .padding({ left: 16, right: 16 })
+          ShopShortcutsExample()
+            .padding({ left: 16, right: 16 })
 
-        ImageLinkExample()
-          .padding({ left: 16, right: 16 })
+          ImageLinkExample()
+            .padding({ left: 16, right: 16 })
 
-        HealthDataExample()
-          .padding({ left: 16, right: 16 })
-          .padding({ bottom: 16 })
+          HealthDataExample()
+            .padding({ left: 16, right: 16 })
+            .padding({ bottom: 16 })
+        }
+        .width('100%')
       }
       .width('100%')
+      .height('100%')
+      .backgroundColor('#FFFFFF')
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#FFFFFF')
+    .title('FormLink 表单链接')
+    .mode(NavDestinationMode.STANDARD)
   }
+}
+
+@Builder
+export function FormLinkExamplePageBuilder() {
+  FormLinkExamplePage()
 }
