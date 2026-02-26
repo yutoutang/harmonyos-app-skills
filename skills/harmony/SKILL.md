@@ -31,8 +31,8 @@ obj['dynamicKey'] = value;  // Dynamic property access
 
 // ✅ REQUIRED: Strict typing
 interface UserData {
-  id: string;
-  name: string;
+id: string;
+name: string;
 }
 let data: UserData = fetchData();
 
@@ -363,7 +363,7 @@ struct HomePage {
           }, (banner: BannerData) => banner.id)
         }
         .loop(true)
-        .autoPlay(true)
+          .autoPlay(true)
 
         // Categories
         Grid() {
@@ -475,7 +475,7 @@ struct MainPage {
       }
     }
     .navDestination(this.PageBuilder)
-    .title('Home')
+      .title('Home')
   }
 }
 
@@ -520,12 +520,12 @@ struct Index {
         .margin({ top: 4 })
     }
     .width('100%')
-    .height(56)
-    .justifyContent(FlexAlign.Center)
-    .onClick(() => {
-      this.currentIndex = targetIndex;
-      this.tabController.changeIndex(targetIndex);
-    })
+      .height(56)
+      .justifyContent(FlexAlign.Center)
+      .onClick(() => {
+        this.currentIndex = targetIndex;
+        this.tabController.changeIndex(targetIndex);
+      })
   }
 
   build() {
@@ -546,9 +546,9 @@ struct Index {
       .tabBar(this.TabBuilder('Profile', 2, $r('app.media.profile_selected'), $r('app.media.profile')))
     }
     .barMode(BarMode.Fixed)
-    .onChange((index: number) => {
-      this.currentIndex = index;
-    })
+      .onChange((index: number) => {
+        this.currentIndex = index;
+      })
   }
 }
 ```
