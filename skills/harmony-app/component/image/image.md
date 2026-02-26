@@ -11,6 +11,7 @@ Image 组件是 OpenHarmony 中用于显示图片的组件，支持本地图片�
 - **数据源**: 支持本地资源、网络 URL、Base64、PixelMap 等
 - **性能**: 自动缓存已加载的图片
 - **SVG**: 支持图片填充颜色
+- **网络图片**: 需要在 module.json5 中配置 INTERNET 权限
 
 ## 模块信息
 
@@ -315,23 +316,86 @@ Image('https://example.com/image.png')
 **问题**: Image 组件显示空白或占位图。
 
 **解决方案**:
-```typescript
-// 1. 检查网络权限
-// module.json5 中配置:
+
+#### 1. 配置网络权限
+
+在 `src/main/module.json5` 中添加 INTERNET 权限：
+
+```json5
 {
-  "requestPermissions": [
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET",
+        "reason": "$string:internet_permission_reason",
+        "usedScene": {
+          "abilities": ["EntryAbility"],
+          "when": "always"
+        }
+      }
+    ]
+  }
+}
+```
+
+同时在 `src/main/resources/base/element/string.json` 中添加权限说明：
+
+```json
+{
+  "string": [
     {
-      "name": "ohos.permission.INTERNET"
+      "name": "internet_permission_reason",
+      "value": "应用需要访问网络以加载图片资源"
     }
   ]
 }
+```
 
-// 2. 使用 onError 查看错误信息
+#### 2. 检查网络状态
+
+```typescript
+// 检查网络是否可用
+import { network } from '@kit.NetworkKit'
+
+async checkNetwork() {
+  const netManager = network.createNetworkManager()
+  const netConnection = netManager.getNetworkContext()
+  const hasNetwork = await netConnection.hasDefaultNetwork()
+  if (!hasNetwork) {
+    console.error('网络不可用')
+  }
+}
+```
+
+#### 3. 使用错误处理
+
+```typescript
 Image('https://example.com/image.png')
+  .width(200)
+  .height(200)
+  .alt($r('app.media.placeholder'))
+  .onComplete((event) => {
+    console.info('图片加载成功')
+  })
   .onError((error) => {
-    console.error('加载失败:', error.errorCode)
+    console.error('加载失败:', error.errorCode, error.errorMsg)
+    // 根据错误码显示不同的提示
+    // errorCode: 0 - 图片加载成功
+    // errorCode: 1 - 图片下载失败
+    // errorCode: 2 - 图片解码失败
   })
 ```
+
+#### 4. 常见错误码
+
+| 错误码 | 描述 | 解决方案 |
+|--------|------|----------|
+| 0 | 加载成功 | - |
+| 1 | 网络错误 | 检查网络连接和权限 |
+| 2 | 图片解码失败 | 检查图片格式是否支持 |
+| 3 | 图片尺寸过大 | 使用 sourceSize 限制解码尺寸 |
 
 ### Q2: SVG 图片颜色不正确？
 

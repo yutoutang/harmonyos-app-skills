@@ -62,6 +62,149 @@ export struct BasicListExample {
 }
 
 /**
+ * 虚拟滚动的数据源类
+ * 实现 IDataSource 接口用于 LazyForEach
+ */
+class BasicDataSource implements IDataSource {
+  private data: string[] = []
+  private listeners: DataChangeListener[] = []
+
+  constructor(data: string[]) {
+    this.data = data
+  }
+
+  // 获取数据总数
+  totalCount(): number {
+    return this.data.length
+  }
+
+  // 获取指定索引的数据
+  getData(index: number): string {
+    return this.data[index]
+  }
+
+  // 注册数据改变监听器
+  registerDataChangeListener(listener: DataChangeListener): void {
+    if (this.listeners.indexOf(listener) < 0) {
+      this.listeners.push(listener)
+    }
+  }
+
+  // 注销数据改变监听器
+  unregisterDataChangeListener(listener: DataChangeListener): void {
+    const index = this.listeners.indexOf(listener)
+    if (index >= 0) {
+      this.listeners.splice(index, 1)
+    }
+  }
+
+  // 通知数据重新加载
+  notifyReload(): void {
+    this.listeners.forEach(listener => {
+      listener.onDataReloaded()
+    })
+  }
+}
+
+/**
+ * 虚拟滚动列表示例 (LazyForEach)
+ * 高性能长列表实现
+ */
+@ComponentV2
+export struct VirtualListExample {
+  private dataSource: BasicDataSource = new BasicDataSource([])
+
+  aboutToAppear() {
+    // 初始化 1000 条数据模拟大量数据
+    const data: string[] = []
+    for (let i = 0; i < 1000; i++) {
+      data.push(`虚拟滚动项 ${i + 1}`)
+    }
+    this.dataSource = new BasicDataSource(data)
+  }
+
+  build() {
+    Column({ space: 16 }) {
+      Text('虚拟滚动列表 (LazyForEach)')
+        .fontSize(20)
+        .fontWeight(FontWeight.Bold)
+        .width('100%')
+
+      Text('使用 LazyForEach 实现高性能列表，只渲染可见项')
+        .fontSize(12)
+        .fontColor('#666666')
+        .width('100%')
+
+      List({ space: 12 }) {
+        LazyForEach(this.dataSource, (item: string, index: number) => {
+          ListItem() {
+            Row({ space: 12 }) {
+              Text(`${index + 1}`)
+                .fontSize(14)
+                .fontColor('#28A745')
+                .width(50)
+
+              Column({ space: 4 }) {
+                Text(item)
+                  .fontSize(16)
+                  .fontWeight(FontWeight.Medium)
+                  .fontColor('#333333')
+
+                Text(`这是第 ${index + 1} 项的详细描述信息`)
+                  .fontSize(12)
+                  .fontColor('#999999')
+              }
+              .alignItems(HorizontalAlign.Start)
+              .layoutWeight(1)
+
+              Text('>')
+                .fontSize(14)
+                .fontColor('#CCCCCC')
+            }
+            .width('100%')
+            .padding(16)
+            .backgroundColor('#FFFFFF')
+            .borderRadius(8)
+            .shadow({ radius: 2, color: '#E0E0E0' })
+          }
+        }, (item: string, index: number) => `virtual_${index}`)
+      }
+      .width('100%')
+      .height(400)
+      .backgroundColor('#F5F5F5')
+      .borderRadius(12)
+      .padding(12)
+
+      // 性能提示
+      Row({ space: 8 }) {
+        Text('性能提示')
+          .fontSize(14)
+          .fontWeight(FontWeight.Medium)
+
+        Text('• 虚拟滚动只渲染可见区域')
+          .fontSize(12)
+          .fontColor('#666666')
+      }
+      .width('100%')
+
+      Row({ space: 8 }) {
+        Text('')
+          .width(80)
+
+        Text('• 适合大数据量 (>100 项)')
+          .fontSize(12)
+          .fontColor('#666666')
+      }
+      .width('100%')
+    }
+    .width('100%')
+    .padding(16)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+  }
+}
+
+/**
  * 分组列表示例
  */
 @ComponentV2
@@ -129,6 +272,7 @@ export struct ListExamplePage {
             .padding({ left: 16, right: 16, top: 16, bottom: 8 })
 
           BasicListExample()
+          VirtualListExample()
           GroupedListExample()
 
           // 使用说明
@@ -144,6 +288,11 @@ export struct ListExamplePage {
               .width('100%')
 
             Text('• ListItemGroup: 分组列表项，可以设置头部')
+              .fontSize(13)
+              .fontColor('#666666')
+              .width('100%')
+
+            Text('• LazyForEach: 虚拟滚动，高性能渲染大数据量')
               .fontSize(13)
               .fontColor('#666666')
               .width('100%')
