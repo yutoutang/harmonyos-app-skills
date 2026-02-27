@@ -275,7 +275,7 @@ export struct StackFloatingButtonExample {
               .borderRadius(20)
               .shadow({ radius: 8, color: 'rgba(0, 125, 255, 0.3)' })
           }
-          .position({ x: '85%', y: '70%'' })
+          .position({ x: '85%', y: '70%' })
         }
         .width('100%')
         .height(200)
