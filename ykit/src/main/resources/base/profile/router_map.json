@@ -1,0 +1,254 @@
+{
+  "routerMap": [
+    {
+      "name": "AccountKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/account/AccountKitExample.ets",
+      "buildFunction": "AccountKitExamplePageBuilder"
+    },
+    {
+      "name": "ScanKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/scan/ScanKitExample.ets",
+      "buildFunction": "ScanKitExamplePageBuilder"
+    },
+    {
+      "name": "ShareKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/share/ShareKitExample.ets",
+      "buildFunction": "ShareKitExamplePageBuilder"
+    },
+    {
+      "name": "MapKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/map/MapKitExample.ets",
+      "buildFunction": "MapKitExamplePageBuilder"
+    },
+    {
+      "name": "PushKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/push/PushKitExample.ets",
+      "buildFunction": "PushKitExamplePageBuilder"
+    },
+    {
+      "name": "IAPKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/iap/IAPKitExample.ets",
+      "buildFunction": "IAPKitExamplePageBuilder"
+    },
+    {
+      "name": "PaymentKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/payment/PaymentKitExample.ets",
+      "buildFunction": "PaymentKitExamplePageBuilder"
+    },
+    {
+      "name": "PDFKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/pdf/PDFKitExample.ets",
+      "buildFunction": "PDFKitExamplePageBuilder"
+    },
+    {
+      "name": "VisionKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/vision/VisionKitExample.ets",
+      "buildFunction": "VisionKitExamplePageBuilder"
+    },
+    {
+      "name": "SpeechKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/speech/SpeechKitExample.ets",
+      "buildFunction": "SpeechKitExamplePageBuilder"
+    },
+    {
+      "name": "CallKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/call/CallKitExample.ets",
+      "buildFunction": "CallKitExamplePageBuilder"
+    },
+    {
+      "name": "AppGalleryKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/app-gallery/AppGalleryKitExample.ets",
+      "buildFunction": "AppGalleryKitExamplePageBuilder"
+    },
+    {
+      "name": "StoreKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/store/StoreKitExample.ets",
+      "buildFunction": "StoreKitExamplePageBuilder"
+    },
+    {
+      "name": "AREngineExamplePage",
+      "pageSourceFile": "src/main/ets/kits/ar-engine/AREngineExample.ets",
+      "buildFunction": "AREngineExamplePageBuilder"
+    },
+    {
+      "name": "AgentFrameworkKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/agent-framework/AgentFrameworkKitExample.ets",
+      "buildFunction": "AgentFrameworkKitExamplePageBuilder"
+    },
+    {
+      "name": "AppLinkingKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/app-linking/AppLinkingKitExample.ets",
+      "buildFunction": "AppLinkingKitExamplePageBuilder"
+    },
+    {
+      "name": "CallServiceKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/call-service/CallServiceKitExample.ets",
+      "buildFunction": "CallServiceKitExamplePageBuilder"
+    },
+    {
+      "name": "CarKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/car/CarKitExample.ets",
+      "buildFunction": "CarKitExamplePageBuilder"
+    },
+    {
+      "name": "CloudFoundationKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/cloud-foundation/CloudFoundationKitExample.ets",
+      "buildFunction": "CloudFoundationKitExamplePageBuilder"
+    },
+    {
+      "name": "CoreSpeechKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/core-speech/CoreSpeechKitExample.ets",
+      "buildFunction": "CoreSpeechKitExamplePageBuilder"
+    },
+    {
+      "name": "CoreVisionKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/core-vision/CoreVisionKitExample.ets",
+      "buildFunction": "CoreVisionKitExamplePageBuilder"
+    },
+    {
+      "name": "DataAugmentationKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/data-augmentation/DataAugmentationKitExample.ets",
+      "buildFunction": "DataAugmentationKitExamplePageBuilder"
+    },
+    {
+      "name": "DesktopExtensionKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/desktop-extension/DesktopExtensionKitExample.ets",
+      "buildFunction": "DesktopExtensionKitExamplePageBuilder"
+    },
+    {
+      "name": "DeviceSecurityKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/device-security/DeviceSecurityKitExample.ets",
+      "buildFunction": "DeviceSecurityKitExamplePageBuilder"
+    },
+    {
+      "name": "EnterpriseDataGuardKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/enterprise-data-guard/EnterpriseDataGuardKitExample.ets",
+      "buildFunction": "EnterpriseDataGuardKitExamplePageBuilder"
+    },
+    {
+      "name": "EnterpriseSpaceKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/enterprise-space/EnterpriseSpaceKitExample.ets",
+      "buildFunction": "EnterpriseSpaceKitExamplePageBuilder"
+    },
+    {
+      "name": "FileManagerServiceKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/file-manager/FileManagerServiceKitExample.ets",
+      "buildFunction": "FileManagerServiceKitExamplePageBuilder"
+    },
+    {
+      "name": "GameServiceKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/game-service/GameServiceKitExample.ets",
+      "buildFunction": "GameServiceKitExamplePageBuilder"
+    },
+    {
+      "name": "GraphicsAccelerateKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/graphics-accelerate/GraphicsAccelerateKitExample.ets",
+      "buildFunction": "GraphicsAccelerateKitExamplePageBuilder"
+    },
+    {
+      "name": "HealthServiceKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/health-service/HealthServiceKitExample.ets",
+      "buildFunction": "HealthServiceKitExamplePageBuilder"
+    },
+    {
+      "name": "IntentsKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/intents/IntentsKitExample.ets",
+      "buildFunction": "IntentsKitExamplePageBuilder"
+    },
+    {
+      "name": "LiveViewKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/live-view/LiveViewKitExample.ets",
+      "buildFunction": "LiveViewKitExamplePageBuilder"
+    },
+    {
+      "name": "NaturalLanguageKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/natural-language/NaturalLanguageKitExample.ets",
+      "buildFunction": "NaturalLanguageKitExamplePageBuilder"
+    },
+    {
+      "name": "NearLinkKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/nearlink/NearLinkKitExample.ets",
+      "buildFunction": "NearLinkKitExamplePageBuilder"
+    },
+    {
+      "name": "NetworkBoostKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/network-boost/NetworkBoostKitExample.ets",
+      "buildFunction": "NetworkBoostKitExamplePageBuilder"
+    },
+    {
+      "name": "OnlineAuthenticationKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/online-auth/OnlineAuthenticationKitExample.ets",
+      "buildFunction": "OnlineAuthenticationKitExamplePageBuilder"
+    },
+    {
+      "name": "PenKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/pen/PenKitExample.ets",
+      "buildFunction": "PenKitExamplePageBuilder"
+    },
+    {
+      "name": "PreviewKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/preview/PreviewKitExample.ets",
+      "buildFunction": "PreviewKitExamplePageBuilder"
+    },
+    {
+      "name": "ReaderKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/reader/ReaderKitExample.ets",
+      "buildFunction": "ReaderKitExamplePageBuilder"
+    },
+    {
+      "name": "RemoteCommunicationKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/remote-communication/RemoteCommunicationKitExample.ets",
+      "buildFunction": "RemoteCommunicationKitExamplePageBuilder"
+    },
+    {
+      "name": "RingtoneKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/ringtone/RingtoneKitExample.ets",
+      "buildFunction": "RingtoneKitExamplePageBuilder"
+    },
+    {
+      "name": "ScenarioFusionKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/scenario-fusion/ScenarioFusionKitExample.ets",
+      "buildFunction": "ScenarioFusionKitExamplePageBuilder"
+    },
+    {
+      "name": "ScreenTimeGuardKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/screen-time-guard/ScreenTimeGuardKitExample.ets",
+      "buildFunction": "ScreenTimeGuardKitExamplePageBuilder"
+    },
+    {
+      "name": "ServiceCollaborationKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/service-collaboration/ServiceCollaborationKitExample.ets",
+      "buildFunction": "ServiceCollaborationKitExamplePageBuilder"
+    },
+    {
+      "name": "SpatialReconKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/spatial-recon/SpatialReconKitExample.ets",
+      "buildFunction": "SpatialReconKitExamplePageBuilder"
+    },
+    {
+      "name": "StatusBarExtensionKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/status-bar-extension/StatusBarExtensionKitExample.ets",
+      "buildFunction": "StatusBarExtensionKitExamplePageBuilder"
+    },
+    {
+      "name": "UIDesignKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/ui-design/UIDesignKitExample.ets",
+      "buildFunction": "UIDesignKitExamplePageBuilder"
+    },
+    {
+      "name": "WalletKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/wallet/WalletKitExample.ets",
+      "buildFunction": "WalletKitExamplePageBuilder"
+    },
+    {
+      "name": "WearEngineExamplePage",
+      "pageSourceFile": "src/main/ets/kits/wear-engine/WearEngineExample.ets",
+      "buildFunction": "WearEngineExamplePageBuilder"
+    },
+    {
+      "name": "WeatherServiceKitExamplePage",
+      "pageSourceFile": "src/main/ets/kits/weather-service/WeatherServiceKitExample.ets",
+      "buildFunction": "WeatherServiceKitExamplePageBuilder"
+    }
+  ]
+}
