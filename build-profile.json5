@@ -55,6 +55,10 @@
     {
       "name": "ycomponent",
       "srcPath": "./ycomponent",
+    },
+    {
+      "name": "ykit",
+      "srcPath": "./ykit",
     }
   ]
 }

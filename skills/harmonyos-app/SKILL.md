@@ -191,6 +191,34 @@ struct MainPage {
 }
 ```
 
+### Component Documentation References
+
+**When working with ArkUI components, always reference the component documentation in the `component/` directory. If you understand the usage principles of a component, you should cite it and include a "See Also" section with links.**
+
+```typescript
+// When using a component, reference its documentation
+// See: component/column/column.md for detailed usage
+Column({ space: 12 }) {
+  Text('Item 1')
+  Text('Item 2')
+}
+```
+
+**Documentation Structure:**
+- **Reference docs** (`reference/`): High-level guides (arkui.md, arkts.md, structure-rules.md)
+- **Component docs** (`component/`): Detailed component documentation with examples
+- **When documenting a component:** Add "See Also" section linking to related components
+- **When learning a component:** Check the `component/` directory for in-depth usage
+
+**Example See Also Format:**
+```markdown
+## See Also
+
+- [Column](component/column/column.md) — Vertical layout container
+- [Row](component/row/row.md) — Horizontal layout container
+- [Flex](component/flex/flex.md) — Flexible layout with wrap
+```
+
 ---
 
 ## Quick Reference
@@ -684,6 +712,34 @@ hvigorw assembleHap 2>&1 | grep "CheckInViewModel"
 
 ## See Also
 
+### Reference Guides
 - [reference/arkts.md](reference/arkts.md) — ArkTS language guide and restrictions, **Page Development Pitfalls**, **File Organization**
 - [reference/arkui.md](reference/arkui.md) — ArkUI components and styling, **Page Routing**, **Navigation Patterns**, **Common Page Patterns**
-- [reference/structure-rules.md](reference/structure-rules.md) ] — Code Organization and Component Architecture Rules
+- [reference/structure-rules.md](reference/structure-rules.md) — Code Organization and Component Architecture Rules
+- [reference/ui-design-system.md](reference/ui-design-system.md) — UI Design System and theming
+
+### Component Documentation
+When working with specific ArkUI components, refer to the detailed documentation in the `component/` directory:
+
+**Layout Components:**
+- [Column](component/column/column.md) — Vertical layout
+- [Row](component/row/row.md) — Horizontal layout
+- [Flex](component/flex/flex.md) — Flexible layout
+- [Stack](component/stack/stack.md) — Overlapping layout
+- [Grid](component/grid/grid.md) — Grid layout
+- [List](component/list/list.md) — List component
+- [Scroll](component/scroll/scroll.md) — Scroll container
+
+**Navigation:**
+- [Navigation](component/navigation/navigation.md) — Navigation routing
+- [NavDestination](component/navigation/nav_destination.md) — Page destination
+- [Tabs](component/tabs/tabs.md) — Tab container
+
+**Form Components:**
+- [TextInput](component/text_input/text_input.md) — Text input
+- [TextArea](component/text_area/text_area.md) — Multi-line input
+- [Button](component/button/button.md) — Button component
+- [Toggle](component/toggle/toggle.md) — Toggle/checkbox
+- [Slider](component/slider/slider.md) — Slider control
+
+**And many more** — See [reference/arkui.md](reference/arkui.md) for a complete component index with links.

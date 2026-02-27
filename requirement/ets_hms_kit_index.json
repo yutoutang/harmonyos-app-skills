@@ -1,0 +1,202 @@
+[
+  {
+    "name": "@kit.AREngine.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.AREngine.d.ts"
+  },
+  {
+    "name": "@kit.AccountKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.AccountKit.d.ts"
+  },
+  {
+    "name": "@kit.AgentFrameworkKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.AgentFrameworkKit.d.ts"
+  },
+  {
+    "name": "@kit.AppGalleryKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.AppGalleryKit.d.ts"
+  },
+  {
+    "name": "@kit.AppLinkingKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.AppLinkingKit.d.ts"
+  },
+  {
+    "name": "@kit.CallKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.CallKit.d.ts"
+  },
+  {
+    "name": "@kit.CallServiceKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.CallServiceKit.d.ts"
+  },
+  {
+    "name": "@kit.CarKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.CarKit.d.ts"
+  },
+  {
+    "name": "@kit.CloudFoundationKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.CloudFoundationKit.d.ts"
+  },
+  {
+    "name": "@kit.CoreSpeechKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.CoreSpeechKit.d.ts"
+  },
+  {
+    "name": "@kit.CoreVisionKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.CoreVisionKit.d.ts"
+  },
+  {
+    "name": "@kit.DataAugmentationKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.DataAugmentationKit.d.ts"
+  },
+  {
+    "name": "@kit.DeskTopExtensionKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.DeskTopExtensionKit.d.ts"
+  },
+  {
+    "name": "@kit.DeviceSecurityKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.DeviceSecurityKit.d.ts"
+  },
+  {
+    "name": "@kit.EnterpriseDataGuardKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.EnterpriseDataGuardKit.d.ts"
+  },
+  {
+    "name": "@kit.EnterpriseSpaceKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.EnterpriseSpaceKit.d.ts"
+  },
+  {
+    "name": "@kit.FileManagerServiceKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.FileManagerServiceKit.d.ts"
+  },
+  {
+    "name": "@kit.GameServiceKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.GameServiceKit.d.ts"
+  },
+  {
+    "name": "@kit.GraphicsAccelerateKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.GraphicsAccelerateKit.d.ts"
+  },
+  {
+    "name": "@kit.HealthServiceKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.HealthServiceKit.d.ts"
+  },
+  {
+    "name": "@kit.IAPKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.IAPKit.d.ts"
+  },
+  {
+    "name": "@kit.IntentsKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.IntentsKit.d.ts"
+  },
+  {
+    "name": "@kit.LiveViewKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.LiveViewKit.d.ts"
+  },
+  {
+    "name": "@kit.MapKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.MapKit.d.ts"
+  },
+  {
+    "name": "@kit.NaturalLanguageKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.NaturalLanguageKit.d.ts"
+  },
+  {
+    "name": "@kit.NearLinkKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.NearLinkKit.d.ts"
+  },
+  {
+    "name": "@kit.NetworkBoostKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.NetworkBoostKit.d.ts"
+  },
+  {
+    "name": "@kit.OnlineAuthenticationKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.OnlineAuthenticationKit.d.ts"
+  },
+  {
+    "name": "@kit.PDFKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.PDFKit.d.ts"
+  },
+  {
+    "name": "@kit.PaymentKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.PaymentKit.d.ts"
+  },
+  {
+    "name": "@kit.Penkit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.Penkit.d.ts"
+  },
+  {
+    "name": "@kit.PreviewKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.PreviewKit.d.ts"
+  },
+  {
+    "name": "@kit.PushKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.PushKit.d.ts"
+  },
+  {
+    "name": "@kit.ReaderKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.ReaderKit.d.ts"
+  },
+  {
+    "name": "@kit.RemoteCommunicationKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.RemoteCommunicationKit.d.ts"
+  },
+  {
+    "name": "@kit.RingtoneKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.RingtoneKit.d.ts"
+  },
+  {
+    "name": "@kit.ScanKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.ScanKit.d.ts"
+  },
+  {
+    "name": "@kit.ScenarioFusionKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.ScenarioFusionKit.d.ts"
+  },
+  {
+    "name": "@kit.ScreenTimeGuardKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.ScreenTimeGuardKit.d.ts"
+  },
+  {
+    "name": "@kit.ServiceCollaborationKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.ServiceCollaborationKit.d.ts"
+  },
+  {
+    "name": "@kit.ShareKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.ShareKit.d.ts"
+  },
+  {
+    "name": "@kit.SpatialReconKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.SpatialReconKit.d.ts"
+  },
+  {
+    "name": "@kit.SpeechKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.SpeechKit.d.ts"
+  },
+  {
+    "name": "@kit.StatusBarExtensionKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.StatusBarExtensionKit.d.ts"
+  },
+  {
+    "name": "@kit.StoreKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.StoreKit.d.ts"
+  },
+  {
+    "name": "@kit.UIDesignKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.UIDesignKit.d.ts"
+  },
+  {
+    "name": "@kit.VisionKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.VisionKit.d.ts"
+  },
+  {
+    "name": "@kit.WalletKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.WalletKit.d.ts"
+  },
+  {
+    "name": "@kit.WearEngine.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.WearEngine.d.ts"
+  },
+  {
+    "name": "@kit.WeatherServiceKit.d.ts",
+    "path": "/Applications/DevEco-Studio.app/Contents/sdk/default/hms/ets/kits/@kit.WeatherServiceKit.d.ts"
+  }
+]
